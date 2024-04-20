@@ -17,7 +17,7 @@ public class NotificationMessage {
             strategy = GenerationType.SEQUENCE,
             generator = "id"
     )
-    private long id ;
+    private Long id ;
     private String text ;
     // relation with Notifications
     @OneToMany(mappedBy = "messageTextId")
@@ -26,17 +26,17 @@ public class NotificationMessage {
     public NotificationMessage() {
     }
     // all para constructor //
-    public NotificationMessage(long id, String text, List<Notifications> notifications) {
+    public NotificationMessage(Long id, String text, List<Notifications> notifications) {
         this.id = id;
         this.text = text;
         this.notifications = notifications;
     }
     // setter and getter
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

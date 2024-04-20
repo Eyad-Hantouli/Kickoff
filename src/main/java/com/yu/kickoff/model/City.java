@@ -16,7 +16,7 @@ public class City {
             strategy = GenerationType.SEQUENCE,
             generator = "id"
     )
-    private long id ;
+    private Long id ;
     private String name ;
     //relation with pitch //
     @OneToMany(mappedBy = "cityId")
@@ -31,8 +31,7 @@ public class City {
     public City() {
     }
     // all para const //
-
-    public City(long id, String name, List<Pitch> pitches, List<Contacts> contacts, List<User> users) {
+    public City(Long id, String name, List<Pitch> pitches, List<Contacts> contacts, List<User> users) {
         this.id = id;
         this.name = name;
         this.pitches = pitches;
@@ -40,12 +39,11 @@ public class City {
         this.users = users;
     }
     // setter and getter //
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -24,7 +24,7 @@ public class MatchRegisteration {
     @JoinColumn(name = "user_name" , referencedColumnName = "id" , nullable = false)
     private User userName ;
     @Column(name = "team_number")
-    private  long TeamNumber ;
+    private  Long TeamNumber ;
     private Timestamp timestamp ;
     @ManyToOne
     @JoinColumn(name="pos_id")
@@ -33,7 +33,7 @@ public class MatchRegisteration {
     public MatchRegisteration() {
     }
     // all para const //
-    public MatchRegisteration(MatchSchedule matchScheduleId, User userName, long teamNumber, Timestamp timestamp, Position posId) {
+    public MatchRegisteration(MatchSchedule matchScheduleId, User userName, Long teamNumber, Timestamp timestamp, Position posId) {
         this.matchScheduleId = matchScheduleId;
         this.userName = userName;
         TeamNumber = teamNumber;
@@ -57,11 +57,11 @@ public class MatchRegisteration {
         this.userName = userName;
     }
 
-    public long getTeamNumber() {
+    public Long getTeamNumber() {
         return TeamNumber;
     }
 
-    public void setTeamNumber(long teamNumber) {
+    public void setTeamNumber(Long teamNumber) {
         TeamNumber = teamNumber;
     }
 

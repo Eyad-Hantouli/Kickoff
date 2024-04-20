@@ -16,7 +16,7 @@ public class Position {
             strategy = GenerationType.SEQUENCE,
             generator = "id"
     )
-    private long id ;
+    private Long id ;
     private String title ;
     // relation with MatchRegisteration
     @OneToMany(mappedBy = "posId")
@@ -29,7 +29,7 @@ public class Position {
     }
     // all para const //
 
-    public Position(long id, String title, List<MatchRegisteration> matchRegisterations, List<MatchStatistics> matchStatistics) {
+    public Position(Long id, String title, List<MatchRegisteration> matchRegisterations, List<MatchStatistics> matchStatistics) {
         this.id = id;
         this.title = title;
         this.matchRegisterations = matchRegisterations;
@@ -37,11 +37,11 @@ public class Position {
     }
     // setter and getter //
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

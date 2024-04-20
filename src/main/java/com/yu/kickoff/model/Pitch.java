@@ -17,10 +17,10 @@ public class Pitch {
             strategy = GenerationType.SEQUENCE,
             generator = "id"
     )
-    private long id ;
+    private Long id ;
     private String name ;
-    private double price ;
-    private double rate ;
+    private Double price ;
+    private Double rate ;
     private String status ;
     @Column(name ="ownership_document" )
     private String ownershipDocument ;
@@ -45,7 +45,7 @@ public class Pitch {
     }
     // all para const //
 
-    public Pitch(long id, String name, double price, double rate, String status, String ownershipDocument, Timestamp timestamp, User authorId, City cityId, List<MatchSchedule> matchSchedules, List<Match> matches, List<SpecialReservation> specialReservations) {
+    public Pitch(Long id, String name, Double price, Double rate, String status, String ownershipDocument, Timestamp timestamp, User authorId, City cityId, List<MatchSchedule> matchSchedules, List<Match> matches, List<SpecialReservation> specialReservations) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -60,11 +60,11 @@ public class Pitch {
         this.specialReservations = specialReservations;
     }
     // getter and setter //
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -76,7 +76,7 @@ public class Pitch {
         this.name = name;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
@@ -84,7 +84,7 @@ public class Pitch {
         this.price = price;
     }
 
-    public double getRate() {
+    public Double getRate() {
         return rate;
     }
 

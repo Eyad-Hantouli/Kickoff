@@ -16,7 +16,7 @@ public class SpecialReservation {
             strategy = GenerationType.SEQUENCE,
             generator = "id"
     )
-    private long id ;
+    private Long id ;
     @Column(name = "start_time")
     private Timestamp startTime ;
     @Column(name = "end_time")
@@ -29,7 +29,7 @@ public class SpecialReservation {
     public SpecialReservation() {
     }
     // all para const //
-    public SpecialReservation(long id, Timestamp startTime, Timestamp endTime, Timestamp timestamp, Pitch pitchId) {
+    public SpecialReservation(Long id, Timestamp startTime, Timestamp endTime, Timestamp timestamp, Pitch pitchId) {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -37,11 +37,11 @@ public class SpecialReservation {
         this.pitchId = pitchId;
     }
     // getter and setter //
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

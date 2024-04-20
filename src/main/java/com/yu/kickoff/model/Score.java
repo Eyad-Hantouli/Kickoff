@@ -7,5 +7,5 @@ import jakarta.persistence.Id;
 public class Score {
     @Id
     private String title ;
-    private long score ;
+    private Long score ;
 }

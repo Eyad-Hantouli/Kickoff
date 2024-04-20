@@ -17,7 +17,7 @@ public class MatchSchedule {
             strategy = GenerationType.SEQUENCE,
             generator = "id"
     )
-    private long id ;
+    private Long id ;
     @Column(name = "start_time")
     private Timestamp startTime ;
     private String status ;
@@ -35,7 +35,7 @@ public class MatchSchedule {
     public MatchSchedule() {
     }
     // all para const //
-    public MatchSchedule(long id, Timestamp startTime, String status, Timestamp timestamp, Pitch pitchId, List<Notifications> notifications, List<MatchRegisteration> matchRegisterations) {
+    public MatchSchedule(Long id, Timestamp startTime, String status, Timestamp timestamp, Pitch pitchId, List<Notifications> notifications, List<MatchRegisteration> matchRegisterations) {
         this.id = id;
         this.startTime = startTime;
         this.status = status;
@@ -45,11 +45,11 @@ public class MatchSchedule {
         this.matchRegisterations = matchRegisterations;
     }
     // setter and getter //
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

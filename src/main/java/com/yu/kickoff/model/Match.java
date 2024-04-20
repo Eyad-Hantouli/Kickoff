@@ -18,7 +18,7 @@ public class Match {
             strategy = GenerationType.SEQUENCE,
             generator = "id"
     )
-    private long id ;
+    private Long id ;
     private Timestamp  time ;
     private Timestamp timestamp ;
     @ManyToOne
@@ -35,7 +35,7 @@ public class Match {
     }
     // all para const //
 
-    public Match(long id, Timestamp time, Timestamp timestamp, Pitch pitchId, User refereeId, List<MatchStatistics> matchStatistics) {
+    public Match(Long id, Timestamp time, Timestamp timestamp, Pitch pitchId, User refereeId, List<MatchStatistics> matchStatistics) {
         this.id = id;
         this.time = time;
         this.timestamp = timestamp;
@@ -45,11 +45,11 @@ public class Match {
     }
 
     // setter and getter //
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

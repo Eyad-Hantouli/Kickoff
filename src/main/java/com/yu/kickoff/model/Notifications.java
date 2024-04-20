@@ -16,7 +16,7 @@ public class Notifications {
             strategy = GenerationType.SEQUENCE,
             generator = "id"
     )
-    private long id ;
+    private Long id ;
     private String type ;
     private Timestamp timestamp ;
     @ManyToOne
@@ -36,7 +36,7 @@ public class Notifications {
     }
     // all para constructor //
 
-    public Notifications(long id, String type, Timestamp timestamp, MatchSchedule matchScheduleId, NotificationMessage messageTextId, User senderUserName, User receiverUserName) {
+    public Notifications(Long id, String type, Timestamp timestamp, MatchSchedule matchScheduleId, NotificationMessage messageTextId, User senderUserName, User receiverUserName) {
         this.id = id;
         this.type = type;
         this.timestamp = timestamp;
@@ -47,11 +47,11 @@ public class Notifications {
     }
 
     // getter and setter //
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

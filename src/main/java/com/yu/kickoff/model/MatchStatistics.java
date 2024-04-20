@@ -24,13 +24,13 @@ public class MatchStatistics {
     @ManyToOne
     @JoinColumn(name = "user_name" ,referencedColumnName = "id" , nullable = false)
     private User userName ;
-    private long goals ;
+    private Long goals ;
     @Column(name = "yellow_card")
-    private long yellowCard ;
+    private Long yellowCard ;
     @Column(name = "read_card")
-    private long readCard ;
-    private long fouls ;
-    private long motm ;
+    private Long readCard ;
+    private Long fouls ;
+    private Long motm ;
     private Timestamp timestamp ;
     @ManyToOne
     @JoinColumn(name = "postion_id")
@@ -40,7 +40,7 @@ public class MatchStatistics {
     }
     // all para const //
 
-    public MatchStatistics(Match matchId, User userName, long goals, long yellowCard, long readCard, long fouls, long motm, Timestamp timestamp, Position positionId) {
+    public MatchStatistics(Match matchId, User userName, Long goals, Long yellowCard, Long readCard, Long fouls, Long motm, Timestamp timestamp, Position positionId) {
         this.matchId = matchId;
         this.userName = userName;
         this.goals = goals;
@@ -68,43 +68,43 @@ public class MatchStatistics {
         this.userName = userName;
     }
 
-    public long getGoals() {
+    public Long getGoals() {
         return goals;
     }
 
-    public void setGoals(long goals) {
+    public void setGoals(Long goals) {
         this.goals = goals;
     }
 
-    public long getYellowCard() {
+    public Long getYellowCard() {
         return yellowCard;
     }
 
-    public void setYellowCard(long yellowCard) {
+    public void setYellowCard(Long yellowCard) {
         this.yellowCard = yellowCard;
     }
 
-    public long getReadCard() {
+    public Long getReadCard() {
         return readCard;
     }
 
-    public void setReadCard(long readCard) {
+    public void setReadCard(Long readCard) {
         this.readCard = readCard;
     }
 
-    public long getFouls() {
+    public Long getFouls() {
         return fouls;
     }
 
-    public void setFouls(long fouls) {
+    public void setFouls(Long fouls) {
         this.fouls = fouls;
     }
 
-    public long getMotm() {
+    public Long getMotm() {
         return motm;
     }
 
-    public void setMotm(long motm) {
+    public void setMotm(Long motm) {
         this.motm = motm;
     }
 
