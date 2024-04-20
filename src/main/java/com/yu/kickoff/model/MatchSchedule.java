@@ -3,6 +3,8 @@ package com.yu.kickoff.model;
 import jakarta.persistence.*;
 
 import java.security.Timestamp;
+import java.util.List;
+
 @Entity
 public class MatchSchedule {
     @Id
@@ -20,15 +22,27 @@ public class MatchSchedule {
     private Timestamp startTime ;
     private String status ;
     private Timestamp timestamp ;
+    @ManyToOne
+    @JoinColumn(name = "pitch_id")
+    private Pitch pitchId ;
+    // relation with Notifications //
+    @OneToMany(mappedBy = "matchScheduleId")
+    private List<Notifications> notifications ;
+    // relation with Match Schedule //
+    @OneToMany(mappedBy = "matchScheduleId")
+    private  List<MatchRegisteration> matchRegisterations ;
     // no para const //
     public MatchSchedule() {
     }
     // all para const //
-    public MatchSchedule(long id, Timestamp startTime, String status, Timestamp timestamp) {
+    public MatchSchedule(long id, Timestamp startTime, String status, Timestamp timestamp, Pitch pitchId, List<Notifications> notifications, List<MatchRegisteration> matchRegisterations) {
         this.id = id;
         this.startTime = startTime;
         this.status = status;
         this.timestamp = timestamp;
+        this.pitchId = pitchId;
+        this.notifications = notifications;
+        this.matchRegisterations = matchRegisterations;
     }
     // setter and getter //
     public long getId() {
@@ -61,5 +75,21 @@ public class MatchSchedule {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public Pitch getPitchId() {
+        return pitchId;
+    }
+
+    public void setPitchId(Pitch pitchId) {
+        this.pitchId = pitchId;
+    }
+
+    public List<Notifications> getNotifications() {
+        return notifications;
+    }
+
+    public List<MatchRegisteration> getMatchRegisterations() {
+        return matchRegisterations;
     }
 }

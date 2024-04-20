@@ -3,6 +3,7 @@ package com.yu.kickoff.model;
 import jakarta.persistence.*;
 
 import java.security.Timestamp;
+import java.util.List;
 
 @Entity
 public class Match {
@@ -20,15 +21,29 @@ public class Match {
     private long id ;
     private Timestamp  time ;
     private Timestamp timestamp ;
+    @ManyToOne
+    @JoinColumn(name = "pitch_id")
+    private Pitch pitchId ;
+    @ManyToOne
+    @JoinColumn(name = "referee_id")
+    private User refereeId ;
+    // relation with match statistics //
+    @OneToMany(mappedBy = "matchId")
+    private List<MatchStatistics> matchStatistics ;
     // no para const //
     public Match() {
     }
     // all para const //
-    public Match(long id, Timestamp time, Timestamp timestamp) {
+
+    public Match(long id, Timestamp time, Timestamp timestamp, Pitch pitchId, User refereeId, List<MatchStatistics> matchStatistics) {
         this.id = id;
         this.time = time;
         this.timestamp = timestamp;
+        this.pitchId = pitchId;
+        this.refereeId = refereeId;
+        this.matchStatistics = matchStatistics;
     }
+
     // setter and getter //
     public long getId() {
         return id;
@@ -52,5 +67,25 @@ public class Match {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public Pitch getPitchId() {
+        return pitchId;
+    }
+
+    public void setPitchId(Pitch pitchId) {
+        this.pitchId = pitchId;
+    }
+
+    public User getRefereeId() {
+        return refereeId;
+    }
+
+    public void setRefereeId(User refereeId) {
+        this.refereeId = refereeId;
+    }
+
+    public List<MatchStatistics> getMatchStatistics() {
+        return matchStatistics;
     }
 }

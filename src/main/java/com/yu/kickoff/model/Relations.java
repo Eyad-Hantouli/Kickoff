@@ -6,37 +6,42 @@ import java.security.Timestamp;
 
 
 @Entity
+@IdClass(RelationCk.class)
 public class Relations {
     @Id
-    private String sourceUserName ;
+    @ManyToOne
+    @JoinColumn(name = "source_user_name" , referencedColumnName = "id" , nullable = false)
+    private User sourceUserName ;
     @Id
-    private String targetUserName ;
+    @ManyToOne
+    @JoinColumn(name = "target_user_name" , referencedColumnName = "id" , nullable = false)
+    private User targetUserName ;
     private String type ;
     private Timestamp timestamp ;
     // no para const //
     public Relations() {
     }
     // all para cons //
-    public Relations(String sourceUserName, String targetUserName, String type, Timestamp timestamp) {
+    public Relations(User sourceUserName, User targetUserName, String type, Timestamp timestamp) {
         this.sourceUserName = sourceUserName;
         this.targetUserName = targetUserName;
         this.type = type;
         this.timestamp = timestamp;
     }
     //setter and getter //
-    public String getSourceUserName() {
+    public User getSourceUserName() {
         return sourceUserName;
     }
 
-    public void setSourceUserName(String sourceUserName) {
+    public void setSourceUserName(User sourceUserName) {
         this.sourceUserName = sourceUserName;
     }
 
-    public String getTargetUserName() {
+    public User getTargetUserName() {
         return targetUserName;
     }
 
-    public void setTargetUserName(String targetUserName) {
+    public void setTargetUserName(User targetUserName) {
         this.targetUserName = targetUserName;
     }
 

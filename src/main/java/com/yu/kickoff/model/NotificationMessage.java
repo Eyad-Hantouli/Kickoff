@@ -2,6 +2,8 @@ package com.yu.kickoff.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class NotificationMessage {
     // ATT
@@ -17,13 +19,17 @@ public class NotificationMessage {
     )
     private long id ;
     private String text ;
+    // relation with Notifications
+    @OneToMany(mappedBy = "messageTextId")
+    private List<Notifications> notifications ;
     // no para constructor //
     public NotificationMessage() {
     }
     // all para constructor //
-    public NotificationMessage(long id, String text) {
+    public NotificationMessage(long id, String text, List<Notifications> notifications) {
         this.id = id;
         this.text = text;
+        this.notifications = notifications;
     }
     // setter and getter
     public long getId() {
@@ -40,5 +46,8 @@ public class NotificationMessage {
 
     public void setText(String text) {
         this.text = text;
+    }
+    public List<Notifications> getNotifications() {
+        return notifications;
     }
 }

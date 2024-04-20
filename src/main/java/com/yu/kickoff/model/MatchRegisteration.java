@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 
 import java.security.Timestamp;
 @Entity
+@IdClass(MatchRegisterationCk.class)
 public class MatchRegisteration {
     @Id
-    @Column(name = "match_schedule_id")
-    @SequenceGenerator(
+    @ManyToOne
+    @JoinColumn(name = "match_schedule_id" , referencedColumnName = "id" , nullable = false)
+    /*@SequenceGenerator(
             name= "matchScheduleId",
             sequenceName = "matchScheduleId",
             allocationSize = 1
@@ -15,38 +17,43 @@ public class MatchRegisteration {
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "matchScheduleId"
-    )
-    private long matchScheduleId ;
+    )*/
+    private MatchSchedule matchScheduleId ;
     @Id
-    @Column(name = "user_name")
-    private String userName ;
+    @ManyToOne
+    @JoinColumn(name = "user_name" , referencedColumnName = "id" , nullable = false)
+    private User userName ;
     @Column(name = "team_number")
     private  long TeamNumber ;
     private Timestamp timestamp ;
+    @ManyToOne
+    @JoinColumn(name="pos_id")
+    private Position posId ;
     // no para const //
     public MatchRegisteration() {
     }
     // all para const //
-    public MatchRegisteration(long matchScheduleId, String userName, long teamNumber, Timestamp timestamp) {
+    public MatchRegisteration(MatchSchedule matchScheduleId, User userName, long teamNumber, Timestamp timestamp, Position posId) {
         this.matchScheduleId = matchScheduleId;
         this.userName = userName;
         TeamNumber = teamNumber;
         this.timestamp = timestamp;
+        this.posId = posId;
     }
     // setter and getter //
-    public long getMatchScheduleId() {
+    public MatchSchedule getMatchScheduleId() {
         return matchScheduleId;
     }
 
-    public void setMatchScheduleId(long matchScheduleId) {
+    public void setMatchScheduleId(MatchSchedule matchScheduleId) {
         this.matchScheduleId = matchScheduleId;
     }
 
-    public String getUserName() {
+    public User getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
+    public void setUserName(User userName) {
         this.userName = userName;
     }
 
@@ -64,5 +71,13 @@ public class MatchRegisteration {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public Position getPosId() {
+        return posId;
+    }
+
+    public void setPosId(Position posId) {
+        this.posId = posId;
     }
 }

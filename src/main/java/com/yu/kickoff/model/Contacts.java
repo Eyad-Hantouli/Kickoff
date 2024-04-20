@@ -26,11 +26,15 @@ public class Contacts {
     private String address ;
     private String message ;
     private Timestamp timestamp ;
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City cityId ;
     // no para const //
     public Contacts() {
     }
     // all para const //
-    public Contacts(long id, String firstName, String midName, String lastName, String address, String message, Timestamp timestamp) {
+
+    public Contacts(long id, String firstName, String midName, String lastName, String address, String message, Timestamp timestamp, City cityId) {
         this.id = id;
         this.firstName = firstName;
         this.midName = midName;
@@ -38,6 +42,7 @@ public class Contacts {
         this.address = address;
         this.message = message;
         this.timestamp = timestamp;
+        this.cityId = cityId;
     }
     // getter and setter //
     public long getId() {
@@ -94,5 +99,13 @@ public class Contacts {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public City getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(City cityId) {
+        this.cityId = cityId;
     }
 }

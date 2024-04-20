@@ -2,6 +2,8 @@ package com.yu.kickoff.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Position {
     @Id
@@ -16,15 +18,25 @@ public class Position {
     )
     private long id ;
     private String title ;
+    // relation with MatchRegisteration
+    @OneToMany(mappedBy = "posId")
+    private List<MatchRegisteration> matchRegisterations ;
+    // relation with Match Statistics //
+    @OneToMany(mappedBy = "positionId")
+    private List<MatchStatistics> matchStatistics ;
     // no para const //
     public Position() {
     }
     // all para const //
-    public Position(long id, String title) {
+
+    public Position(long id, String title, List<MatchRegisteration> matchRegisterations, List<MatchStatistics> matchStatistics) {
         this.id = id;
         this.title = title;
+        this.matchRegisterations = matchRegisterations;
+        this.matchStatistics = matchStatistics;
     }
     // setter and getter //
+
     public long getId() {
         return id;
     }
@@ -39,5 +51,13 @@ public class Position {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<MatchRegisteration> getMatchRegisterations() {
+        return matchRegisterations;
+    }
+
+    public List<MatchStatistics> getMatchStatistics() {
+        return matchStatistics;
     }
 }

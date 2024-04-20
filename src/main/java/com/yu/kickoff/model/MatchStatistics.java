@@ -5,10 +5,12 @@ import jakarta.persistence.*;
 import java.security.Timestamp;
 
 @Entity
+@IdClass(MatchStatisticsCk.class)
 public class MatchStatistics {
     @Id
-    @Column(name = "match_id")
-    @SequenceGenerator(
+    @ManyToOne
+    @JoinColumn(name = "match_id" , referencedColumnName = "id" , nullable = false)
+    /*@SequenceGenerator(
             name= "matchId",
             sequenceName = "matchId",
             allocationSize = 1
@@ -16,11 +18,12 @@ public class MatchStatistics {
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "matchId"
-    )
-    private long matchId ;
+    )*/
+    private Match matchId ;
     @Id
-    @Column(name = "user_name")
-    private String userName ;
+    @ManyToOne
+    @JoinColumn(name = "user_name" ,referencedColumnName = "id" , nullable = false)
+    private User userName ;
     private long goals ;
     @Column(name = "yellow_card")
     private long yellowCard ;
@@ -29,12 +32,15 @@ public class MatchStatistics {
     private long fouls ;
     private long motm ;
     private Timestamp timestamp ;
+    @ManyToOne
+    @JoinColumn(name = "postion_id")
+    private Position positionId ;
     // no para const //
     public MatchStatistics() {
     }
     // all para const //
 
-    public MatchStatistics(long matchId, String userName, long goals, long yellowCard, long readCard, long fouls, long motm, Timestamp timestamp) {
+    public MatchStatistics(Match matchId, User userName, long goals, long yellowCard, long readCard, long fouls, long motm, Timestamp timestamp, Position positionId) {
         this.matchId = matchId;
         this.userName = userName;
         this.goals = goals;
@@ -43,21 +49,22 @@ public class MatchStatistics {
         this.fouls = fouls;
         this.motm = motm;
         this.timestamp = timestamp;
+        this.positionId = positionId;
     }
     // setter and getter //
-    public long getMatchId() {
+    public Match getMatchId() {
         return matchId;
     }
 
-    public void setMatchId(long matchId) {
+    public void setMatchId(Match matchId) {
         this.matchId = matchId;
     }
 
-    public String getUserName() {
+    public User getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
+    public void setUserName(User userName) {
         this.userName = userName;
     }
 
@@ -107,5 +114,13 @@ public class MatchStatistics {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public Position getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(Position positionId) {
+        this.positionId = positionId;
     }
 }

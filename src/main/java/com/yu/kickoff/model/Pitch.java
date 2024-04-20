@@ -3,6 +3,7 @@ package com.yu.kickoff.model;
 import jakarta.persistence.*;
 
 import java.security.Timestamp;
+import java.util.List;
 
 @Entity
 public class Pitch {
@@ -24,11 +25,27 @@ public class Pitch {
     @Column(name ="ownership_document" )
     private String ownershipDocument ;
     private Timestamp timestamp ;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private User authorId ;
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City cityId ;
+    // relation with MatchSchedule //
+    @OneToMany(mappedBy = "pitchId")
+    private List<MatchSchedule> matchSchedules ;
+    // relation with match //
+    @OneToMany(mappedBy = "pitchId")
+    private List<Match> matches ;
+    // relation with SpecialReservation //
+    @OneToMany(mappedBy = "pitchId")
+    private List<SpecialReservation> specialReservations ;
     // no para const //
     public Pitch() {
     }
     // all para const //
-    public Pitch(long id, String name, double price, double rate, String status, String ownershipDocument, Timestamp timestamp) {
+
+    public Pitch(long id, String name, double price, double rate, String status, String ownershipDocument, Timestamp timestamp, User authorId, City cityId, List<MatchSchedule> matchSchedules, List<Match> matches, List<SpecialReservation> specialReservations) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -36,6 +53,11 @@ public class Pitch {
         this.status = status;
         this.ownershipDocument = ownershipDocument;
         this.timestamp = timestamp;
+        this.authorId = authorId;
+        this.cityId = cityId;
+        this.matchSchedules = matchSchedules;
+        this.matches = matches;
+        this.specialReservations = specialReservations;
     }
     // getter and setter //
     public long getId() {
@@ -92,5 +114,33 @@ public class Pitch {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public User getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(User authorId) {
+        this.authorId = authorId;
+    }
+
+    public City getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(City cityId) {
+        this.cityId = cityId;
+    }
+
+    public List<MatchSchedule> getMatchSchedules() {
+        return matchSchedules;
+    }
+
+    public List<Match> getMatches() {
+        return matches;
+    }
+
+    public List<SpecialReservation> getSpecialReservations() {
+        return specialReservations;
     }
 }
