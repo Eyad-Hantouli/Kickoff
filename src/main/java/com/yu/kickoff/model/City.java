@@ -31,6 +31,7 @@ public class City {
     public City() {
     }
     // all para const //
+
     public City(Long id, String name, List<Pitch> pitches, List<Contacts> contacts, List<User> users) {
         this.id = id;
         this.name = name;
@@ -39,6 +40,7 @@ public class City {
         this.users = users;
     }
     // setter and getter //
+
     public Long getId() {
         return id;
     }

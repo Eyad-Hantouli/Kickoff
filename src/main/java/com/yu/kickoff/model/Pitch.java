@@ -80,7 +80,7 @@ public class Pitch {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -88,7 +88,7 @@ public class Pitch {
         return rate;
     }
 
-    public void setRate(double rate) {
+    public void setRate(Double rate) {
         this.rate = rate;
     }
 
