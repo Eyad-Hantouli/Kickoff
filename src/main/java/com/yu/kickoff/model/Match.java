@@ -2,8 +2,7 @@ package com.yu.kickoff.model;
 
 import jakarta.persistence.*;
 
-import java.security.Timestamp;
-import java.util.List;
+import java.sql.Timestamp;
 
 @Entity
 public class Match {
@@ -27,21 +26,17 @@ public class Match {
     @ManyToOne
     @JoinColumn(name = "referee_id")
     private User refereeId ;
-    // relation with match statistics //
-    @OneToMany(mappedBy = "matchId")
-    private List<MatchStatistics> matchStatistics ;
     // no para const //
     public Match() {
     }
     // all para const //
 
-    public Match(Long id, Timestamp time, Timestamp timestamp, Pitch pitchId, User refereeId, List<MatchStatistics> matchStatistics) {
+    public Match(Long id, Timestamp time, Timestamp timestamp, Pitch pitchId, User refereeId) {
         this.id = id;
         this.time = time;
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
         this.pitchId = pitchId;
         this.refereeId = refereeId;
-        this.matchStatistics = matchStatistics;
     }
 
     // setter and getter //
@@ -66,7 +61,7 @@ public class Match {
     }
 
     public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
     public Pitch getPitchId() {
@@ -85,7 +80,4 @@ public class Match {
         this.refereeId = refereeId;
     }
 
-    public List<MatchStatistics> getMatchStatistics() {
-        return matchStatistics;
-    }
 }

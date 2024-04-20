@@ -2,7 +2,7 @@ package com.yu.kickoff.model;
 
 import jakarta.persistence.*;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 
 @Entity
@@ -26,7 +26,7 @@ public class Relations {
         this.sourceUserName = sourceUserName;
         this.targetUserName = targetUserName;
         this.type = type;
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
     //setter and getter //
     public User getSourceUserName() {
@@ -58,6 +58,6 @@ public class Relations {
     }
 
     public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 }

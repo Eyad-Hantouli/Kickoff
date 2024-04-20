@@ -2,7 +2,7 @@ package com.yu.kickoff.model;
 
 import jakarta.persistence.*;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 @Entity
 @IdClass(MatchStatisticsCk.class)
@@ -10,15 +10,6 @@ public class MatchStatistics {
     @Id
     @ManyToOne
     @JoinColumn(name = "match_id" , referencedColumnName = "id" , nullable = false)
-    /*@SequenceGenerator(
-            name= "matchId",
-            sequenceName = "matchId",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "matchId"
-    )*/
     private Match matchId ;
     @Id
     @ManyToOne
@@ -48,7 +39,7 @@ public class MatchStatistics {
         this.readCard = readCard;
         this.fouls = fouls;
         this.motm = motm;
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
         this.positionId = positionId;
     }
     // setter and getter //
@@ -113,7 +104,7 @@ public class MatchStatistics {
     }
 
     public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
     public Position getPositionId() {

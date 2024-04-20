@@ -2,22 +2,13 @@ package com.yu.kickoff.model;
 
 import jakarta.persistence.*;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 @Entity
 @IdClass(MatchRegisterationCk.class)
 public class MatchRegisteration {
     @Id
     @ManyToOne
     @JoinColumn(name = "match_schedule_id" , referencedColumnName = "id" , nullable = false)
-    /*@SequenceGenerator(
-            name= "matchScheduleId",
-            sequenceName = "matchScheduleId",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "matchScheduleId"
-    )*/
     private MatchSchedule matchScheduleId ;
     @Id
     @ManyToOne
@@ -37,7 +28,7 @@ public class MatchRegisteration {
         this.matchScheduleId = matchScheduleId;
         this.userName = userName;
         TeamNumber = teamNumber;
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
         this.posId = posId;
     }
     // setter and getter //
@@ -70,7 +61,7 @@ public class MatchRegisteration {
     }
 
     public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
     public Position getPosId() {

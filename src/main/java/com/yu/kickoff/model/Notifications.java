@@ -2,7 +2,7 @@ package com.yu.kickoff.model;
 
 import jakarta.persistence.*;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 @Entity
 public class Notifications {
@@ -39,7 +39,7 @@ public class Notifications {
     public Notifications(Long id, String type, Timestamp timestamp, MatchSchedule matchScheduleId, NotificationMessage messageTextId, User senderUserName, User receiverUserName) {
         this.id = id;
         this.type = type;
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
         this.matchScheduleId = matchScheduleId;
         this.messageTextId = messageTextId;
         this.senderUserName = senderUserName;
@@ -68,7 +68,7 @@ public class Notifications {
     }
 
     public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
     public MatchSchedule getMatchScheduleId() {

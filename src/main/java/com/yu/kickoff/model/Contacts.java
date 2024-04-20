@@ -2,7 +2,7 @@ package com.yu.kickoff.model;
 
 import jakarta.persistence.*;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 @Entity
 public class Contacts {
@@ -41,7 +41,7 @@ public class Contacts {
         this.lastName = lastName;
         this.address = address;
         this.message = message;
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
         this.cityId = cityId;
     }
     // getter and setter //
@@ -98,7 +98,7 @@ public class Contacts {
     }
 
     public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
     public City getCityId() {

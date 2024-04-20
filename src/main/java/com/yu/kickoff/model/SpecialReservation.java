@@ -2,7 +2,7 @@ package com.yu.kickoff.model;
 
 import jakarta.persistence.*;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 @Entity
 public class SpecialReservation {
@@ -33,7 +33,7 @@ public class SpecialReservation {
         this.id = id;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
         this.pitchId = pitchId;
     }
     // getter and setter //
@@ -66,7 +66,7 @@ public class SpecialReservation {
     }
 
     public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
     public Pitch getPitchId() {

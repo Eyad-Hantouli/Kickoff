@@ -2,8 +2,7 @@ package com.yu.kickoff.model;
 
 import jakarta.persistence.*;
 
-import java.security.Timestamp;
-import java.util.List;
+import java.sql.Timestamp;
 
 @Entity
 public class Pitch {
@@ -32,32 +31,23 @@ public class Pitch {
     @JoinColumn(name = "city_id")
     private City cityId ;
     // relation with MatchSchedule //
-    @OneToMany(mappedBy = "pitchId")
-    private List<MatchSchedule> matchSchedules ;
     // relation with match //
-    @OneToMany(mappedBy = "pitchId")
-    private List<Match> matches ;
     // relation with SpecialReservation //
-    @OneToMany(mappedBy = "pitchId")
-    private List<SpecialReservation> specialReservations ;
     // no para const //
     public Pitch() {
     }
     // all para const //
 
-    public Pitch(Long id, String name, Double price, Double rate, String status, String ownershipDocument, Timestamp timestamp, User authorId, City cityId, List<MatchSchedule> matchSchedules, List<Match> matches, List<SpecialReservation> specialReservations) {
+    public Pitch(Long id, String name, Double price, Double rate, String status, String ownershipDocument, Timestamp timestamp, User authorId, City cityId) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.rate = rate;
         this.status = status;
         this.ownershipDocument = ownershipDocument;
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
         this.authorId = authorId;
         this.cityId = cityId;
-        this.matchSchedules = matchSchedules;
-        this.matches = matches;
-        this.specialReservations = specialReservations;
     }
     // getter and setter //
     public Long getId() {
@@ -113,7 +103,7 @@ public class Pitch {
     }
 
     public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
     public User getAuthorId() {
@@ -130,17 +120,5 @@ public class Pitch {
 
     public void setCityId(City cityId) {
         this.cityId = cityId;
-    }
-
-    public List<MatchSchedule> getMatchSchedules() {
-        return matchSchedules;
-    }
-
-    public List<Match> getMatches() {
-        return matches;
-    }
-
-    public List<SpecialReservation> getSpecialReservations() {
-        return specialReservations;
     }
 }
