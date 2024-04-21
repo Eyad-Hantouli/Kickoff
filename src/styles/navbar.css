@@ -1,13 +1,40 @@
 :root {
+    --black: #101010;
     --gray: #2d2d2d;
     --light: #eee;
     --yellow: #ffde83;
+    --background-color: black;
+    --text-color: hsl(0, 0%, 100%);
 }
 
 .Navbar {
+    /* background-color: var(--gray);
+    color: var(--light);
+    min-height: 42px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 999999999999; */
+
+    /* Glass Effect */
+    /* background: rgba(45, 45, 45, 0.94);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.5px);
+    -webkit-backdrop-filter: blur(4.5px); */
+
     background-color: var(--gray);
     color: var(--light);
     min-height: 42px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 999999999999;
+    background: rgba(45, 45, 45, 0.94);
+    background: rgb(0, 0, 0);
+    background: linear-gradient(270deg, rgb(21 21 21 / 95%) 0%, rgb(32 32 32 / 99%) 49%, rgb(32 32 32 / 95%) 100%);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.5px);
+    -webkit-backdrop-filter: blur(4.5px);
 }
 
 .Navbar .container {

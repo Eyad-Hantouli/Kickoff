@@ -7,6 +7,10 @@ const Navbar = ({ isLogin, toggleLogin }) => {
         item.classList.toggle("showen");
     }
 
+    function scroll_to_contacts () {
+        window.location.href = "#contacts";
+    }
+
     return (
         <div className="Navbar">
             <div className="container">
@@ -16,7 +20,7 @@ const Navbar = ({ isLogin, toggleLogin }) => {
                         <li className="home_btn tap">Home</li>
                         <li className="profile_btn tap">Profile</li>
                         <li className="leaderboard_btn tap">Leaderboard</li>
-                        <li className="contact_us_btn tap">Contact us</li>
+                        <li className="contact_us_btn tap" onClick={scroll_to_contacts}>Contact us</li>
                         {
                             isLogin && 
                                 <li className="logout_btn tap" onClick={() => {toggleLogin(false)}}>Logout . <i class="fa-solid fa-right-from-bracket"></i></li>
