@@ -1,12 +1,13 @@
 :root {
     --black: #101010;
     --gray: #2d2d2d;
+    --white: white;
     --light: #eee;
+    --dark-light: #969696;
     --yellow: #ffde83;
     --background-color: black;
     --text-color: hsl(0, 0%, 100%);
 }
-
 .Navbar {
     /* background-color: var(--gray);
     color: var(--light);
@@ -26,7 +27,7 @@
     color: var(--light);
     min-height: 42px;
     width: 100%;
-    position: fixed;
+    position: sticky;
     top: 0;
     z-index: 999999999999;
     background: rgba(45, 45, 45, 0.94);

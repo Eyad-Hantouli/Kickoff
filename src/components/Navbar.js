@@ -1,14 +1,30 @@
+import { useNavigate } from "react-router-dom";
 import "../styles/navbar.css"
 
 const Navbar = ({ isLogin, toggleLogin }) => {
+
+    const navigate = useNavigate();
 
     function show_taps() {
         const item = document.querySelector(".Navbar .container .LHS .taps");
         item.classList.toggle("showen");
     }
 
+    function scroll_to_home () {
+        navigate("/");
+        setTimeout(() => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+              });
+        }, 100)
+    }
+
     function scroll_to_contacts () {
-        window.location.href = "#contacts";
+        navigate("/");
+        setTimeout(() => {
+            window.location.href = "#contacts";
+        }, 100)
     }
 
     return (
@@ -17,9 +33,10 @@ const Navbar = ({ isLogin, toggleLogin }) => {
                 <ul className="LHS">
                     <li className="burger_bars" onClick={show_taps}><i class="fa-solid fa-bars"></i></li>
                     <span className="taps">
-                        <li className="home_btn tap">Home</li>
+                        <li className="home_btn tap" onClick={scroll_to_home}>Home</li>
                         <li className="profile_btn tap">Profile</li>
-                        <li className="leaderboard_btn tap">Leaderboard</li>
+                        <li className="profile_btn tap">Pitches</li>
+                        <li className="leaderboard_btn tap" onClick={() => {navigate("/leaderboard")}}>Leaderboard</li>
                         <li className="contact_us_btn tap" onClick={scroll_to_contacts}>Contact us</li>
                         {
                             isLogin && 
@@ -30,8 +47,8 @@ const Navbar = ({ isLogin, toggleLogin }) => {
                 <ul className="RHS">
                     {
                         !isLogin && <>
-                            <li className="register_btn tap" onClick={() => {toggleLogin(true)}}>Register</li>
-                            <li className="login_btn tap" onClick={() => {toggleLogin(true)}}>Login</li>
+                            <li className="register_btn tap" onClick={() => {navigate("/register")}}>Register</li>
+                            <li className="login_btn tap" onClick={() => {navigate("/login")}}>Login</li>
                         </>
                     }
 

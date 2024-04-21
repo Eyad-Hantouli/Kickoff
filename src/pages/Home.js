@@ -28,7 +28,7 @@ const Home = () => {
     };
 
     return (
-        <div className="Home">
+        <div className="Home" id="landing-header">
             <header className="landing_header">
                 <div className="container">
                     <div className="search">

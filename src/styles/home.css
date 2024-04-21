@@ -3,7 +3,7 @@
     --gray: #2d2d2d;
     --white: white;
     --light: #eee;
-    --dark-light: rgb(173, 173, 173);
+    --dark-light: #969696;
     --yellow: #ffde83;
     --background-color: black;
     --text-color: hsl(0, 0%, 100%);
@@ -59,6 +59,7 @@
     border: none;
     color: var(--light);
     padding: 5px;
+    width: 100%;
 }
 
 .Home .container .search .search_bar .submit {

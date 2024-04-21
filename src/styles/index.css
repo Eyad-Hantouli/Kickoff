@@ -1,15 +1,20 @@
 :root {
     --black: #101010;
     --gray: #2d2d2d;
+    --white: white;
     --light: #eee;
+    --dark-light: #969696;
     --yellow: #ffde83;
-    --dark-yellow: #cfab47;
     --background-color: black;
     --text-color: hsl(0, 0%, 100%);
 }
 
 html {
     scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--black);
 }
 
 * {
@@ -23,14 +28,6 @@ ul, ol {
     list-style: none;
     margin: 0;
     padding: 0;
-}
-
-.hidden {
-    display: none;
-}
-
-.showen {
-    display: block !important;
 }
 
 /* width */
@@ -63,4 +60,11 @@ ul, ol {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: var(--dark-yellow); 
+}
+
+.hidden {
+    display: none !important;
+}
+.showen {
+    display: unset !important;
 }

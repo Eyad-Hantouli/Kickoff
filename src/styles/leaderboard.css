@@ -1,0 +1,40 @@
+:root {
+    --black: #101010;
+    --gray: #2d2d2d;
+    --white: white;
+    --light: #eee;
+    --dark-light: #969696;
+    --yellow: #ffde83;
+    --dark-yellow: #eec657;
+    --background-color: black;
+    --text-color: hsl(0, 0%, 100%);
+}
+
+.Leaderboard {
+    
+}
+
+.Leaderboard .show-more-button {
+    cursor: pointer;
+    padding: 10px;
+    background-color: var(--yellow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -ms-transition: 0.2s;
+    -o-transition: 0.2s;
+    margin-bottom: 20px;
+}
+
+.Leaderboard .show-more-button:hover {
+    background-color: var(--dark-yellow);
+}
+
+.Leaderboard .show-more-button p {
+    color: var(--black);
+    margin: 0;
+    font-weight: bold;
+}
