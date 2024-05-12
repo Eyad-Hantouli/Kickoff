@@ -1,0 +1,109 @@
+:root {
+    --black: #101010;
+    --gray: #2d2d2d;
+    --white: white;
+    --light: #eee;
+    --dark-light: #969696;
+    --yellow: #ffde83;
+    --dark-yellow: #eec657;
+    --ban: #f44336;
+    --background-color: black;
+    --text-color: hsl(0, 0%, 100%);
+}
+
+.MatchHistory {
+
+}
+
+.MatchHistory .MatchHistory-navbar {
+    background-color: var(--gray);
+}
+
+.MatchHistory .MatchHistory-navbar .taps {
+    /* padding: 10px; */
+    color: white;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.MatchHistory .tap {
+    padding: 10px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+.MatchHistory .tap::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: var(--yellow);
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+
+.MatchHistory .tap:hover {
+    color: var(--yellow);
+}
+.MatchHistory .tap:hover::before {
+    width: 100%;
+}
+
+.MatchHistory .row- {
+    background-color: var(--black);
+    color: var(--dark-light);
+}
+
+.MatchHistory .row-:nth-child(even) {
+    background-color: var(--gray);
+}
+
+.MatchHistory .row- .top ul {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.MatchHistory .row- .top ul li{
+    flex-grow: 1;
+}
+
+.MatchHistory .bottom ul {
+    padding: 20px 10px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.MatchHistory .bottom ul li {
+    flex-grow: 1;
+    width: 100px;
+    max-width: 110px;
+    /* padding: 10px; */
+    aspect-ratio: 1/1;
+    color: var(--dark-light);
+    border: 2px solid var(--dark-light);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

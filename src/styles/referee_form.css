@@ -1,0 +1,96 @@
+:root {
+    --black: #101010;
+    --gray: #2d2d2d;
+    --white: white;
+    --light: #eee;
+    --dark-light: #969696;
+    --yellow: #ffde83;
+    --dark-yellow: #eec657;
+    --ban: #f44336;
+    --background-color: black;
+    --text-color: hsl(0, 0%, 100%);
+}
+
+.RefereeForm {
+    
+}
+
+.RefereeForm .row-:nth-child(even){
+    background-color: var(--gray);
+}
+
+.RefereeForm .row- {
+    color: var(--dark-light);
+    background-color: var(--black);
+}
+
+.RefereeForm .row- .top {
+    color: var(--light);
+    padding: 10px;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: -3px 0 0 var(--yellow);
+}
+
+
+.RefereeForm .row- .bottom {
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.RefereeForm .row- .bottom .sect {
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.RefereeForm .row- .bottom .sect span {
+    width: 20px;
+    aspect-ratio: 1/1;
+    background-color: var(--dark-light);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.RefereeForm .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.RefereeForm .button .btn {
+    background-color: var(--yellow);
+    color: var(--gray);
+    font-weight: 700;
+    padding: 15px;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    cursor: pointer;
+    user-select: none;
+    width: 100px;
+    position: relative;
+}
+
+.RefereeForm .button .btn:hover {
+    background-color: var(--dark-yellow);
+    transform: skewX(-10deg);
+    -webkit-transform: skewX(-10deg);
+    -moz-transform: skewX(-10deg);
+    -ms-transform: skewX(-10deg);
+    -o-transform: skewX(-10deg);
+}
