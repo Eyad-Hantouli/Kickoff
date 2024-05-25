@@ -1,0 +1,156 @@
+:root {
+    --black: #101010;
+    --gray: #2d2d2d;
+    --white: white;
+    --light: #eee;
+    --dark-light: #969696;
+    --yellow: #ffde83;
+    --dark-yellow: #eec657;
+    --ban: #f44336;
+    --background-color: black;
+    --text-color: hsl(0, 0%, 100%);
+}
+
+.Matches {
+
+}
+
+.Matches.Register .filters_container {
+    padding: 10px 0;
+}
+
+.Matches.Register .filters_container > * {
+    display: block;
+    padding: 5px;
+    color: var(--light);
+    background-color: var(--gray);
+    border: 0;
+    outline: 0;
+    box-shadow: 0;
+    flex-grow: 1;
+}
+
+.Matches.Register .filters_container *::placeholder {
+    color: var(--light);
+}
+
+.Matches.Register .filters_container {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.Matches.Register .filters_container .city-filter {
+
+}
+
+.Matches.Register .matches-list {
+    display: grid;
+}
+
+.Matches.Register .matches-list .match-box-container {
+    /* margin: 50px 0; */
+}
+
+.Matches.Register .matches-list .match-box {
+    max-width: 900px;
+    margin: auto;
+}
+
+.Matches.Register .matches-list .match-box header,
+.Matches.Register .matches-list .match-box footer {
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    color: var(--light);
+}
+
+.Matches.Register .matches-list .match-box section {
+    width: 100%;
+    aspect-ratio: 233/144; 
+    background-image: url("../images/dumb_pitch.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+hr {
+    margin: 60px auto;
+    max-width: 400px;
+    background-color: var(--dark-yellow);
+}
+
+.Matches.Register .matches-list .match-box section .positions {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.Matches.Register .matches-list .match-box section .positions span {
+    background-color: var(--gray);
+    opacity: 80%;
+}
+
+.Matches.Register .matches-list .match-box section .positions span,
+.Matches.Register .MatchPosition {
+    display: block;
+    width: 70px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    box-shadow: 0 0 3px var(--gray);
+    border: 2px dashed var(--light);
+}
+
+.Matches.Register .matches-list .match-box section .positions .side-2 *:first-child,
+.Matches.Register .matches-list .match-box section .positions .side-3 *:first-child,
+.Matches.Register .matches-list .match-box section .positions .side-5 *:first-child,
+.Matches.Register .matches-list .match-box section .positions .side-6 *:first-child {
+    margin-bottom: 70px;
+}
+
+.Matches.Register .MatchPosition .tagger {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 20px;
+}
+
+.Matches.Register .referee-pos {
+    font-size: 60px;
+    cursor: pointer;
+    transition: .2s;
+    -webkit-transition: .2s;
+    -moz-transition: .2s;
+    -ms-transition: .2s;
+    -o-transition: .2s;
+    transform: rotate(-30deg);
+    -webkit-transform: rotate(-30deg);
+    -moz-transform: rotate(-30deg);
+    -ms-transform: rotate(-30deg);
+    -o-transform: rotate(-30deg);
+    opacity: .9;
+}
+
+.Matches.Register .referee-pos:hover {
+    transform: rotate(-10deg) scale(1.2);
+    -webkit-transform: rotate(-10deg) scale(1.2);
+    -moz-transform: rotate(-10deg) scale(1.2);
+    -ms-transform: rotate(-10deg) scale(1.2);
+    -o-transform: rotate(-10deg) scale(1.2);
+    opacity: 1;
+}

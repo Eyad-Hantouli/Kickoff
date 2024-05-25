@@ -13,7 +13,7 @@ const Login = ({ isLogin }) => {
     }
 
     if (isLogin) {
-        return <Navigate to="/panel" replace />
+        return <Navigate to="/" replace />
     }
 
     return (

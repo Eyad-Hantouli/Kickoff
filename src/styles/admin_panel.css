@@ -1,0 +1,67 @@
+:root {
+    --black: #101010;
+    --transperant-gray: #2d2d2d35;
+    --gray: #2d2d2d;
+    --white: white;
+    --light: #eee;
+    --dark-light: #969696;
+    --yellow: #ffde83;
+    --dark-yellow: #eec657;
+    --ban: #f44336;
+    --background-color: black;
+    --text-color: hsl(0, 0%, 100%);
+}
+
+.AdminPanel {
+    color: var(--light);
+}
+
+.AdminPanel h3 {
+    margin: 20px auto;
+    color: var(--gray);
+    text-align: center;
+    font-size: 40px;
+}
+
+.AdminPanel .roww {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.AdminPanel .icon {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 10px;
+    background-color: var(--transperant-gray);
+    /*aspect-ratio: 1/1;
+    */flex-grow: 1;
+    user-select: none;
+    cursor: pointer;
+    transition: .2s;
+    -webkit-transition: .2s;
+    -moz-transition: .2s;
+    -ms-transition: .2s;
+    -o-transition: .2s;
+    max-width: 220px;
+    width: 220px;
+    aspect-ratio: 1/1;
+}
+
+.AdminPanel .icon:hover {
+    background-color: var(--gray);
+}
+
+.AdminPanel .icon i {
+    font-size: 40px;
+    color: var(--yellow);
+}
+
+.AdminPanel .icon p {
+    margin-bottom: 0;
+}
+

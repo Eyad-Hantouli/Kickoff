@@ -32,7 +32,7 @@ const Home = () => {
             <header className="landing_header">
                 <div className="container">
                     <div className="search">
-                        <div className="search_icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                        <div className="search_icon"><i className="fa-solid fa-magnifying-glass"></i></div>
                         <div className="search_bar">
                             <form onSubmit={handleSubmit}>
                                 <input type="text" className="search_input" placeholder="Username..."></input>
@@ -42,9 +42,9 @@ const Home = () => {
                     </div>
                     <div className="title_container">
                         {/* <h1 className="title">Kickoff Net</h1> */}
-                        <section class="wrapper">
-                            <div class="top">Kickoff</div>
-                            <div class="bottom" aria-hidden="true">Kickoff</div>
+                        <section className="wrapper">
+                            <div className="top">Kickoff</div>
+                            <div className="bottom" aria-hidden="true">Kickoff</div>
                         </section>
                         <h3 className="subtitle">Network</h3>
                     </div>

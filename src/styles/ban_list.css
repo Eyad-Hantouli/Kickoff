@@ -1,0 +1,50 @@
+:root {
+    --black: #101010;
+    --transperant-gray: #2d2d2d35;
+    --gray: #2d2d2d;
+    --white: white;
+    --light: #eee;
+    --dark-light: #969696;
+    --yellow: #ffde83;
+    --dark-yellow: #eec657;
+    --ban: #f44336;
+    --background-color: black;
+    --text-color: hsl(0, 0%, 100%);
+}
+
+.BanList {
+    color: var(--light);
+}
+
+.BanList button {
+    background-color: var(--yellow);
+    color: var(--gray);
+    border: none;
+    padding: 10px;
+    /* flex-grow: 1; */
+    font-weight: 600;
+    min-width: 150px;
+}
+
+.BanList .card, .BanList li {
+    background-color: var(--gray);
+    border-color: var(--black);
+}
+
+.BanList .card-holder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.BanList img {
+    max-width: 10rem;
+    aspect-ratio: 1/1;
+    margin-top: 20px;
+    /* border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%; */
+}

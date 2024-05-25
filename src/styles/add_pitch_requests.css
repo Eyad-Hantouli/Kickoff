@@ -1,0 +1,83 @@
+:root {
+    --black: #101010;
+    --transperant-gray: #2d2d2d35;
+    --gray: #2d2d2d;
+    --white: white;
+    --light: #eee;
+    --dark-light: #969696;
+    --yellow: #ffde83;
+    --dark-yellow: #eec657;
+    --ban: #f44336;
+    --background-color: black;
+    --text-color: hsl(0, 0%, 100%);
+}
+
+.AddPitchRequests {
+    color: var(--light);
+}
+
+.AddPitchRequests .cardd {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex-direction: column;
+
+    margin: 50px 0;
+}
+
+.AddPitchRequests .coll {
+    flex-grow: 1;
+}
+
+.AddPitchRequests p {
+    color: var(--dark-light);
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.AddPitchRequests .images {
+    display: flex;
+    /* justify-content: space-between; */
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.AddPitchRequests .images img {
+    display: block;
+    /* flex-grow: 1; */
+    aspect-ratio: 10/16;
+}
+
+.AddPitchRequests .btn-container {
+    display: flex;
+    gap: 20px;
+    justify-content: left;
+    flex-wrap: wrap;
+}
+
+.AddPitchRequests button {
+    background-color: var(--yellow);
+    color: var(--gray);
+    border: none;
+    padding: 10px;
+    /* flex-grow: 1; */
+    font-weight: 600;
+    min-width: 150px;
+}
+
+.AddPitchRequests button:last-child {
+    background-color: var(--ban);
+}
+
+.AddPitchRequests .right-side {
+    display: grid;
+    align-items: end;
+}
+
+.AddPitchRequests hr {
+    background-color: var(--gray);
+    max-width: 100%;
+    width: 100%;
+}
