@@ -93,7 +93,7 @@ const Pitches = ({ user }) => {
                     <button className="edit-mode-on" onClick={() => {setEditMode(true)}}>Edit mode <i className="fa-solid fa-hammer"></i></button>}
 
                     {editMode && 
-                    <button className="edit-mode-off" onClick={() => {setEditMode(false)}}>Edit mode <i className="fa-solid fa-ban"></i></button>}
+                    <button className="edit-mode-off" onClick={() => {setEditMode(false)}}>Edit mode <i class="fa-solid fa-door-open"></i></button>}
 
                     {editMode && 
                     <button className="add-pitch" onClick={handleModal}>Add Pitch <i className="fa-solid fa-plus"></i></button>}
@@ -106,15 +106,18 @@ const Pitches = ({ user }) => {
                         return <div className="pitch-box-container" key={pitch.id}>
                             <div className="pitch-box">
                                 <header>
-                                    <div className="pitch-name">{pitch.name}</div>
+                                    <div className="pitch-name"><span className="first-letter-of-name">{pitch.name[0]}</span>{pitch.name.substr(1, pitch.name.length)}</div>
                                     <div className="pitch-price">{pitch.price} JD</div>
                                     <RefereeRateStars value={pitch.rate}/>
                                 </header>
-                                <section className="pitch-button" onClick={() => {navigate("/pitches/" + pitch.id + "/matches")}}></section>
-                                <footer>
-                                    <div className="phone-number"><i className="fa-solid fa-phone"></i> {pitch.phoneNumber}</div>
-                                    <div className="owner-name"><i className="fa-solid fa-user"></i> {pitch.ownerName}</div>
-                                </footer>
+                                <section className="pitch-button" onClick={() => {if (!editMode) navigate("/pitches/" + pitch.id + "/matches")}}></section>
+                                {
+                                    !editMode &&
+                                    <footer>
+                                        <div className="phone-number"><i className="fa-solid fa-phone"></i> {pitch.phoneNumber}</div>
+                                        <div className="owner-name"><i className="fa-solid fa-user"></i> {pitch.ownerName}</div>
+                                    </footer>
+                                }
                                 {editMode &&
                                     <div className="pitch-control-buttons-holder">
                                         <button onClick={() => {navigate("/pitches/" + pitch.id + "/schedule")}}>Edit Schedule <i className="fa-regular fa-calendar-days"></i></button>

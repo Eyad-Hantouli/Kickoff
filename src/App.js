@@ -32,10 +32,10 @@ function App() {
   useEffect (() => {
     let state = {};
 
-    state.login = true;
-    state.admin = true;
-    state.superAdmin = true;
-    state.pitchOwner = true;
+    state.login = false;
+    state.admin = false;
+    state.superAdmin = false;
+    state.pitchOwner = false;
     state.id = 1;
 
     setUser(state);

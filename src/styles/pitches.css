@@ -12,7 +12,7 @@
 }
 
 .Pitches {
-
+    
 }
 
 .Pitches .filters_container {
@@ -69,7 +69,7 @@
 .Pitches .pitches-list .pitch-box section {
     width: 100%;
     aspect-ratio: 233/144;
-    background-image: url("../images/dumb_pitch.jpg");
+    background-image: url("../images/background_pitch-02.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -100,13 +100,31 @@ hr {
     font-weight: 500;
 }
 
-.Pitches .edit-mode-off, .Pitches .remove-pitch-button {
+.Pitches .remove-pitch-button {
     background-color: var(--ban) !important;
+}
+
+.Pitches .edit-mode-off {
+    /* background-color: var(--dark-yellow) !important; */
+    opacity: .5;
 }
 
 .Pitches .pitch-control-buttons-holder {
     border-left: 3px solid var(--dark-light);
     padding: 5px;
+}
+
+.Pitches .pitch-control-buttons-holder button {
+    opacity: .6;
+    transition: .2s;
+    -webkit-transition: .2s;
+    -moz-transition: .2s;
+    -ms-transition: .2s;
+    -o-transition: .2s;
+}
+
+.Pitches .pitch-control-buttons-holder button:hover {
+    opacity: 1;
 }
 
 /* Modal Style */
@@ -238,4 +256,33 @@ hr {
 .Pitches .modall h6 {
     color: var(--dark-light);
     margin: 15px 0;
+}
+
+.Pitches .pitch-name {
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: 1.3px;
+    color: var(--dark-light);
+}
+
+.Pitches .first-letter-of-name {
+    font-weight: 900;
+    font-size: 20px;
+    color: var(--yellow);
+    opacity: .7;
+}
+
+.Pitches .pitch-price {
+    background-color: rgba(86, 225, 118, 0.14);
+    padding: 5px 15px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    transform: skew(-6deg);
+    -webkit-transform: skew(-6deg);
+    -moz-transform: skew(-6deg);
+    -ms-transform: skew(-6deg);
+    -o-transform: skew(-6deg);
 }

@@ -1,6 +1,6 @@
 :root {
     --black: #101010;
-    --transperant-gray: #2d2d2d35;
+    --transperan-gray: #4848486a;
     --gray: #2d2d2d;
     --white: white;
     --light: #eee;
@@ -37,7 +37,7 @@
     justify-content: center;
     align-items: center;
     padding: 20px 10px;
-    background-color: var(--transperant-gray);
+    background-color: var(--transperan-gray);
     /*aspect-ratio: 1/1;
     */flex-grow: 1;
     user-select: none;

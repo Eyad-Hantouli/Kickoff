@@ -17,6 +17,10 @@ html {
 
 body {
     background-color: var(--black);
+
+    background-image: url("../images/body_bg-03.jpg");
+    background-size: contain;
+    background-position: center;
 }
 
 * {

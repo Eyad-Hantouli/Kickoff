@@ -107,7 +107,7 @@ const Matches = () => {
                         return <div className="match-box-container" key={match.id}>
                             <div className="match-box">
                                 <header>
-                                    <div className="match-time">{match.time}</div>
+                                    <div className="match-time">{match.time} <i class="fa-regular fa-clock"></i></div>
                                     <div className="total-score">{match.score_sum} <i className="fa-brands fa-web-awesome"></i></div>
                                 </header>
                                 <section className="match-button">
@@ -142,7 +142,7 @@ const Matches = () => {
                                     </div>
                                 </section>
                                 <div className="register-btn">
-                                    <button onClick={() => {navigate("/pitches/" + pitchId + "/matches/" + match.id, { state: { match } })}}>Register</button>
+                                    <button onClick={() => {navigate("/pitches/" + pitchId + "/matches/" + match.id, { state: { match } })}}>Register <i class="fa-solid fa-paper-plane"></i></button>
                                 </div>
                             </div>
                             <hr />
