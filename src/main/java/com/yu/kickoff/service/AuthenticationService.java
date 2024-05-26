@@ -2,6 +2,7 @@ package com.yu.kickoff.service;
 
 
 import com.yu.kickoff.model.AuthenticationResponse;
+import com.yu.kickoff.model.Role;
 import com.yu.kickoff.model.Token;
 import com.yu.kickoff.model.User;
 import com.yu.kickoff.repository.TokenRepository;
@@ -50,7 +51,7 @@ public class AuthenticationService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
 
-        user.setRole(request.getRole());
+        user.setRole(Role.ADMIN);
 
         user = repository.save(user);
 
