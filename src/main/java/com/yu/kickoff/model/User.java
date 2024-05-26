@@ -1,5 +1,6 @@
 package com.yu.kickoff.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,6 +27,7 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date bod ;
     private String address ;
     @Column(name = "password")
