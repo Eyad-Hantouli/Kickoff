@@ -8,13 +8,13 @@ import java.sql.Timestamp;
 public class Contacts {
     @Id
     @SequenceGenerator(
-            name= "id",
-            sequenceName = "id",
+            name= "contacts_sequence",
+            sequenceName = "contacts_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "id"
+            generator = "contacts_sequence"
     )
     private Long id ;
     @Column(name = "first_name")
@@ -23,7 +23,8 @@ public class Contacts {
     private String midName ;
     @Column(name = "last_name")
     private String lastName ;
-    private String address ;
+    private String address1 ;
+    private String address2 ;
     private String message ;
     private Timestamp timestamp ;
     @ManyToOne
@@ -34,12 +35,13 @@ public class Contacts {
     }
     // all para const //
 
-    public Contacts(Long id, String firstName, String midName, String lastName, String address, String message, Timestamp timestamp, City cityId) {
+    public Contacts(Long id, String firstName, String midName, String lastName, String address1, String address2, String message, Timestamp timestamp, City cityId) {
         this.id = id;
         this.firstName = firstName;
         this.midName = midName;
         this.lastName = lastName;
-        this.address = address;
+        this.address1 = address1;
+        this.address2 = address2;
         this.message = message;
         this.timestamp = new Timestamp(System.currentTimeMillis());
         this.cityId = cityId;
@@ -77,12 +79,20 @@ public class Contacts {
         this.lastName = lastName;
     }
 
-    public String getAddress() {
-        return address;
+    public String getAddress1() {
+        return address1;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddress1(String address) {
+        this.address1 = address;
+    }
+
+    public String getAddress2() {
+        return address2;
+    }
+
+    public void setAddress2(String address) {
+        this.address2 = address;
     }
 
     public String getMessage() {
