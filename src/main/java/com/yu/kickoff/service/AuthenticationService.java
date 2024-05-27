@@ -7,12 +7,15 @@ import com.yu.kickoff.model.Token;
 import com.yu.kickoff.model.User;
 import com.yu.kickoff.repository.TokenRepository;
 import com.yu.kickoff.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AuthenticationService {
@@ -24,34 +27,49 @@ public class AuthenticationService {
     private final TokenRepository tokenRepository;
 
     private final AuthenticationManager authenticationManager;
+    private final ObjectService objectService;
+    private final CityService cityService;
 
+    @Autowired
     public AuthenticationService(UserRepository repository,
                                  PasswordEncoder passwordEncoder,
                                  JwtService jwtService,
                                  TokenRepository tokenRepository,
-                                 AuthenticationManager authenticationManager) {
+                                 AuthenticationManager authenticationManager,
+                                 ObjectService objectService,
+                                 CityService cityService) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.tokenRepository = tokenRepository;
         this.authenticationManager = authenticationManager;
+        this.objectService = objectService;
+        this.cityService = cityService;
+
     }
 
-    public AuthenticationResponse register(User request) {
+    public AuthenticationResponse register(Map<String, Object> requestData) {
+
+        User user = new User(
+            objectService.getStringValue(requestData, "username"),
+            objectService.getStringValue(requestData, "firstName"),
+            objectService.getStringValue(requestData, "midName"),
+            objectService.getStringValue(requestData, "lastName"),
+            objectService.getLocalDateValue(requestData, "dob", "dd-MM-yyyy"),
+            objectService.getStringValue(requestData, "address"),
+            passwordEncoder.encode(objectService.getStringValue(requestData, "password")),
+            objectService.getStringValue(requestData, "phoneNumber"),
+            objectService.getStringValue(requestData, "idCardOne"),
+            objectService.getStringValue(requestData, "idCardTwo"),
+            cityService.getCityByName(
+                    objectService.getStringValue(requestData, "city")
+            )
+        );
 
         // check if user already exist. if exist than authenticate the user
-        if(repository.findByUsername(request.getUsername()).isPresent()) {
+        if(repository.findByUsername(user.getUsername()).isPresent()) {
             return new AuthenticationResponse(null, "User already exist");
         }
-
-        User user = new User();
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setUsername(request.getUsername());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-
-
-        user.setRole(Role.ADMIN);
 
         user = repository.save(user);
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,5 +17,14 @@ public class UserService {
     public String getRoleByUserName(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new IllegalAccessError("the user not found "));
         return user.getRole().name() ;
+    }
+
+    public User getUserByUsername(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new IllegalAccessError("the user not found "));
+        return user;
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }

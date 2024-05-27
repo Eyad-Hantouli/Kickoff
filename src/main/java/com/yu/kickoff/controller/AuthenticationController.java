@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 public class AuthenticationController {
 
@@ -20,9 +22,9 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody User request
+            @RequestBody Map<String, Object> user
             ) {
-        return ResponseEntity.ok(authService.register(request));
+        return ResponseEntity.ok(authService.register(user));
     }
 
     @PostMapping("/login")

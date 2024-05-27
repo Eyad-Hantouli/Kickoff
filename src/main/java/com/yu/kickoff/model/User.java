@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +29,7 @@ public class User implements UserDetails {
     private String lastName;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private Date bod ;
+    private LocalDate bod ;
     private String address ;
     @Column(name = "password")
     private String password;
@@ -37,13 +38,14 @@ public class User implements UserDetails {
     private String idCardTwo ;
     @Enumerated(value = EnumType.STRING)
     private Role role;
-    private  String status ;
+    @Enumerated(value = EnumType.STRING)
+    private  Status status ;
     private Timestamp timestamp;
 
     public User() {
     }
 
-    public User(String username, String firstName, String midName, String lastName, Date bod, String address, String password, String phoneNumber, String idCardOne, String idCardTwo, Role role, String status, City city) {
+    public User(String username, String firstName, String midName, String lastName, LocalDate bod, String address, String password, String phoneNumber, String idCardOne, String idCardTwo, City city) {
         this.username = username;
         this.firstName = firstName;
         this.midName = midName;
@@ -54,10 +56,10 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
         this.idCardOne = idCardOne;
         this.idCardTwo = idCardTwo;
-        this.role = role;
-        this.status = status;
         this.timestamp = new Timestamp(System.currentTimeMillis());
         this.city = city;
+        this.role = Role.USER;
+        this.status = Status.ACTIVE;
     }
 
     @OneToMany(mappedBy = "user")
@@ -156,11 +158,11 @@ public class User implements UserDetails {
     @JoinColumn(name = "city_id")
     private City city ;
 
-    public Date getBod() {
+    public LocalDate getBod() {
         return bod;
     }
 
-    public void getBod(Date bod) {
+    public void setBod(LocalDate bod) {
         this.bod = bod;
     }
 
@@ -196,16 +198,12 @@ public class User implements UserDetails {
         this.idCardTwo = idCardTwo;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public void setBod(Date bod) {
-        this.bod = bod;
     }
 
     public Timestamp getTimestamp() {

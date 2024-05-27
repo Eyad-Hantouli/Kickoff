@@ -18,8 +18,8 @@ public class MatchStatistics {
     private Long goals ;
     @Column(name = "yellow_card")
     private Long yellowCard ;
-    @Column(name = "read_card")
-    private Long readCard ;
+    @Column(name = "red_card")
+    private Long redCard ;
     private Long fouls ;
     private Long motm ;
     private Timestamp timestamp ;
@@ -31,12 +31,12 @@ public class MatchStatistics {
     }
     // all para const //
 
-    public MatchStatistics(Match matchId, User userName, Long goals, Long yellowCard, Long readCard, Long fouls, Long motm, Timestamp timestamp, Position positionId) {
+    public MatchStatistics(Match matchId, User userName, Long goals, Long yellowCard, Long redCard, Long fouls, Long motm, Timestamp timestamp, Position positionId) {
         this.matchId = matchId;
         this.userName = userName;
         this.goals = goals;
         this.yellowCard = yellowCard;
-        this.readCard = readCard;
+        this.redCard = redCard;
         this.fouls = fouls;
         this.motm = motm;
         this.timestamp = new Timestamp(System.currentTimeMillis());
@@ -75,12 +75,12 @@ public class MatchStatistics {
         this.yellowCard = yellowCard;
     }
 
-    public Long getReadCard() {
-        return readCard;
+    public Long getredCard() {
+        return redCard;
     }
 
-    public void setReadCard(Long readCard) {
-        this.readCard = readCard;
+    public void setredCard(Long redCard) {
+        this.redCard = redCard;
     }
 
     public Long getFouls() {
