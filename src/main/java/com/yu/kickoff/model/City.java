@@ -24,8 +24,7 @@ public class City {
     }
     // all para const //
 
-    public City(Long id, String name) {
-        this.id = id;
+    public City(String name) {
         this.name = name;
     }
     // setter and getter //

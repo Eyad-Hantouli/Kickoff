@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-public class Contacts {
+public class ContactUs {
     @Id
     @SequenceGenerator(
             name= "contacts_sequence",
@@ -29,14 +29,13 @@ public class Contacts {
     private Timestamp timestamp ;
     @ManyToOne
     @JoinColumn(name = "city_id")
-    private City cityId ;
+    private City city ;
     // no para const //
-    public Contacts() {
+    public ContactUs() {
     }
     // all para const //
 
-    public Contacts(Long id, String firstName, String midName, String lastName, String address1, String address2, String message, Timestamp timestamp, City cityId) {
-        this.id = id;
+    public ContactUs(String firstName, String midName, String lastName, String address1, String address2, String message, City city) {
         this.firstName = firstName;
         this.midName = midName;
         this.lastName = lastName;
@@ -44,7 +43,7 @@ public class Contacts {
         this.address2 = address2;
         this.message = message;
         this.timestamp = new Timestamp(System.currentTimeMillis());
-        this.cityId = cityId;
+        this.city = city;
     }
     // getter and setter //
     public Long getId() {
@@ -111,11 +110,11 @@ public class Contacts {
         this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
-    public City getCityId() {
-        return cityId;
+    public City getCity() {
+        return city;
     }
 
-    public void setCityId(City cityId) {
-        this.cityId = cityId;
+    public void setCity(City city) {
+        this.city = city;
     }
 }
