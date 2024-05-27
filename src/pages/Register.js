@@ -1,12 +1,39 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import "../styles/register.css"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Register = ({ isLogin }) => {
 
+    const navigate = useNavigate();
+
     const [selectedDate, setSelectedDate] = useState();
 
-    const cities = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia']; // from backend
+    const [cities, setCities] = useState([]);
+    useEffect(() => {
+        // Fetch data from the backend API
+        axios.get('http://localhost:8080/system/get-all-cities')
+          .then(response => {
+            // Update the state with the received data
+            console.log(response.data)
+            setCities(response.data);
+          })
+          .catch(error => {
+            console.error("There was an error fetching the cities!", error);
+          });
+      }, []); // Empty dependency array to run the effect only once when the component mounts
+
+    const [username, setUsername] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [midName, setMidName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [bod, setBod] = useState('');
+    const [address, setAddress] = useState('');
+    const [password, setPassword] = useState('');
+    const [confermPassword, setConfermPassword] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [idCardOne, setIdCardOne] = useState('');
+    const [idCardTwo, setIdCardTwo] = useState('');
 
     // State to manage the selected city
     const [selectedCity, setSelectedCity] = useState('');
@@ -16,10 +43,42 @@ const Register = ({ isLogin }) => {
         setSelectedCity(event.target.value);
     };
 
+    const handleRegister = async () => {
+        try {
+          const response = await axios.post('http://localhost:8080/register', {
+                "username" : username,
+                "firstName" : firstName,
+                "midName" : midName, 
+                "lastName" : lastName,
+                "bod" : bod ,
+                "address" : address , 
+                "password" : password,
+                "phoneNumber" : phoneNumber ,
+                "idCardOne" : idCardOne ,
+                "idCardTwo" : idCardTwo
+            });
+          
+          if ((response.status === 200 || response.status === 201) && response.data.token !== null) {
+            console.log('Registration successful:', response.data);
+            navigate("/login");
+          }
+          else {
+            if (response.data.message) {
+                alert(response.data.message);
+            }
+            else {
+                alert("Regesteration faild");
+            }
+          }
+        } catch (error) {
+          console.error('Registration error:', error);
+        }
+      };
+
     function register_form_submit(event) {
         event.preventDefault();
 
-        console.log("register submitted");
+        handleRegister();
     }
 
     if (isLogin) {
@@ -50,6 +109,7 @@ const Register = ({ isLogin }) => {
                                                     type="text"
                                                     className="form-control"
                                                     placeholder="First Name"
+                                                    onChange={(e) => setFirstName(e.target.value)}
                                                 />
                                                 </div>
                                                 <div className="form-group col-md-6">
@@ -58,6 +118,7 @@ const Register = ({ isLogin }) => {
                                                         type="text"
                                                         className="form-control"
                                                         placeholder="Middle Name"
+                                                        onChange={(e) => setMidName(e.target.value)}
                                                     />
                                                 </div>
                                                 <div className="form-group col-md-6">
@@ -66,6 +127,7 @@ const Register = ({ isLogin }) => {
                                                         type="text"
                                                         className="form-control"
                                                         placeholder="Last Name"
+                                                        onChange={(e) => setLastName(e.target.value)}
                                                     />
                                                 </div>
                                                 <div className="form-group col-md-6">
@@ -75,6 +137,7 @@ const Register = ({ isLogin }) => {
                                                         type="date"
                                                         className="form-control"
                                                         placeholder="Birth of date"
+                                                        onChange={(e) => setBod(e.target.value)}
                                                     />
                                                 </div>
                                             </div>
@@ -82,8 +145,8 @@ const Register = ({ isLogin }) => {
                                                 <div className="form-group col-md-12">
                                                     <label htmlFor="inputState">City</label>
                                                     <select id="inputState" className="form-control" value={selectedCity} onChange={handleCityChange}>
-                                                        {cities.map((city, index) => (
-                                                            <option key={index} value={city}>{city}</option>
+                                                        {cities.map((city) => (
+                                                            <option key={city.id} value={city.name}>{city.name}</option>
                                                         ))}
                                                     </select>
                                                 </div>
@@ -95,15 +158,7 @@ const Register = ({ isLogin }) => {
                                                 className="form-control"
                                                 id="inputAddress"
                                                 placeholder="1234 Main St"
-                                                />
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="inputAddress2">Address 2</label>
-                                                <input
-                                                type="text"
-                                                className="form-control"
-                                                id="inputAddress2"
-                                                placeholder="Apartment, studio, or floor"
+                                                onChange={(e) => setAddress(e.target.value)}
                                                 />
                                             </div>
 
@@ -114,6 +169,7 @@ const Register = ({ isLogin }) => {
                                                         type="text"
                                                         className="form-control"
                                                         placeholder="Username"
+                                                        onChange={(e) => setUsername(e.target.value)}
                                                     />
                                                 </div>
                                                 <div className="form-group col-md-6">
@@ -122,22 +178,25 @@ const Register = ({ isLogin }) => {
                                                         type="tel"
                                                         className="form-control"
                                                         placeholder="Phone number"
+                                                        onChange={(e) => setPhoneNumber(e.target.value)}
                                                     />
                                                 </div>
                                                 <div className="form-group col-md-12">
                                                     <label htmlFor="inputEmail4">Password</label>
                                                     <input
-                                                        type="tel"
+                                                        type="password"
                                                         className="form-control"
                                                         placeholder="Password"
+                                                        onChange={(e) => setPassword(e.target.value)}
                                                     />
                                                 </div>
                                                 <div className="form-group col-md-12">
                                                     <label htmlFor="inputEmail4">Conferm password</label>
                                                     <input
-                                                        type="tel"
+                                                        type="password"
                                                         className="form-control"
                                                         placeholder="Conferm password"
+                                                        onChange={(e) => setConfermPassword(e.target.value)}
                                                     />
                                                 </div>
                                             </div>

@@ -1,15 +1,38 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import "../styles/login.css"
-
+import { useState } from "react";
+import axios from "axios";
 
 const Login = ({ isLogin }) => {
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+  
+    const handleLogin = async () => {
+      try {
+        const response = await axios.post('http://localhost:8080/login', {
+          username: username,
+          password: password,
+        });
+  
+        // Assuming a successful response contains a status code of 200
+        if (response.status === 200) {
+          // Store the username in LocalStorage
+          localStorage.setItem('username', username);
+          window.location.reload();
+        }
+      } catch (error) {
+        setError('Login failed');
+      }
+  }
 
     const navigate = useNavigate();
 
     function login_form_submit(event) {
         event.preventDefault();
 
-        console.log("login submitted");
+        handleLogin();
     }
 
     if (isLogin) {
@@ -40,6 +63,7 @@ const Login = ({ isLogin }) => {
                                                         type="text"
                                                         className="form-control"
                                                         placeholder="Username"
+                                                        onChange={(e) => setUsername(e.target.value)}
                                                     />
                                                 </div>
                                                 <div className="form-group col-md-12">
@@ -48,6 +72,7 @@ const Login = ({ isLogin }) => {
                                                         type="tel"
                                                         className="form-control"
                                                         placeholder="Password"
+                                                        onChange={(e) => setPassword(e.target.value)}
                                                     />
                                                 </div>
                                             </div>

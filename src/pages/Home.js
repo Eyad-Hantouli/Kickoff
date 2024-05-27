@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/home.css"
+import axios from "axios";
 
 const Home = () => {
 
@@ -9,18 +10,53 @@ const Home = () => {
         console.log("search submitted");
     }
 
-    const contacts_form_submit = (event) => {
+    const [cities, setCities] = useState([]);
+    useEffect(() => {
+        // Fetch data from the backend API
+        axios.get('http://localhost:8080/system/get-all-cities')
+          .then(response => {
+            // Update the state with the received data
+            console.log(response.data)
+            setCities(response.data);
+          })
+          .catch(error => {
+            console.error("There was an error fetching the cities!", error);
+          });
+      }, []); // Empty dependency array to run the effect only once when the component mounts
+
+      
+    const contacts_form_submit = async (event) => {
         event.preventDefault();
 
-        console.log("contacts submitted");
+        try {
+            const response = await axios.post('http://localhost:8080/system/create-contact-us', {
+                "firstName": firstName,
+                "midName": midName,
+                "lastName": lastName,
+                "address1": address1,
+                "address2": address2,
+                "message": message,
+                "city": selectedCity
+            });
+
+          } catch (error) {
+            console.log("Error in sending contact us message");
+          }
     }
 
     // select city
     // Define the list of cities
-    const cities = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia']; // from backend
+    const [firstName, setFirstName] = useState();
+    const [midName, setMiddleName] = useState();
+    const [lastName, setLastName] = useState();
+    const [address1, setAddress1] = useState();
+    const [address2, setAddress2] = useState();
+    const [message, setMessage] = useState();
+    const [selectedCity, setSelectedCity] = useState();
 
+    
+  
     // State to manage the selected city
-    const [selectedCity, setSelectedCity] = useState('');
 
     // Function to handle city selection
     const handleCityChange = (event) => {
@@ -73,6 +109,7 @@ const Home = () => {
                                     type="text"
                                     className="form-control"
                                     placeholder="First Name"
+                                    onChange={(e) => setFirstName(e.target.value)}
                                 />
                                 </div>
                                 <div className="form-group col-md-4">
@@ -81,6 +118,7 @@ const Home = () => {
                                     type="text"
                                     className="form-control"
                                     placeholder="Middle Name"
+                                    onChange={(e) => setMiddleName(e.target.value)}
                                 />
                                 </div>
                                 <div className="form-group col-md-4">
@@ -89,6 +127,7 @@ const Home = () => {
                                     type="text"
                                     className="form-control"
                                     placeholder="Last Name"
+                                    onChange={(e) => setLastName(e.target.value)}
                                 />
                                 </div>
                             </div>
@@ -99,6 +138,7 @@ const Home = () => {
                                 className="form-control"
                                 id="inputAddress"
                                 placeholder="1234 Main St"
+                                onChange={(e) => setAddress1(e.target.value)}
                                 />
                             </div>
                             <div className="form-group">
@@ -108,15 +148,30 @@ const Home = () => {
                                 className="form-control"
                                 id="inputAddress2"
                                 placeholder="Apartment, studio, or floor"
+                                onChange={(e) => setAddress2(e.target.value)}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="inputMessage">Message</label>
+                                <input
+                                type="text"
+                                className="form-control"
+                                id="inputMessage"
+                                placeholder="Apartment, studio, or floor"
+                                onChange={(e) => setMessage(e.target.value)}
                                 />
                             </div>
                             <div className="form-row">
                                 <div className="form-group col-md-4">
                                     <label htmlFor="inputState">City</label>
-                                    <select id="inputState" className="form-control" value={selectedCity} onChange={handleCityChange}>
+                                    <select 
+                                    id="inputState" 
+                                    className="form-control" 
+                                    value={selectedCity} 
+                                    onChange={handleCityChange}>
                                         {/* <option selected="">City...</option> */}
-                                        {cities.map((city, index) => (
-                                            <option key={index} value={city}>{city}</option>
+                                        {cities.map(city => (
+                                            <option key={city.id} value={city.name}>{city.name}</option>
                                         ))}
                                     </select>
                                 </div>
