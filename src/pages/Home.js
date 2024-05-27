@@ -24,7 +24,7 @@ const Home = () => {
           });
       }, []); // Empty dependency array to run the effect only once when the component mounts
 
-      
+
     const contacts_form_submit = async (event) => {
         event.preventDefault();
 
@@ -101,7 +101,7 @@ const Home = () => {
                     <div className="contacts_form_container">
                         <h3 className="contact-title">Contact Us</h3>
 
-                        <form onClick={contacts_form_submit} className="contacts_form">
+                        <form onSubmit={contacts_form_submit} className="contacts_form">
                             <div className="form-row">
                                 <div className="form-group col-md-4">
                                 <label htmlFor="inputEmail4">First Name</label>

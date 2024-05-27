@@ -41,9 +41,24 @@ const Register = ({ isLogin }) => {
     // Function to handle city selection
     const handleCityChange = (event) => {
         setSelectedCity(event.target.value);
+
+        console.log({
+            "username" : username,
+            "firstName" : firstName,
+            "midName" : midName, 
+            "lastName" : lastName,
+            "bod" : bod ,
+            "address" : address , 
+            "password" : password,
+            "phoneNumber" : phoneNumber ,
+            "idCardOne" : idCardOne ,
+            "idCardTwo" : idCardTwo,
+            "city": selectedCity
+        })
     };
 
     const handleRegister = async () => {
+        
         try {
           const response = await axios.post('http://localhost:8080/register', {
                 "username" : username,
@@ -55,7 +70,8 @@ const Register = ({ isLogin }) => {
                 "password" : password,
                 "phoneNumber" : phoneNumber ,
                 "idCardOne" : idCardOne ,
-                "idCardTwo" : idCardTwo
+                "idCardTwo" : idCardTwo,
+                "city": selectedCity
             });
           
           if ((response.status === 200 || response.status === 201) && response.data.token !== null) {
@@ -71,6 +87,7 @@ const Register = ({ isLogin }) => {
             }
           }
         } catch (error) {
+            
           console.error('Registration error:', error);
         }
       };
