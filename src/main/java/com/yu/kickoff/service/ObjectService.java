@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.Map;
 
 @Service
@@ -35,6 +36,16 @@ public class ObjectService {
             return LocalDate.parse((String) value, DateTimeFormatter.ofPattern(format));
         }
         return null;
+    }
+
+    private byte[] decodeBase64String(String base64String) {
+        return Base64.getDecoder().decode(base64String);
+    }
+
+
+    public Object getImageValue(Map<String, Object> map, String key) {
+        Object value = map.get(key);
+        return value;
     }
 
 }
