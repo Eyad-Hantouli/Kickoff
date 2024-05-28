@@ -16,10 +16,13 @@ import java.util.Map;
 @RequestMapping("/system")
 public class MatchStatisticsController {
     private final MatchStatisticsService matchStatisticsService;
+    private final LeaderBoardService leaderBoardService;
 
     @Autowired
-    public MatchStatisticsController(MatchStatisticsService matchStatisticsService) {
+    public MatchStatisticsController(MatchStatisticsService matchStatisticsService,
+                                     LeaderBoardService leaderBoardService) {
         this.matchStatisticsService = matchStatisticsService;
+        this.leaderBoardService = leaderBoardService;
     }
 
     @GetMapping("/user/{username}/total-statistics")
@@ -41,5 +44,10 @@ public class MatchStatisticsController {
     @GetMapping("/match-history/{username}")
     public List<Map<String, Object>> getMatchHistoryByUsername(@PathVariable String username) {
         return matchStatisticsService.getMatchHistoryByUsername(username);
+    }
+
+    @GetMapping("/leaderboard")
+    public List<Map<String, Object>> getLeaderboard() {
+        return leaderBoardService.getLeaderBoardRows();
     }
 }

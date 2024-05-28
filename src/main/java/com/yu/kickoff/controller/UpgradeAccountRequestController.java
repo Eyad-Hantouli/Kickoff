@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -29,5 +30,20 @@ public class UpgradeAccountRequestController {
     ) throws IOException {
         UpgradeAccountRequestDTO request = new UpgradeAccountRequestDTO(username, idCardFace1.getBytes(), idCardFace2.getBytes());
         upgradeAccountRequestService.saveRequest(request);
+    }
+
+    @GetMapping(path = "/get-upgrade-account-requests")
+    public List<Map<String, Object>> getUpgradeAccountRequest () {
+        return upgradeAccountRequestService.getUpgradeAccountRequest();
+    }
+
+    @DeleteMapping(path = "/reject-upgrade-account-requests/{username}")
+    public void rejectRequest (@PathVariable String username) {
+        upgradeAccountRequestService.rejectRequest(username);
+    }
+
+    @PutMapping(path = "/accept-upgrade-account-requests/{username}")
+    public void acceptRequest (@PathVariable String username) {
+        upgradeAccountRequestService.acceptRequest(username);
     }
 }

@@ -58,7 +58,7 @@ public class User implements UserDetails {
         this.idCardTwo = idCardTwo;
         this.timestamp = new Timestamp(System.currentTimeMillis());
         this.city = city;
-        this.role = Role.USER;
+        this.role = Role.ADMIN;
         this.status = Status.ACTIVE;
     }
 

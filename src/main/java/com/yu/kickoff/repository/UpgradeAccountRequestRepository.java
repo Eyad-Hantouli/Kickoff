@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface UpgradeAccountRequestRepository extends JpaRepository<UpgradeAccountRequest, Long> {
     long countByAuthor(User user);
+    void deleteByAuthor(User user);
+
 }
