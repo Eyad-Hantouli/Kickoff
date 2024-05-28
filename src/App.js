@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import "./styles/normalize.css";
 import "./styles/index.css";
 import { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, json } from "react-router-dom";
 import UserRoute from "./private routes/UserRoute";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -28,48 +28,22 @@ import axios from "axios";
 
 
 function App() {
-
   
-
-
   const [user, setUser] = useState();
   const [isThereAMatch, setIsThereAMatch] = useState(false);
 
-  const [username, setUsername] = useState(null);
-
   useEffect(() => {
-    // Get the username from LocalStorage
-    const storedUsername = localStorage.getItem('username');
-
-    // Set the username state
-    setUsername(storedUsername);
-
-    let state = {};
-    
-    if (storedUsername) {
-      state.login = true;
-      state.username = storedUsername;
-      state.id = storedUsername;
-      axios.get(`http://localhost:8080/system/get-role-by-username/${storedUsername}`)
-      .then(response => {
-        console.log(response);
-        
-        state.pitchOwner = response.data.role === 'PITCH_OWNER'; // Assuming the API returns the role as an object with a property 'role'
-        state.superAdmin = response.data.role === 'SUPER_ADMIN';
-        state.admin = response.data.role === 'ADMIN';
-      })
-      .catch(error => {
-        console.error('Error fetching user role:', error);
-        localStorage.removeItem("username");
-      });
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
     }
-    
-    console.log(storedUsername)
+    else {
+      setUser({});
+    }
+  }, [])
 
-    setUser(state);
-  }, []);
-
-  if (!user) return <p>Loading...</p>;
+  if (!user) return <>Loading...</>
+  console.log(user);
 
   return (
     <>
@@ -82,7 +56,7 @@ function App() {
             {/* Public Routes */}
             <Route exact path='/' element = { <Home /> } />
             <Route exact path='/register' element = { <Register isLogin={user.login}/> } />
-            <Route exact path='/login' element = { <Login isLogin={user.login}/> } />
+            <Route exact path='/login' element = { <Login setUser = {setUser}/> } />
             <Route exact path='/leaderboard' element = { <Leaderboard isLogin={user.login}/> } />
 
             {/* Private Routes */}

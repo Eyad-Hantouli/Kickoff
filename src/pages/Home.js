@@ -15,8 +15,6 @@ const Home = () => {
         // Fetch data from the backend API
         axios.get('http://localhost:8080/system/get-all-cities')
           .then(response => {
-            // Update the state with the received data
-            console.log(response.data)
             setCities(response.data);
           })
           .catch(error => {

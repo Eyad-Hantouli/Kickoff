@@ -1,8 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { Roles } from "../Roles";
 
 const AdminRoute = ({ user }) => {
 
-    return user.admin ? (
+    return (user.role === Roles.ADMIN || user.role === Roles.SUPER_ADMIN) ? (
         <Outlet />
     ) : (
         <Navigate to="/login" replace />

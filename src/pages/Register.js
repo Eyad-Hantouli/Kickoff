@@ -3,7 +3,7 @@ import "../styles/register.css"
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Register = ({ isLogin }) => {
+const Register = () => {
 
     const navigate = useNavigate();
 
@@ -11,16 +11,19 @@ const Register = ({ isLogin }) => {
 
     const [cities, setCities] = useState([]);
     useEffect(() => {
-        // Fetch data from the backend API
-        axios.get('http://localhost:8080/system/get-all-cities')
-          .then(response => {
-            // Update the state with the received data
-            console.log(response.data)
-            setCities(response.data);
-          })
-          .catch(error => {
-            console.error("There was an error fetching the cities!", error);
-          });
+        if (!localStorage.getItem("user")) {
+    
+            // Fetch data from the backend API
+            axios.get('http://localhost:8080/system/get-all-cities')
+            .then(response => {
+                // Update the state with the received data
+                console.log(response.data)
+                setCities(response.data);
+            })
+            .catch(error => {
+                console.error("There was an error fetching the cities!", error);
+            });
+        }
       }, []); // Empty dependency array to run the effect only once when the component mounts
 
     const [username, setUsername] = useState('');
@@ -56,6 +59,11 @@ const Register = ({ isLogin }) => {
             "city": selectedCity
         })
     };
+
+    if (localStorage.getItem("user")) {
+        return <Navigate to="/" replace />
+    }
+
 
     const handleRegister = async () => {
         
@@ -96,10 +104,6 @@ const Register = ({ isLogin }) => {
         event.preventDefault();
 
         handleRegister();
-    }
-
-    if (isLogin) {
-        return <Navigate to="/panel" replace />
     }
 
     return (

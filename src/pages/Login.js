@@ -3,7 +3,7 @@ import "../styles/login.css"
 import { useState } from "react";
 import axios from "axios";
 
-const Login = ({ isLogin }) => {
+const Login = ({ setUser }) => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -19,8 +19,9 @@ const Login = ({ isLogin }) => {
         // Assuming a successful response contains a status code of 200
         if (response.status === 200) {
           // Store the username in LocalStorage
-          localStorage.setItem('username', username);
-          window.location.reload();
+          localStorage.setItem('user', JSON.stringify(response.data.user));
+          setUser(JSON.parse(localStorage.getItem("user")));
+        //   window.location.reload();
         }
       } catch (error) {
         setError('Login failed');
@@ -35,7 +36,7 @@ const Login = ({ isLogin }) => {
         handleLogin();
     }
 
-    if (isLogin) {
+    if (localStorage.getItem("user")) {
         return <Navigate to="/" replace />
     }
 

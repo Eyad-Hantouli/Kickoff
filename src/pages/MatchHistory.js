@@ -1,43 +1,31 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "../styles/match_history.css"
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const MatchHistory = () => {
 
     const { username } = useParams();
     const navigate = useNavigate();
+    const[matchesData, setMatchesData] = useState();
 
-    const matches = [
-        {
-            id: "1",
-            position: "DEF", location: "Parax", referee: "yamen88", date: "01-01-2024 | 21:00",
-            score: 20, goals: 3, yellowCards: 3, redCards: 0, fouls: 0
-        },
-        {
-            id: "2",
-            position: "DEF", location: "Parax", referee: "yamen88", date: "01-01-2024 | 21:00",
-            score: 50, goals: 1, yellowCards: 3, redCards: 0, fouls: 2
-        },
-        {
-            id: "3",
-            position: "DEF", location: "Parax", referee: "yamen88", date: "01-01-2024 | 21:00",
-            score: 20, goals: 3, yellowCards: 3, redCards: 0, fouls: 3
-        },
-        {
-            id: "4",
-            position: "DEF", location: "Parax", referee: "yamen88", date: "01-01-2024 | 21:00",
-            score: 50, goals: 1, yellowCards: 3, redCards: 0, fouls: 2
-        },
-        {
-            id: "5",
-            position: "DEF", location: "Parax", referee: "yamen88", date: "01-01-2024 | 21:00",
-            score: 20, goals: 3, yellowCards: 3, redCards: 0, fouls: 1
-        },
-        {
-            id: "6",
-            position: "DEF", location: "Parax", referee: "yamen88", date: "01-01-2024 | 21:00",
-            score: 50, goals: 1, yellowCards: 3, redCards: 0, fouls: 9
-        },
-    ];
+    useEffect(() => {
+        const fetchUserStatistics = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/system/match-history/${username}`);
+            setMatchesData(response.data);
+        } catch (error) {
+            console.log("Error in fetching match history")
+            setMatchesData({});
+        }
+        };
+
+        fetchUserStatistics();
+    }, []);
+
+    console.log(matchesData);
+
+    if (!matchesData) return<>Loading...</>
 
     return (
         <div className="MatchHistory">
@@ -51,7 +39,7 @@ const MatchHistory = () => {
             </div>
 
             <ul>
-                {matches.map(match => {
+                {matchesData.map(match => {
                     return <div className="row-" key={match.id}>
                         <div className="container">
                             <div className="top">
@@ -66,9 +54,10 @@ const MatchHistory = () => {
                             <div className="bottom">
                                 <ul>
                                     <li><span>{match.goals}</span><span>Goals</span></li>
-                                    <li><span>{match.yellowCards}</span><span>Yellow Cards</span></li>
-                                    <li><span>{match.redCards}</span><span>Red Cards</span></li>
-                                    <li><span>{match.Fouls}</span><span>Fouls</span></li>
+                                    <li><span>{match.yellowCard}</span><span>Yellow Cards</span></li>
+                                    <li><span>{match.redCard}</span><span>Red Cards</span></li>
+                                    <li><span>{match.fouls}</span><span>Fouls</span></li>
+                                    <li><span>{match.motm}</span><span>MOTM</span></li>
                                 </ul>
                             </div>
                         </div>

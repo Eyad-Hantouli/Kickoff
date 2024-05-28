@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/pitches.css";
 import RefereeRateStars from "../components/RefereeRateStars";
+import { Roles } from "../Roles";
 
 const Pitches = ({ user }) => {
     const navigate = useNavigate();
@@ -89,7 +90,7 @@ const Pitches = ({ user }) => {
                     <input type="number" placeholder="Max price" className="max-price-filter"></input>
                 </div>
                 <div className="buttons-holder">
-                    {user.pitchOwner && !editMode && 
+                    {user.role === Roles.PITCH_OWNER && !editMode && 
                     <button className="edit-mode-on" onClick={() => {setEditMode(true)}}>Edit mode <i className="fa-solid fa-hammer"></i></button>}
 
                     {editMode && 
@@ -100,7 +101,7 @@ const Pitches = ({ user }) => {
                 </div>
                 <div className="pitches-list">
                     {pitches
-                    .filter(pitch => user.pitchOwner ? true : pitch.state === "active")
+                    .filter(pitch => user.role === Roles.PITCH_OWNER ? true : pitch.state === "active")
                     .filter(pitch => editMode ? pitch.ownerId === user.id : true)
                     .map(pitch => {
                         return <div className="pitch-box-container" key={pitch.id}>

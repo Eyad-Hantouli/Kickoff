@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/navbar.css"
+import { Roles } from "../Roles";
 
 const Navbar = ({ user, setUser }) => {
 
@@ -39,12 +40,12 @@ const Navbar = ({ user, setUser }) => {
                         <li className="leaderboard_btn tap" onClick={() => {navigate("/leaderboard")}}>Leaderboard</li>
                         <li className="contact_us_btn tap" onClick={scroll_to_contacts}>Contact us</li>
                         {
-                            user.admin &&
+                            (user.role === Roles.ADMIN || user.role === Roles.SUPER_ADMIN) &&
                                 <li className="admin_panel_btn tap" onClick={() => {navigate("/admin-panel")}}>Admin Panel</li>
                         }
                         {
                             user.login && 
-                                <li className="logout_btn tap" onClick={() => {localStorage.removeItem('username'); window.location.reload()}}>Logout . <i className="fa-solid fa-right-from-bracket"></i></li>
+                                <li className="logout_btn tap" onClick={() => {localStorage.removeItem('user'); setUser({})}}>Logout . <i className="fa-solid fa-right-from-bracket"></i></li>
                         }
                     </span>
                 </ul>

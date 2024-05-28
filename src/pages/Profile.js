@@ -1,7 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "../styles/profile.css"
 import RefereeRateStars from "../components/RefereeRateStars";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Roles } from "../Roles";
+import axios from "axios";
 
 const Profile = ({ user }) => {
 
@@ -18,14 +20,41 @@ const Profile = ({ user }) => {
         setSelectedFace2(null);
     }
 
-    const statistics = {
-        goals: "3",
-        yellowCards: "3",
-        redCards: 0,
-        motm: 5,
-        totalMatches: 5,
-        scores: 850
-    }
+    // WORKING
+    // WORKING
+    // WORKING
+    const [userStatistics, setUserStatistics] = useState(null);
+    const [userData, setUserData] = useState(null);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchUserStatistics = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/system/user/${username}/user-statistics`);
+            setUserStatistics(response.data);
+        } catch (error) {
+            setError(error.message);
+        }
+        };
+
+        fetchUserStatistics();
+
+        const fetchUserData = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/system/get-user-data-by-username/${username}`);
+            setUserData(response.data);
+        } catch (error) {
+            setError(error.message);
+        }
+        };
+
+        fetchUserData();
+    }, [username]);
+    // WORKING
+    // WORKING
+    // WORKING
+
+    console.log(userStatistics);
 
     const data = {
         admin: false,
@@ -64,6 +93,8 @@ const Profile = ({ user }) => {
             console.log("ID card faces: " + selectedFace1.name + ", " + selectedFace2.name);
         handleModal();
     }
+
+    if (!userStatistics) return <>Loading...</>
 
     return (
         <div className="Profile">
@@ -104,15 +135,15 @@ const Profile = ({ user }) => {
                         <li className="tap" onClick={() => {navigate("/profile/"+username)}}>Profile</li>
                         <li className="tap" onClick={() => {navigate("/matchhistory/"+username)}}>Match History</li>
                         {
-                            user.admin && 
-                            <li className="tap">
-                                <i className="fa-solid fa-gear" onClick={handleAdminControl}></i>
+                            (user.role === Roles.ADMIN || user.role === Roles.SUPER_ADMIN) && 
+                            <li className="tap" onClick={handleAdminControl}>
+                                <i className="fa-solid fa-gear"></i>
                                 <ol className="hidden" id="admin-profile-control">
                                     <li>Ban <i className="fa-solid fa-ban"></i></li>
                                     {
-                                        user.superAdmin && <>
+                                        user.role === Roles.SUPER_ADMIN && <>
                                             {
-                                                !data.admin 
+                                                !userData.role === Roles.ADMIN 
                                                     ? <li>Grant Admin <i className="fa-solid fa-shield-halved"></i></li> 
                                                     : <li>Revoke Admin <i className="fa-solid fa-circle-minus"></i></li>
                                             }
@@ -123,7 +154,7 @@ const Profile = ({ user }) => {
                             
                         }
                     </ul>
-                    {   !user.admin && !user.pitchOwner &&
+                    {   user.role === Roles.USER &&
                         <button className="upgrade-acc" onClick={handleModal}>Upgrade Account <i class="fa-solid fa-star"></i></button>
                     }
                 </div>
@@ -132,26 +163,33 @@ const Profile = ({ user }) => {
             <div className="container section">
                 <div className="lhs">
                     <div className="image"></div>
-                    <div className="name">{data.name} <span><i className="fa-solid fa-pen"></i></span></div>
+                    <div className="name">{userData.firstName} {userData.lastName} <span><i className="fa-solid fa-pen"></i></span></div>
                 </div>
 
                 <div className="rhs">
                     <p>Personal Data</p>
                     <div className="data">
                         <ul>
-                            <li key={"row-username"} className = {"row-username"} id = {"row-username"}>
-                                <span>username: </span>
-                                <span>{username}</span>
-                            </li>
 
-                            {Object.entries(data).map(([key, value]) => (
-                                key !== "name" && key !== "admin" &&
-                                <li key={"row-" + key} className = {"row-" + key} id = {"row-" + key}>
-                                    <span>{to_small(key)}: </span>
-                                    {key !== "refereeRate" && <span>{value}</span>}
-                                    {key === "refereeRate" && <span><RefereeRateStars value = {value}/></span>}
-                                </li>
-                            ))}
+                            <li>
+                                <span>username:</span>
+                                <span>{userData.username}</span>
+                            </li>
+                            <li>
+                                <span>city:</span>
+                                <span>{userData.city}</span>
+                            </li>
+                            <li>
+                                <span>dob:</span>
+                                <span>{userData.dob}</span>
+                            </li>
+                            <li>
+                                <span>join date:</span>
+                                <span>{userData.joinDate}</span>
+                            </li>
+                            {/* <li>
+                                <span>referee rate: <RefereeRateStars value = {1}/></span>
+                            </li> */}
                         </ul>
                     </div>
                     <div className="buttons">
@@ -171,7 +209,7 @@ const Profile = ({ user }) => {
 
             <div className="container statistics">
                 <ul>
-                    {Object.entries(statistics).map(([key, value]) => (
+                    {Object.entries(userStatistics).map(([key, value]) => (
                         <li key={"row-" + key} className = {"row-" + key} id = {"row-" + key}>
                             <span>{to_small(key)}</span>
                             <span>{value}</span>
