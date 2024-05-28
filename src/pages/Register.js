@@ -10,21 +10,21 @@ const Register = () => {
     const [selectedDate, setSelectedDate] = useState();
 
     const [cities, setCities] = useState([]);
+    const [isFetched, setIsFetched] = useState(false);
+
     useEffect(() => {
-        if (!localStorage.getItem("user")) {
-    
-            // Fetch data from the backend API
-            axios.get('http://localhost:8080/system/get-all-cities')
+        if (!localStorage.getItem("user") && !isFetched) {
+          axios.get('http://localhost:8080/system/get-all-cities')
             .then(response => {
-                // Update the state with the received data
-                console.log(response.data)
-                setCities(response.data);
+              console.log(response.data);
+              setCities(response.data);
+              setIsFetched(true);
             })
             .catch(error => {
-                console.error("There was an error fetching the cities!", error);
+              console.error("There was an error fetching the cities!", error);
             });
         }
-      }, []); // Empty dependency array to run the effect only once when the component mounts
+      }, [isFetched]);
 
     const [username, setUsername] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -45,19 +45,19 @@ const Register = () => {
     const handleCityChange = (event) => {
         setSelectedCity(event.target.value);
 
-        console.log({
-            "username" : username,
-            "firstName" : firstName,
-            "midName" : midName, 
-            "lastName" : lastName,
-            "bod" : bod ,
-            "address" : address , 
-            "password" : password,
-            "phoneNumber" : phoneNumber ,
-            "idCardOne" : idCardOne ,
-            "idCardTwo" : idCardTwo,
-            "city": selectedCity
-        })
+        // console.log({
+        //     "username" : username,
+        //     "firstName" : firstName,
+        //     "midName" : midName, 
+        //     "lastName" : lastName,
+        //     "bod" : bod ,
+        //     "address" : address , 
+        //     "password" : password,
+        //     "phoneNumber" : phoneNumber ,
+        //     "idCardOne" : idCardOne ,
+        //     "idCardTwo" : idCardTwo,
+        //     "city": selectedCity
+        // })
     };
 
     if (localStorage.getItem("user")) {

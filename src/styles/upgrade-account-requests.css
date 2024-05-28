@@ -47,6 +47,7 @@
 .UpgradeAccountRequests .images img {
     display: block;
     /* flex-grow: 1; */
+    max-width: 260px;
     aspect-ratio: 100/72;
 }
 

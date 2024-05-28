@@ -12,6 +12,8 @@ const Profile = ({ user }) => {
 
     const [modal, setModal] = useState(false);
 
+    const profileOwner = user.username === username;
+
     const handleModal = () => {
         setModal(c => !c);
         // setPitchName(null);
@@ -88,10 +90,32 @@ const Profile = ({ user }) => {
         setSelectedFace2(event.target.files[0]);
     };
 
-    const handleUpgradeAccount = () => {
-        if (selectedFace1 && selectedFace2)
-            console.log("ID card faces: " + selectedFace1.name + ", " + selectedFace2.name);
-        handleModal();
+    const handleUpgradeAccount = async () => {
+        if (selectedFace1 && selectedFace2) {
+
+            const formData = new FormData();
+            formData.append('username', username);
+            formData.append('idCardFace1', selectedFace1);
+            formData.append('idCardFace2', selectedFace2);
+
+            try {
+                await axios.post('http://localhost:8080/system/upgrade-account-requests', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+
+                console.log('Upgrade request submitted successfully!');
+
+            } catch (error) {
+
+                console.error('Error submitting upgrade request:', error);
+                console.log('Failed to submit upgrade request. Please try again later.');
+
+            }
+            
+            handleModal();
+        }
     }
 
     if (!userStatistics) return <>Loading...</>
@@ -154,7 +178,7 @@ const Profile = ({ user }) => {
                             
                         }
                     </ul>
-                    {   user.role === Roles.USER &&
+                    {   profileOwner && user.role === Roles.USER &&
                         <button className="upgrade-acc" onClick={handleModal}>Upgrade Account <i class="fa-solid fa-star"></i></button>
                     }
                 </div>
@@ -163,7 +187,7 @@ const Profile = ({ user }) => {
             <div className="container section">
                 <div className="lhs">
                     <div className="image"></div>
-                    <div className="name">{userData.firstName} {userData.lastName} <span><i className="fa-solid fa-pen"></i></span></div>
+                    <div className="name">{userData.firstName} {userData.lastName} {profileOwner && <span><i className="fa-solid fa-pen"></i></span>}</div>
                 </div>
 
                 <div className="rhs">
@@ -192,6 +216,7 @@ const Profile = ({ user }) => {
                             </li> */}
                         </ul>
                     </div>
+                    {!profileOwner &&
                     <div className="buttons">
                         <ul>
                             <li className="friend">
@@ -203,7 +228,7 @@ const Profile = ({ user }) => {
                                 <i className="fa-solid fa-ban"></i>
                             </li>
                         </ul>
-                    </div>
+                    </div>}
                 </div>
             </div>
 

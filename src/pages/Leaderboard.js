@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/leaderboard.css"
+import axios from "axios";
 
 const Leaderboard = () => {
 
@@ -8,32 +9,25 @@ const Leaderboard = () => {
 
     function render_show_more_btn() {
         console.log(rankNumber + ", " + limit);
-        return rankNumber < usersList.length;
+        return rankNumber < leaderboard.length;
     }
 
-    const usersList = [
-        {"name": "Yamen Amjad", "username": "____0809", "score": "800"},
-        {"name": "Eyad Hantouli", "username": "eyad_h", "score": "650"},
-        {"name": "Haytham Shreydah", "username": "shreydah_02_82186", "score": "-500"},
-        {"name": "Yamen Amjad", "username": "____0809", "score": "800"},
-        {"name": "Eyad Hantouli", "username": "eyad_h", "score": "650"},
-        {"name": "Haytham Shreydah", "username": "shreydah_02_82186", "score": "-500"},
-        {"name": "Yamen Amjad", "username": "____0809", "score": "800"},
-        {"name": "Eyad Hantouli", "username": "eyad_h", "score": "650"},
-        {"name": "Haytham Shreydah", "username": "shreydah_02_82186", "score": "-500"},
-        {"name": "Yamen Amjad", "username": "____0809", "score": "800"},
-        {"name": "Eyad Hantouli", "username": "eyad_h", "score": "650"},
-        {"name": "Haytham Shreydah", "username": "shreydah_02_82186", "score": "-500"},
-        {"name": "Yamen Amjad", "username": "____0809", "score": "800"},
-        {"name": "Eyad Hantouli", "username": "eyad_h", "score": "650"},
-        {"name": "Haytham Shreydah", "username": "shreydah_02_82186", "score": "-500"},
-        {"name": "Yamen Amjad", "username": "____0809", "score": "800"},
-        {"name": "Eyad Hantouli", "username": "eyad_h", "score": "650"},
-        {"name": "Haytham Shreydah", "username": "shreydah_02_82186", "score": "-500"},
-        {"name": "Eyad Hantouli", "username": "eyad_h", "score": "650"},
-        {"name": "Haytham Shreydah", "username": "shreydah_02_82186", "score": "-500"},
-        {"name": "Haytham Shreydah", "username": "shreydah_02_82186", "score": "-500"},
-    ];
+    const [leaderboard, setLeaderboard] = useState([]);
+    const [isFetched, setIsFetched] = useState(false);
+
+    useEffect(() => {
+        if (!isFetched) {
+          axios.get('http://localhost:8080/system/leaderboard')
+            .then(response => {
+              console.log(response.data);
+              setLeaderboard(response.data);
+              setIsFetched(true);
+            })
+            .catch(error => {
+              console.error("There was an error fetching the cities!", error);
+            });
+        }
+      }, [isFetched]);
 
     return (
         <div className="Leaderboard">
@@ -49,7 +43,7 @@ const Leaderboard = () => {
                         </tr>
                     </thead>
                     <tbody>
-                    {usersList.map((user) => {
+                    {leaderboard.map((user) => {
                         if (rankNumber >= limit) return<></>;
                         rankNumber++;
                         return <tr>
@@ -64,7 +58,7 @@ const Leaderboard = () => {
                 {
                     render_show_more_btn() && 
                     <div className="container show-more-button" onClick={() => {
-                        setLimit(current => Math.min(current + 10, usersList.length))
+                        setLimit(current => Math.min(current + 10, leaderboard.length))
                     }}>
                         <p>Show More</p>
                     </div>

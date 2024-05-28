@@ -35,7 +35,7 @@ const Navbar = ({ user, setUser }) => {
                     <li className="burger_bars" onClick={show_taps}><i className="fa-solid fa-bars"></i></li>
                     <span className="taps">
                         <li className="home_btn tap" onClick={scroll_to_home}>Home</li>
-                        <li className="profile_btn tap" onClick={() => {navigate("/profile/eyad_h")}}>Profile</li>
+                        <li className="profile_btn tap" onClick={() => {navigate("/profile/" + user.username)}}>Profile</li>
                         <li className="profile_btn tap" onClick={() => {navigate("/pitches")}}>Pitches</li>
                         <li className="leaderboard_btn tap" onClick={() => {navigate("/leaderboard")}}>Leaderboard</li>
                         <li className="contact_us_btn tap" onClick={scroll_to_contacts}>Contact us</li>
