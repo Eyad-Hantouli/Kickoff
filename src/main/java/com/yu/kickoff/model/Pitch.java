@@ -21,6 +21,7 @@ public class Pitch {
     private Double price ;
     private Double rate ;
     private String status ;
+    private String address;
     @Column(name ="ownership_document" )
     private String ownershipDocument ;
     private Timestamp timestamp ;
@@ -38,13 +39,14 @@ public class Pitch {
     }
     // all para const //
 
-    public Pitch(Long id, String name, Double price, Double rate, String status, String ownershipDocument, Timestamp timestamp, User authorId, City cityId) {
+    public Pitch(Long id, String name, Double price, Double rate, String status, String ownershipDocument, String address, Timestamp timestamp, User authorId, City cityId) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.rate = rate;
         this.status = status;
         this.ownershipDocument = ownershipDocument;
+        this.address = address;
         this.timestamp = new Timestamp(System.currentTimeMillis());
         this.authorId = authorId;
         this.cityId = cityId;
@@ -96,6 +98,14 @@ public class Pitch {
 
     public void setOwnershipDocument(String ownershipDocument) {
         this.ownershipDocument = ownershipDocument;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Timestamp getTimestamp() {

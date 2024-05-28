@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -35,5 +36,10 @@ public class MatchStatisticsController {
     @GetMapping("/user/{username}/user-statistics")
     public Map<String, Object> getUserStatisticsByUsername(@PathVariable String username) {
         return matchStatisticsService.getUserStatisticsByUsername(username);
+    }
+
+    @GetMapping("/match-history/{username}")
+    public List<Map<String, Object>> getMatchHistoryByUsername(@PathVariable String username) {
+        return matchStatisticsService.getMatchHistoryByUsername(username);
     }
 }
