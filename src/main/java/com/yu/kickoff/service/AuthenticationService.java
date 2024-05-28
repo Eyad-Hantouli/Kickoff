@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final ObjectService objectService;
     private final CityService cityService;
+    private final UserService userService;
 
     @Autowired
     public AuthenticationService(UserRepository repository,
@@ -37,7 +39,8 @@ public class AuthenticationService {
                                  TokenRepository tokenRepository,
                                  AuthenticationManager authenticationManager,
                                  ObjectService objectService,
-                                 CityService cityService) {
+                                 CityService cityService,
+                                 UserService userService) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
@@ -45,6 +48,7 @@ public class AuthenticationService {
         this.authenticationManager = authenticationManager;
         this.objectService = objectService;
         this.cityService = cityService;
+        this.userService = userService;
 
     }
 
@@ -81,7 +85,7 @@ public class AuthenticationService {
 
     }
 
-    public AuthenticationResponse authenticate(User request) {
+    public Map<String, Object> authenticate(User request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getUsername(),
@@ -89,13 +93,18 @@ public class AuthenticationService {
                 )
         );
 
-        User user = repository.findByUsername(request.getUsername()).orElseThrow();
+        User user = repository.findByUsername(request.getUsername()).orElseThrow(() -> new IllegalStateException("user not found"));
         String jwt = jwtService.generateToken(user);
 
         revokeAllTokenByUser(user);
         saveUserToken(jwt, user);
 
-        return new AuthenticationResponse(jwt, "User login was successful");
+        Map<String, Object> response = new HashMap<>();
+        response.put("user", userService.getUserData(user));
+        response.put("token", jwt);
+        response.put("message", "User login was successful");
+
+        return response;
 
     }
     private void revokeAllTokenByUser(User user) {

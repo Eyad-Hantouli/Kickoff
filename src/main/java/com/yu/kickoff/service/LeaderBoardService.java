@@ -14,32 +14,15 @@ public class LeaderBoardService {
 
     private final UserService userService;
     private final MatchStatisticsService matchStatisticsService;
-    private final ScoreService scoreService;
     private final ObjectService objectService;
 
     @Autowired
     public LeaderBoardService(UserService userService,
                               MatchStatisticsService matchStatisticsService,
-                              ScoreService scoreService,
                               ObjectService objectService) {
         this.userService = userService;
         this.matchStatisticsService = matchStatisticsService;
-        this.scoreService = scoreService;
         this.objectService = objectService;
-    }
-
-    public Long getUserTotalScore(String username) {
-        User user = userService.getUserByUsername(username);
-
-        Map<String, Object> statistics = matchStatisticsService.getTotalStatisticsByUser(username);
-
-        long totalScore = 0;
-
-        for(Map.Entry<String, Object> entry : statistics.entrySet()) {
-            totalScore +=  objectService.getLongValue(statistics, entry.getKey()) * scoreService.getScoreByTitle(entry.getKey()).getScore();
-        }
-
-        return totalScore;
     }
 
     public List<Map<String, Object>> getLeaderBoardRows () {
@@ -52,11 +35,13 @@ public class LeaderBoardService {
             Map<String, Object> row = new HashMap<>();
             row.put("name", user.getFirstName() + " " + user.getLastName());
             row.put("username", user.getUsername());
-            row.put("score", getUserTotalScore(user.getUsername())); // Placeholder for the score
+            row.put("score", matchStatisticsService.getUserTotalScore(user.getUsername())); // Placeholder for the score
             leaderboard.add(row);
         }
 
         return leaderboard;
 
     }
+
+
 }

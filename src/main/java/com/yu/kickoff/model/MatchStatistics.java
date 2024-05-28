@@ -23,15 +23,15 @@ public class MatchStatistics {
     private Long fouls ;
     private Long motm ;
     private Timestamp timestamp ;
-    @ManyToOne
-    @JoinColumn(name = "postion_id")
-    private Position positionId ;
+
+    @Enumerated(value = EnumType.STRING)
+    private Position position ;
     // no para const //
     public MatchStatistics() {
     }
     // all para const //
 
-    public MatchStatistics(Match matchId, User userName, Long goals, Long yellowCard, Long redCard, Long fouls, Long motm, Timestamp timestamp, Position positionId) {
+    public MatchStatistics(Match matchId, User userName, Long goals, Long yellowCard, Long redCard, Long fouls, Long motm, Timestamp timestamp, Position position) {
         this.matchId = matchId;
         this.userName = userName;
         this.goals = goals;
@@ -40,7 +40,7 @@ public class MatchStatistics {
         this.fouls = fouls;
         this.motm = motm;
         this.timestamp = new Timestamp(System.currentTimeMillis());
-        this.positionId = positionId;
+        this.position = position;
     }
     // setter and getter //
     public Match getMatchId() {
@@ -107,11 +107,11 @@ public class MatchStatistics {
         this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
-    public Position getPositionId() {
-        return positionId;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setPositionId(Position positionId) {
-        this.positionId = positionId;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }

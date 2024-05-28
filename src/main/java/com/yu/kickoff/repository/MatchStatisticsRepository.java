@@ -18,7 +18,8 @@ public interface MatchStatisticsRepository extends JpaRepository<MatchStatistics
             "SUM(ms.yellowCard) as yellowCard, " +
             "SUM(ms.redCard) as redCard, " +
             "SUM(ms.fouls) as fouls, " +
-            "SUM(ms.motm) as motm) " +
+            "SUM(ms.motm) as motm, " +
+            "COUNT(ms) as totalMatches) " +
             "FROM MatchStatistics ms " +
             "WHERE ms.userName.username = :username")
     Map<String, Object> findSumsByUserName(@Param("username") String username);

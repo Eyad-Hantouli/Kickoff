@@ -26,7 +26,7 @@ public class ObjectService {
                 throw new IllegalStateException("key = " + key + " must be in integer format between 1 - " + Long. MAX_VALUE + ".");
             }
         }
-        return null;
+        return 0L;
     }
 
     public LocalDate getLocalDateValue(Map<String, Object> map, String key, String format) {

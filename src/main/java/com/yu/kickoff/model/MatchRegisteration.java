@@ -17,19 +17,19 @@ public class MatchRegisteration {
     @Column(name = "team_number")
     private  Long TeamNumber ;
     private Timestamp timestamp ;
-    @ManyToOne
-    @JoinColumn(name="pos_id")
-    private Position posId ;
+
+    @Enumerated(value = EnumType.STRING)
+    Position position;
     // no para const //
     public MatchRegisteration() {
     }
     // all para const //
-    public MatchRegisteration(MatchSchedule matchScheduleId, User userName, Long teamNumber, Timestamp timestamp, Position posId) {
+    public MatchRegisteration(MatchSchedule matchScheduleId, User userName, Long teamNumber, Timestamp timestamp, Position position) {
         this.matchScheduleId = matchScheduleId;
         this.userName = userName;
         TeamNumber = teamNumber;
         this.timestamp = new Timestamp(System.currentTimeMillis());
-        this.posId = posId;
+        this.position = position;
     }
     // setter and getter //
     public MatchSchedule getMatchScheduleId() {
@@ -64,11 +64,11 @@ public class MatchRegisteration {
         this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
-    public Position getPosId() {
-        return posId;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setPosId(Position posId) {
-        this.posId = posId;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 }

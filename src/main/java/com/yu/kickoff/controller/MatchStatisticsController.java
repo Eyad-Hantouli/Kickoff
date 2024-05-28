@@ -15,13 +15,10 @@ import java.util.Map;
 @RequestMapping("/system")
 public class MatchStatisticsController {
     private final MatchStatisticsService matchStatisticsService;
-    private final LeaderBoardService leaderBoardService;
 
     @Autowired
-    public MatchStatisticsController(MatchStatisticsService matchStatisticsService,
-                                     LeaderBoardService leaderBoardService) {
+    public MatchStatisticsController(MatchStatisticsService matchStatisticsService) {
         this.matchStatisticsService = matchStatisticsService;
-        this.leaderBoardService = leaderBoardService;
     }
 
     @GetMapping("/user/{username}/total-statistics")
@@ -32,6 +29,11 @@ public class MatchStatisticsController {
 
     @GetMapping("/user/{username}/total-score")
     public Long getTotalScoreByUser(@PathVariable String username) {
-        return leaderBoardService.getUserTotalScore(username);
+        return matchStatisticsService.getUserTotalScore(username);
+    }
+
+    @GetMapping("/user/{username}/user-statistics")
+    public Map<String, Object> getUserStatisticsByUsername(@PathVariable String username) {
+        return matchStatisticsService.getUserStatisticsByUsername(username);
     }
 }
