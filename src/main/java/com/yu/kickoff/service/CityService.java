@@ -21,7 +21,7 @@ public class CityService {
         return city;
     }
 
-    public List<City> getAllCitiesNames() {
+    public List<City> getAllCities() {
         return cityRepository.findAll();
     }
 

@@ -25,23 +25,24 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        List<String> cityNames = Arrays.asList(
-                "Amman", "Irbid", "Zarqa", "Mafraq", "Ajloun", "Jerash",
-                "Madaba", "Balqa", "Karak", "Tafileh", "Maan", "Aqaba"
-        );
+        if (cityRepository.count() == 0) {
+            List<String> cityNames = Arrays.asList(
+                    "Amman", "Irbid", "Zarqa", "Mafraq", "Ajloun", "Jerash",
+                    "Madaba", "Balqa", "Karak", "Tafileh", "Maan", "Aqaba"
+            );
 
-        for (String cityName : cityNames) {
-            City city = new City(cityName);
-            cityRepository.save(city);
+            for (String cityName : cityNames) {
+                City city = new City(cityName);
+                cityRepository.save(city);
+            }
         }
 
-        scoreRepository.save(new Score("goals", 10L));
-        scoreRepository.save(new Score("yellowCard", -5L));
-        scoreRepository.save(new Score("redCard", -10L));
-        scoreRepository.save(new Score("motm", 30L));
-        scoreRepository.save(new Score("fouls", -2L));
+        if (scoreRepository.count() == 0) {
+            scoreRepository.save(new Score("goals", 10L));
+            scoreRepository.save(new Score("yellowCard", -5L));
+            scoreRepository.save(new Score("redCard", -10L));
+            scoreRepository.save(new Score("motm", 30L));
+            scoreRepository.save(new Score("fouls", -2L));
+        }
     }
-
-
-
 }

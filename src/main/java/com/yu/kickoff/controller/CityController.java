@@ -23,7 +23,7 @@ public class CityController {
     }
 
     @GetMapping("/get-all-cities")
-    public List<City> getAllCitiesNames() {
-        return cityService.getAllCitiesNames();
+    public List<City> getAllCities() {
+        return cityService.getAllCities();
     }
 }
