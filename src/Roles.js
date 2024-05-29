@@ -4,5 +4,6 @@ export const Roles = Object.freeze({
     SUPER_ADMIN: 'SUPER_ADMIN',
     PITCH_OWNER: 'PITCH_OWNER',
     ACTIVE: 'ACTIVE',
+    DISABLED: 'DISABLED',
     LOCK: 'LOCK'
   });
