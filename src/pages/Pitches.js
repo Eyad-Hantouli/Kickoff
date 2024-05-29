@@ -37,27 +37,48 @@ const Pitches = ({ user }) => {
 
     const [editMode, setEditMode] = useState(false);
     const [sortAsc, setSortAsc] = useState(true); // State to track sorting order
-    const [pitches, setPitches] = useState([
-        {id: 1, state: "lock", city: "Amman", rate: 4.37, price: 3.5, name: "PLZ1", phoneNumber: "078822****", ownerName: "Eyad Hntouli", ownerId: 1},
-        {id: 2, state: "active", city: "Amman", rate: 3.37, price: 3.5, name: "PLZ2", phoneNumber: "078822****", ownerName: "Eyad Hntouli", ownerId: 1},
-        {id: 3, state: "active", city: "Amman", rate: 1.37, price: 3.5, name: "PLZ3", phoneNumber: "078822****", ownerName: "Eyad Hntouli", ownerId: 2},
-        {id: 4, state: "active", city: "Amman", rate: 2.37, price: 3.5, name: "PLZ4", phoneNumber: "078822****", ownerName: "Eyad Hntouli", ownerId: 2},
-        {id: 5, state: "active", city: "Amman", rate: 5,    price: 3.5, name: "PLZ5", phoneNumber: "078822****", ownerName: "Eyad Hntouli", ownerId: 3},
-        {id: 6, state: "active", city: "Amman", rate: 0.3,  price: 3.5, name: "PLZ6", phoneNumber: "078822****", ownerName: "Eyad Hntouli", ownerId: 4}
-    ]);
+    // const [pitches, setPitches] = useState([
+    //     {id: 1, state: "lock", city: "Amman", rate: 4.37, price: 3.5, name: "PLZ1", phoneNumber: "078822****", ownerName: "Eyad Hntouli", ownerId: 1},
+    //     {id: 2, state: "active", city: "Amman", rate: 3.37, price: 3.5, name: "PLZ2", phoneNumber: "078822****", ownerName: "Eyad Hntouli", ownerId: 1},
+    //     {id: 3, state: "active", city: "Amman", rate: 1.37, price: 3.5, name: "PLZ3", phoneNumber: "078822****", ownerName: "Eyad Hntouli", ownerId: 2},
+    //     {id: 4, state: "active", city: "Amman", rate: 2.37, price: 3.5, name: "PLZ4", phoneNumber: "078822****", ownerName: "Eyad Hntouli", ownerId: 2},
+    //     {id: 5, state: "active", city: "Amman", rate: 5,    price: 3.5, name: "PLZ5", phoneNumber: "078822****", ownerName: "Eyad Hntouli", ownerId: 3},
+    //     {id: 6, state: "active", city: "Amman", rate: 0.3,  price: 3.5, name: "PLZ6", phoneNumber: "078822****", ownerName: "Eyad Hntouli", ownerId: 4}
+    // ]);
 
     // Function to handle sorting
     const handleSort = () => {
-        const sortedPitches = [...pitches].sort((a, b) => {
-            if (!sortAsc) {
-                return a.rate - b.rate;
-            } else {
-                return b.rate - a.rate;
-            }
-        });
-        setSortAsc(!sortAsc); // Toggle sorting order
-        setPitches(sortedPitches);
+        // const sortedPitches = [...pitches].sort((a, b) => {
+        //     if (!sortAsc) {
+        //         return a.rate - b.rate;
+        //     } else {
+        //         return b.rate - a.rate;
+        //     }
+        // });
+        // setSortAsc(!sortAsc); // Toggle sorting order
+        // setPitches(sortedPitches);
     };
+
+    const [pitches, setPitches] = useState();
+    const [isFetched, setIsFetched] = useState(false);
+
+    useEffect(() => {
+        if (!isFetched) {
+            axios.get('http://localhost:8080/system/get-all-pitches')
+                .then(response => {
+                    console.log("PITCHES FETCH::");
+                    console.log(response.data);
+                    setPitches(response.data);
+                    setIsFetched(true);
+                    handleSort();
+                })
+                .catch(error => {
+                    console.error("There was an error fetching the pitches!", error);
+                    setPitches([]);
+            });
+        }
+    }, [isFetched]);
+
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [pitchName, setPitchName] = useState(null);
@@ -101,6 +122,8 @@ const Pitches = ({ user }) => {
             handleModal();
         }
     };
+
+    if (!isFetched) return <>Loading...</>
 
     return (
         <div className="Pitches">
@@ -182,10 +205,10 @@ const Pitches = ({ user }) => {
                                         <button>Edit Price <i className="fa-solid fa-dollar-sign"></i></button>
 
                                         
-                                        {pitch.state === "active" && 
+                                        {pitch.state === Roles.ACTIVE && 
                                             <button>Lock <i className="fa-solid fa-lock"></i></button>}
 
-                                        {pitch.state === "lock" && 
+                                        {pitch.state === Roles.LOCK && 
                                             <button>Lock <i className="fa-solid fa-lock-open"></i></button>}
                                         <button className="remove-pitch-button">Remove <i className="fa-solid fa-ban"></i></button>
 
