@@ -47,6 +47,7 @@
 .AddPitchRequests .images img {
     display: block;
     /* flex-grow: 1; */
+    max-width: 280px;
     aspect-ratio: 10/16;
 }
 

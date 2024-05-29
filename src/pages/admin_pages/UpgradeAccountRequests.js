@@ -4,7 +4,7 @@ import axios from "axios";
 
 const UpgradeAccountRequests = () => {
 
-    const [leaderboard, setLeaderboard] = useState();
+    const [requests, setRequests] = useState();
     const [isFetched, setIsFetched] = useState(false);
 
     useEffect(() => {
@@ -13,12 +13,12 @@ const UpgradeAccountRequests = () => {
                 .then(response => {
                     console.log("HOOOOOOOOOOOOOOOOOOOOOOOOO:");
                     console.log(response.data[0]);
-                    setLeaderboard(response.data);
+                    setRequests(response.data);
                     setIsFetched(true);
                 })
                 .catch(error => {
                     console.error("There was an error fetching the cities!", error);
-                    setLeaderboard([]);
+                    setRequests([]);
             });
         }
     }, [isFetched]);
@@ -65,13 +65,13 @@ const UpgradeAccountRequests = () => {
     //     }
     // ]
 
-    if(!leaderboard) return <>Loading...</>
+    if(!requests) return <>Loading...</>
 
     return (
         <div className="UpgradeAccountRequests">
             <div className="container">
                 {
-                    leaderboard.map(row => {
+                    requests.map(row => {
                         return <>
                             <div className="cardd">
                                 <div className="left-side coll">

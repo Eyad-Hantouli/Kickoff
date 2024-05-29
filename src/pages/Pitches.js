@@ -1,13 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/pitches.css";
 import RefereeRateStars from "../components/RefereeRateStars";
 import { Roles } from "../Roles";
+import axios from "axios";
 
 const Pitches = ({ user }) => {
     const navigate = useNavigate();
 
     const [modal, setModal] = useState(false);
+
+    const [cities, setCities] = useState([]);
+    const [selectedCity, setSelectedCity] = useState();
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/system/get-all-cities')
+        .then(response => {
+            console.log(response.data);
+            setCities(response.data);
+        })
+        .catch(error => {
+            console.error("There was an error fetching the cities!", error);
+        });
+      }, []);
+
+    const handleCityChange = (event) => {
+        setSelectedCity(event.target.value);
+    }
 
     const handleModal = () => {
         setModal(c => !c);
@@ -43,16 +62,45 @@ const Pitches = ({ user }) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [pitchName, setPitchName] = useState(null);
     const [pitchPrice, setPitchPrice] = useState(null);
+    const [pitchAddress, setPitchAddress] = useState(null);
 
     const handleFileChange = (event) => {
         setSelectedFile(event.target.files[0]);
     };
 
-    const handleAddPitch = () => {
-        if (selectedFile && pitchName && pitchPrice)
-            console.log("Pitch Added: " + selectedFile.name + " | Name: " + pitchName + " | Price: " + pitchPrice);
-        handleModal();
-    }
+    const handleAddPitch = async () => {
+        if (selectedFile) {
+            console.log({
+                'username': user.username,
+                'cityName': selectedCity,
+                'pitchName': pitchName,
+                'price': parseFloat(pitchPrice),
+                'address': pitchAddress,
+                'ownershipDocumentation': selectedFile
+            });
+    
+            const formData = new FormData();
+            formData.append('username', user.username);
+            formData.append('cityName', selectedCity);
+            formData.append('pitchName', pitchName);
+            formData.append('price', parseFloat(pitchPrice));
+            formData.append('address', pitchAddress);
+            formData.append('ownershipDocumentation', selectedFile);
+    
+            try {
+                await axios.post('http://localhost:8080/system/add-pitch-requests', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                console.log('Add pitch request submitted successfully!');
+            } catch (error) {
+                console.error('Error submitting Add pitch request:', error);
+                console.log('Failed to submit Add pitch request. Please try again later.');
+            }
+            handleModal();
+        }
+    };
 
     return (
         <div className="Pitches">
@@ -62,6 +110,14 @@ const Pitches = ({ user }) => {
                         <h4>Add Pitch</h4>
                         <input onChange = {(e) => {setPitchName(e.target.value)}} className = "data-input" type="text" placeholder="Name"/>
                         <input onChange = {(e) => {setPitchPrice(e.target.value)}} className = "data-input" type="number" placeholder="Price"/>
+                        <input onChange = {(e) => {setPitchAddress(e.target.value)}} className = "data-input" type="text" placeholder="Address"/>
+
+                        <label className="city-label" htmlFor="inputState">City</label>
+                        <select id="inputState" className="form-control" value={selectedCity} onChange={handleCityChange}>
+                            {cities.map((city) => (
+                                <option key={city.id} value={city.name}>{city.name}</option>
+                            ))}
+                        </select>
                         <div>
                             <h6>Ownership Documentation:</h6>
                             <input type="file" onChange={handleFileChange} />

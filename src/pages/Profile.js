@@ -98,6 +98,14 @@ const Profile = ({ user }) => {
             formData.append('idCardFace1', selectedFace1);
             formData.append('idCardFace2', selectedFace2);
 
+            console.log(
+                {
+                    'username': username,
+            'idCardFace1': selectedFace1,
+            'idCardFace2': selectedFace2
+                }
+            )
+
             try {
                 await axios.post('http://localhost:8080/system/upgrade-account-requests', formData, {
                     headers: {
