@@ -20,9 +20,29 @@ public class AddPitchRequest {
     @JoinColumn(name = "author_id")
     private User author;
 
+    private String pitchName;
+    private Double price;
+    private String address;
+
     @Lob
     @Column(name = "ownership_documentation")
     private byte[] ownershipDocumentation;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city ;
+
+    public AddPitchRequest() {
+    }
+
+    public AddPitchRequest(User author, String pitchName, Double price, String address, byte[] ownershipDocumentation, City city) {
+        this.author = author;
+        this.pitchName = pitchName;
+        this.price = price;
+        this.address = address;
+        this.ownershipDocumentation = ownershipDocumentation;
+        this.city = city;
+    }
 
     // Getters and setters
 
@@ -40,6 +60,38 @@ public class AddPitchRequest {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public String getPitchName() {
+        return pitchName;
+    }
+
+    public void setPitchName(String pitchName) {
+        this.pitchName = pitchName;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public byte[] getOwnershipDocumentation() {

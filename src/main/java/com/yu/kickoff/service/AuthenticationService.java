@@ -63,8 +63,6 @@ public class AuthenticationService {
             objectService.getStringValue(requestData, "address"),
             passwordEncoder.encode(objectService.getStringValue(requestData, "password")),
             objectService.getStringValue(requestData, "phoneNumber"),
-            objectService.getStringValue(requestData, "idCardOne"),
-            objectService.getStringValue(requestData, "idCardTwo"),
             cityService.getCityByName(
                     objectService.getStringValue(requestData, "city")
             )

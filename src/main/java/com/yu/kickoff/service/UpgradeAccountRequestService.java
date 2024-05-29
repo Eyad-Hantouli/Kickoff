@@ -71,6 +71,13 @@ public class UpgradeAccountRequestService {
     public void acceptRequest(String username) {
         User user = userService.getUserByUsername(username);
         user.setRole(Role.PITCH_OWNER);
+        List<UpgradeAccountRequest> obj = upgradeAccountRequestRepository.findAllByAuthor(user);
+
+        for (UpgradeAccountRequest item : obj) {
+            user.setIdCardOne(item.getIdCardFace1());
+            user.setIdCardTwo(item.getIdCardFace2());
+        }
+
         userRepository.save(user);
 
         upgradeAccountRequestRepository.deleteByAuthor(user);

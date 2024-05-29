@@ -33,6 +33,7 @@ public class UserService {
     public Map<String, Object> getUserData(User user) {
         Map<String, Object> response = new HashMap<>();
 
+        response.put("id", user.getId());
         response.put("username", user.getUsername());
         response.put("firstName", user.getFirstName());
         response.put("midName", user.getMidName());

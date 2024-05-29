@@ -34,8 +34,8 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
     private String phoneNumber;
-    private String idCardOne ;
-    private String idCardTwo ;
+    private byte[] idCardOne ;
+    private byte[] idCardTwo ;
     @Enumerated(value = EnumType.STRING)
     private Role role;
     @Enumerated(value = EnumType.STRING)
@@ -45,7 +45,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String firstName, String midName, String lastName, LocalDate bod, String address, String password, String phoneNumber, String idCardOne, String idCardTwo, City city) {
+    public User(String username, String firstName, String midName, String lastName, LocalDate bod, String address, String password, String phoneNumber, City city) {
         this.username = username;
         this.firstName = firstName;
         this.midName = midName;
@@ -54,8 +54,6 @@ public class User implements UserDetails {
         this.address = address;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.idCardOne = idCardOne;
-        this.idCardTwo = idCardTwo;
         this.timestamp = new Timestamp(System.currentTimeMillis());
         this.city = city;
         this.role = Role.ADMIN;
@@ -182,19 +180,19 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getIdCardOne() {
+    public byte[] getIdCardOne() {
         return idCardOne;
     }
 
-    public void setIdCardOne(String idCardOne) {
+    public void setIdCardOne(byte[] idCardOne) {
         this.idCardOne = idCardOne;
     }
 
-    public String getIdCardTwo() {
+    public byte[] getIdCardTwo() {
         return idCardTwo;
     }
 
-    public void setIdCardTwo(String idCardTwo) {
+    public void setIdCardTwo(byte[] idCardTwo) {
         this.idCardTwo = idCardTwo;
     }
 

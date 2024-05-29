@@ -23,14 +23,14 @@ public class Pitch {
     private String status ;
     private String address;
     @Column(name ="ownership_document" )
-    private String ownershipDocument ;
+    private byte[] ownershipDocument ;
     private Timestamp timestamp ;
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private User authorId ;
+    private User author ;
     @ManyToOne
     @JoinColumn(name = "city_id")
-    private City cityId ;
+    private City city ;
     // relation with MatchSchedule //
     // relation with match //
     // relation with SpecialReservation //
@@ -39,17 +39,15 @@ public class Pitch {
     }
     // all para const //
 
-    public Pitch(Long id, String name, Double price, Double rate, String status, String ownershipDocument, String address, Timestamp timestamp, User authorId, City cityId) {
-        this.id = id;
+    public Pitch(String name, Double price, byte[] ownershipDocument, String address, User author, City city) {
         this.name = name;
         this.price = price;
-        this.rate = rate;
-        this.status = status;
+        this.status = "ACTIVE";
         this.ownershipDocument = ownershipDocument;
         this.address = address;
         this.timestamp = new Timestamp(System.currentTimeMillis());
-        this.authorId = authorId;
-        this.cityId = cityId;
+        this.author = author;
+        this.city = city;
     }
     // getter and setter //
     public Long getId() {
@@ -92,11 +90,11 @@ public class Pitch {
         this.status = status;
     }
 
-    public String getOwnershipDocument() {
+    public byte[] getOwnershipDocument() {
         return ownershipDocument;
     }
 
-    public void setOwnershipDocument(String ownershipDocument) {
+    public void setOwnershipDocument(byte[] ownershipDocument) {
         this.ownershipDocument = ownershipDocument;
     }
 
@@ -117,18 +115,18 @@ public class Pitch {
     }
 
     public User getAuthorId() {
-        return authorId;
+        return author;
     }
 
     public void setAuthorId(User authorId) {
-        this.authorId = authorId;
+        this.author = authorId;
     }
 
     public City getCityId() {
-        return cityId;
+        return city;
     }
 
     public void setCityId(City cityId) {
-        this.cityId = cityId;
+        this.city = cityId;
     }
 }
