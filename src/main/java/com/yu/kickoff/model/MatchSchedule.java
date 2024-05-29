@@ -26,10 +26,9 @@ public class MatchSchedule {
     private Pitch pitchId ;
     public MatchSchedule() {
     }
-    public MatchSchedule(Long id, Timestamp startTime, String status, Timestamp timestamp, Pitch pitchId) {
-        this.id = id;
+    public MatchSchedule(Timestamp startTime, Pitch pitchId) {
         this.startTime = startTime;
-        this.status = status;
+        this.status = "ACTIVE";
         this.timestamp = new Timestamp(System.currentTimeMillis());
         this.pitchId = pitchId;
     }

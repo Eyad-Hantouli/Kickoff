@@ -62,4 +62,7 @@ public class PitchService {
         return response;
     }
 
+    public Pitch getPitchByPitchId(Long pitchId) {
+        return pitchRepository.findById(pitchId).orElseThrow(() -> new IllegalArgumentException("Pitch Id not found !"));
+    }
 }
