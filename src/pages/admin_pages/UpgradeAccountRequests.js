@@ -10,8 +10,6 @@ const UpgradeAccountRequests = () => {
     useEffect(() => {
       axios.get('http://localhost:8080/system/get-upgrade-account-requests')
         .then(response => {
-          console.log("HOOOOOOOOOOOOOOOOOOOOOOOOO:");
-          console.log(response.data[0]);
           setRequests(response.data);
         })
         .catch(error => {
@@ -24,14 +22,11 @@ const UpgradeAccountRequests = () => {
         try {
           const response = await axios.delete(`http://localhost:8080/system/reject-upgrade-account-requests/${username}`, { username });
           if (response.status === 200) {
-            console.log('Request rejected successfully');
           } else {
-            console.log('Failed to reject request');
           }
           setUpdate(curr => !curr);
         } catch (error) {
           console.error('Error:', error);
-          console.log('Error rejecting request');
         }
       };
     
@@ -39,14 +34,12 @@ const UpgradeAccountRequests = () => {
         try {
           const response = await axios.put(`http://localhost:8080/system/accept-upgrade-account-requests/${username}`, { username });
           if (response.status === 200) {
-            console.log('Request accepted successfully');
           } else {
-            console.log('Failed to accept request');
           }
           setUpdate(curr => !curr);
         } catch (error) {
           console.error('Error:', error);
-          console.log('Error accepting request' + " " + username);
+          console.error('Error accepting request' + " " + username);
         }
       };
       

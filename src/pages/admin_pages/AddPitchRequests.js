@@ -25,8 +25,6 @@ const AddPitchRequests = () => {
     useEffect(() => {
       axios.get('http://localhost:8080/system/get-add-pitch-requests')
           .then(response => {
-              console.log("HOOOOOOOOOOOOOOOOOOOOOOOOO:");
-              console.log(response.data[0]);
               setRequests(response.data);
           })
           .catch(error => {
@@ -39,14 +37,11 @@ const AddPitchRequests = () => {
         try {
           const response = await axios.delete(`http://localhost:8080/system/reject-add-pitch-requests/${id}`, { id });
           if (response.status === 200) {
-            console.log('Request rejected successfully');
             setUpdate(curr => !curr);
           } else {
-            console.log('Failed to reject request');
           }
         } catch (error) {
           console.error('Error:', error);
-          console.log('Error rejecting request');
         }
       };
     
@@ -54,14 +49,11 @@ const AddPitchRequests = () => {
         try {
           const response = await axios.put(`http://localhost:8080/system/accept-add-pitch-requests/${id}`, { id });
           if (response.status === 200) {
-            console.log('Request accepted successfully');
             setUpdate(curr => !curr);
           } else {
-            console.log('Failed to accept request');
           }
         } catch (error) {
           console.error('Error:', error);
-          console.log('Error accepting request' + " " + id);
         }
       };
 

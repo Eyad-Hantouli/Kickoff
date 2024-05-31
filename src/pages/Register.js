@@ -3,7 +3,7 @@ import "../styles/register.css"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { handleAlert } from "../components/handleAlertFunction";
-import { Colors } from "../Colors";
+import { Colors } from "../ColorsEnum";
 
 const Register = () => {
 
@@ -21,7 +21,6 @@ const Register = () => {
         if (!localStorage.getItem("user") && !isFetched) {
           axios.get('http://localhost:8080/system/get-all-cities')
             .then(response => {
-              console.log(response.data);
               setCities(response.data);
               setIsFetched(true);
             })
@@ -49,20 +48,6 @@ const Register = () => {
     // Function to handle city selection
     const handleCityChange = (event) => {
         setSelectedCity(event.target.value);
-
-        // console.log({
-        //     "username" : username,
-        //     "firstName" : firstName,
-        //     "midName" : midName, 
-        //     "lastName" : lastName,
-        //     "bod" : bod ,
-        //     "address" : address , 
-        //     "password" : password,
-        //     "phoneNumber" : phoneNumber ,
-        //     "idCardOne" : idCardOne ,
-        //     "idCardTwo" : idCardTwo,
-        //     "city": selectedCity
-        // })
     };
 
     if (localStorage.getItem("user")) {
@@ -87,7 +72,6 @@ const Register = () => {
             });
           
           if ((response.status === 200 || response.status === 201) && response.data.token !== null) {
-            console.log('Registration successful:', response.data);
             navigate("/login");
           }
           else {

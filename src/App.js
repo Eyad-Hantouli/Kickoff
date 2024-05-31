@@ -44,7 +44,6 @@ function App() {
   }, [])
 
   if (!user) return <>Loading...</>
-  console.log(user);
 
   return (
     <>
@@ -67,9 +66,9 @@ function App() {
               <Route path="/matchhistory/:username" element={<MatchHistory />} />
               
               <Route path="/pitches/" element={<Pitches user={user}/>} />
-              <Route path="/pitches/:pitchId/matches" element={<Matches />} />
+              <Route path="/pitches/:pitchId/matches" element={<Matches user={user}/>} />
 
-              <Route path="/pitches/:pitchId/matches/:matchId" element={<MatchRegister />} />
+              <Route path="/pitches/:pitchId/matches/:matchId" element={<MatchRegister user={user}/>} />
 
               <Route element={<AdminRoute user={user}/>}>
                 <Route path="/admin-panel" element={<AdminPanel />} />

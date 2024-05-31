@@ -43,7 +43,7 @@ const Home = () => {
             });
 
           } catch (error) {
-            console.log("Error in sending contact us message");
+            console.error("Error in sending contact us message");
           }
     }
 

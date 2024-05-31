@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/pitches.css";
 import RefereeRateStars from "../components/RefereeRateStars";
-import { Roles } from "../Roles";
+import { Roles } from "../RolesEnum";
 import axios from "axios";
 import { handleAlert } from "../components/handleAlertFunction";
-import { Colors } from "../Colors";
+import { Colors } from "../ColorsEnum";
 
 const Pitches = ({ user }) => {
     const navigate = useNavigate();
@@ -22,7 +22,6 @@ const Pitches = ({ user }) => {
     useEffect(() => {
         axios.get('http://localhost:8080/system/get-all-cities')
         .then(response => {
-            console.log(response.data);
             setCities(response.data);
         })
         .catch(error => {
@@ -73,8 +72,6 @@ const Pitches = ({ user }) => {
         if (!isFetched) {
             axios.get('http://localhost:8080/system/get-all-pitches')
                 .then(response => {
-                    console.log("PITCHES FETCH::");
-                    console.log(response.data);
                     setPitches(response.data);
                     setIsFetched(true);
                     handleSort();
@@ -98,14 +95,6 @@ const Pitches = ({ user }) => {
 
     const handleAddPitch = async () => {
         if (selectedFile) {
-            console.log({
-                'username': user.username,
-                'cityName': selectedCity,
-                'pitchName': pitchName,
-                'price': parseFloat(pitchPrice),
-                'address': pitchAddress,
-                'ownershipDocumentation': selectedFile
-            });
     
             const formData = new FormData();
             formData.append('username', user.username);
@@ -121,12 +110,10 @@ const Pitches = ({ user }) => {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
-                console.log('Add pitch request submitted successfully!');
                 alert("Request submitted successfully.", Colors.GREEN);
                 
             } catch (error) {
                 console.error('Error submitting Add pitch request:', error);
-                console.log('Failed to submit Add pitch request. Please try again later.');
                 alert("Faild to send request.", Colors.RED);
             }
             handleModal();
@@ -181,8 +168,8 @@ const Pitches = ({ user }) => {
                             )}
                         </div>
                         <div className="modal-btn-holder">
-                            <button onClick={handleModal}>Cancel <i class="fa-solid fa-circle-xmark"></i></button>
-                            <button onClick={handleAddPitch}>Add <i class="fa-solid fa-plus"></i></button>
+                            <button onClick={handleModal}>Cancel <i className="fa-solid fa-circle-xmark"></i></button>
+                            <button onClick={handleAddPitch}>Add <i className="fa-solid fa-plus"></i></button>
                         </div>
                     </div>
             </div>}
@@ -190,9 +177,6 @@ const Pitches = ({ user }) => {
                 <div className="filters_container">
                     <select name="city" id="city" className="city-filter" onChange={(e) => {setFilterCity(e.target.value)}}>
                         <option value="Any" defaultChecked>City - Any</option>
-                        {/* <option value="Amman">Amman</option>
-                        <option value="Jerrash">Jerrash</option>
-                        <option value="Irbid">Irbid</option> */}
                         {
                             cities.map(city => {
                                 return <option value={city.name}>{city.name}</option>
@@ -208,7 +192,7 @@ const Pitches = ({ user }) => {
                     <button className="edit-mode-on" onClick={() => {setEditMode(true)}}>Edit mode <i className="fa-solid fa-hammer"></i></button>}
 
                     {editMode && 
-                    <button className="edit-mode-off" onClick={() => {setEditMode(false)}}>Edit mode <i class="fa-solid fa-door-open"></i></button>}
+                    <button className="edit-mode-off" onClick={() => {setEditMode(false)}}>Edit mode <i className="fa-solid fa-door-open"></i></button>}
 
                     {editMode && 
                     <button className="add-pitch" onClick={handleModal}>Add Pitch <i className="fa-solid fa-plus"></i></button>}

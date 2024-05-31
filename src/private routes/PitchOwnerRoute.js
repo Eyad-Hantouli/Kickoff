@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { Roles } from "../Roles";
+import { Roles } from "../RolesEnum";
 
 const PitchOwnerRoute = ({ user }) => {
 

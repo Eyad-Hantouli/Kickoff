@@ -3,7 +3,7 @@ import "../styles/login.css"
 import { useState } from "react";
 import axios from "axios";
 import { handleAlert } from "../components/handleAlertFunction";
-import { Colors } from "../Colors";
+import { Colors } from "../ColorsEnum";
 
 const Login = ({ setUser }) => {
 

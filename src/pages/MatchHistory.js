@@ -15,15 +15,12 @@ const MatchHistory = () => {
             const response = await axios.get(`http://localhost:8080/system/match-history/${username}`);
             setMatchesData(response.data);
         } catch (error) {
-            console.log("Error in fetching match history")
             setMatchesData({});
         }
         };
 
         fetchUserStatistics();
     }, []);
-
-    console.log(matchesData);
 
     if (!matchesData) return<>Loading...</>
 

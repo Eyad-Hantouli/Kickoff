@@ -8,7 +8,6 @@ const Leaderboard = () => {
     const [limit, setLimit] = useState(10);
 
     function render_show_more_btn() {
-        console.log(rankNumber + ", " + limit);
         return rankNumber < leaderboard.length;
     }
 
@@ -19,7 +18,6 @@ const Leaderboard = () => {
         if (!isFetched) {
           axios.get('http://localhost:8080/system/leaderboard')
             .then(response => {
-              console.log(response.data);
               setLeaderboard(response.data);
               setIsFetched(true);
             })

@@ -2,10 +2,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import "../styles/profile.css"
 import RefereeRateStars from "../components/RefereeRateStars";
 import { useEffect, useState } from "react";
-import { Roles } from "../Roles";
+import { Roles } from "../RolesEnum";
 import axios from "axios";
 import { handleAlert } from "../components/handleAlertFunction";
-import { Colors } from "../Colors";
+import { Colors } from "../ColorsEnum";
 
 const Profile = ({ user }) => {
 
@@ -21,15 +21,9 @@ const Profile = ({ user }) => {
 
     const handleModal = () => {
         setModal(c => !c);
-        // setPitchName(null);
-        // setPitchPrice(null);
         setSelectedFace1(null);
         setSelectedFace2(null);
     }
-
-    // WORKING
-    // WORKING
-    // WORKING
     const [userStatistics, setUserStatistics] = useState(null);
     const [userData, setUserData] = useState(null);
     const [error, setError] = useState(null);
@@ -57,12 +51,7 @@ const Profile = ({ user }) => {
 
         fetchUserData();
     }, [username]);
-    // WORKING
-    // WORKING
-    // WORKING
-
-    console.log(userStatistics);
-
+    
     const data = {
         admin: false,
         name: "Eyad Hantouli",
@@ -85,8 +74,6 @@ const Profile = ({ user }) => {
 
     const [selectedFace1, setSelectedFace1] = useState(null);
     const [selectedFace2, setSelectedFace2] = useState(null);
-    // const [pitchName, setPitchName] = useState(null);
-    // const [pitchPrice, setPitchPrice] = useState(null);
 
     const handleFace1Change = (event) => {
         setSelectedFace1(event.target.files[0]);
@@ -103,14 +90,6 @@ const Profile = ({ user }) => {
             formData.append('idCardFace1', selectedFace1);
             formData.append('idCardFace2', selectedFace2);
 
-            console.log(
-                {
-                    'username': username,
-            'idCardFace1': selectedFace1,
-            'idCardFace2': selectedFace2
-                }
-            )
-
             try {
                 await axios.post('http://localhost:8080/system/upgrade-account-requests', formData, {
                     headers: {
@@ -118,13 +97,11 @@ const Profile = ({ user }) => {
                     }
                 });
 
-                console.log('Upgrade request submitted successfully!');
                 alert("Request sent successfuly.", Colors.GREEN);
 
             } catch (error) {
 
                 console.error('Error submitting upgrade request:', error);
-                console.log('Failed to submit upgrade request. Please try again later.');
                 alert("Request already sent !", Colors.RED);
 
             }
@@ -142,8 +119,7 @@ const Profile = ({ user }) => {
                 <div className="background" onClick={handleModal}></div>
                     <div className="modal-box">
                         <h4>Upgrade Account</h4>
-                        {/* <input required onChange = {(e) => {setPitchName(e.target.value)}} className = "data-input" type="text" placeholder="Name"/>
-                        <input required onChange = {(e) => {setPitchPrice(e.target.value)}} className = "data-input" type="number" placeholder="Price"/> */}
+                        
                         <div>
                             <h6>ID card face 1:</h6>
                             <input required type="file" onChange={handleFace1Change} />
@@ -161,8 +137,8 @@ const Profile = ({ user }) => {
                             )}
                         </div>
                         <div className="modal-btn-holder">
-                            <button onClick={handleModal}>Cancel <i class="fa-solid fa-circle-xmark"></i></button>
-                            <button onClick={handleUpgradeAccount}>Upgrade <i class="fa-solid fa-star"></i></button>
+                            <button onClick={handleModal}>Cancel <i className="fa-solid fa-circle-xmark"></i></button>
+                            <button onClick={handleUpgradeAccount}>Upgrade <i className="fa-solid fa-star"></i></button>
                         </div>
                     </div>
             </div>}
@@ -194,7 +170,7 @@ const Profile = ({ user }) => {
                         }
                     </ul>
                     {   profileOwner && user.role === Roles.USER &&
-                        <button className="upgrade-acc" onClick={handleModal}>Upgrade Account <i class="fa-solid fa-star"></i></button>
+                        <button className="upgrade-acc" onClick={handleModal}>Upgrade Account <i className="fa-solid fa-star"></i></button>
                     }
                 </div>
             </div>
@@ -226,9 +202,6 @@ const Profile = ({ user }) => {
                                 <span>join date:</span>
                                 <span>{userData.joinDate}</span>
                             </li>
-                            {/* <li>
-                                <span>referee rate: <RefereeRateStars value = {1}/></span>
-                            </li> */}
                         </ul>
                     </div>
                     {!profileOwner &&

@@ -1,56 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../styles/matches.css";
 import RefereeRateStars from "../components/RefereeRateStars";
 import MatchPosition from "../components/MatchPosition";
+import { Position } from "../PositionsEnum";
+import axios from "axios";
 
-const Matches = () => {
+const Matches = ({ user }) => {
     const { pitchId } = useParams();
     const navigate = useNavigate();
-    const [matches, setMatches] = useState([
-        {id: 1, time: "11:00", score_sum: 400, registered_players: 3, positions: [
-                {username: null},           // 0
-                {username: null},           // 1
-                {username: "yamn881"},      // 2
-                {username: "eyad_h"},       // 3
-                {username: null},           // 4
-                {username: null},           // 5
-                {username: null},           // 6
-                {username: "haytham001"},   // 7
-                {username: null},           // 8
-                {username: null},           // 9
-                {username: null}           // 10
-            ]
-        },
-        {id: 2, time: "13:00", score_sum: 1200, registered_players: 2, positions: [
-                {username: null},           // 0
-                {username: "yamn881"},      // 1
-                {username: "eyad_h"},       // 2
-                {username: null},           // 3
-                {username: null},           // 4
-                {username: null},           // 5
-                {username: null},           // 6
-                {username: null},           // 7
-                {username: null},           // 8
-                {username: null},           // 9
-                {username: null}           // 10
-            ]
-        },
-        {id: 3, time: "16:00", score_sum: 120, registered_players: 1, positions: [
-                {username: null},           // 0
-                {username: null},           // 1
-                {username: null},           // 2
-                {username: null},           // 3
-                {username: null},           // 4
-                {username: null},           // 5
-                {username: null},           // 6
-                {username: "haytham001"},   // 7
-                {username: null},           // 8
-                {username: null},           // 9
-                {username: null}           // 10
-            ]
-        }
-    ]);
+    
+    const [matches, setMatches] = useState([]);
+    const [update, setUpdate] = useState(false);
+
+    useEffect(() => {
+            axios.get(`http://localhost:8080/system/get-all-matches/pitch/${pitchId}/user/${user.username}`)
+                .then(response => {
+                    setMatches(response.data);
+                })
+                .catch(error => {
+                    console.error("There was an error fetching the pitches!", error);
+            });
+    }, [update]);
 
     const [sortAscByScore, setSortAscByScore] = useState(true);
     const [sortAscByPlayersNumber, setSortAscByPlayersNumber] = useState(true);
@@ -86,9 +57,9 @@ const Matches = () => {
                 <div className="filters_container">
                     <select name="free-pos" id="free-pos" className="free-pos">
                         <option value="Any" defaultChecked>Free Position - Any</option>
-                        <option value="NORMAL_PLAYER">Normal Player</option>
-                        <option value="GOAL_KEEPER">Goal Keeper</option>
-                        <option value="REFEREE">Referee</option>
+                        <option value={Position.NORMAL_PLAYER}>Normal Player</option>
+                        <option value={Position.GOAL_KEEPER}>Goal Keeper</option>
+                        <option value={Position.REFEREE}>Referee</option>
                     </select>
                     <select name="referee" id="referee" className="referee">
                         <option value="referee">Has referee</option>
@@ -106,42 +77,43 @@ const Matches = () => {
                         return <div className="match-box-container" key={match.id}>
                             <div className="match-box">
                                 <header>
-                                    <div className="match-time">{match.time} <i class="fa-regular fa-clock"></i></div>
+                                    <div className="match-time">{match.time} <i className="fa-regular fa-clock"></i></div>
+                                    <div className="total-score">{match.day.substring(0, 3)} <i className="fa-regular fa-calendar-days"></i></div>
                                     <div className="total-score">{match.score_sum} <i className="fa-brands fa-web-awesome"></i></div>
                                 </header>
                                 <section className="match-button">
                                     <div className="positions">
-                                        <div className="side side-1 keeper">
-                                            <MatchPosition username={match.positions[1].username} register={false}/>
-                                        </div>
-                                        <div className="side side-2">
-                                            <MatchPosition username={match.positions[2].username} register={false}/>
-                                            <MatchPosition username={match.positions[3].username} register={false}/>
-                                        </div>
-                                        <div className="side side-3">
-                                            <MatchPosition username={match.positions[4].username} register={false}/>
-                                            <MatchPosition username={match.positions[5].username} register={false}/>
-                                        </div>
+                                    <div className="side side-1 keeper">
+                                        <MatchPosition teamNumber={1} positionNumber={1} position={Position.GOAL_KEEPER} match={match} source_user={user} target_user={match.positions[1]} register={false}/>
+                                    </div>
+                                    <div className="side side-2">
+                                        <MatchPosition teamNumber={1} positionNumber={2} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[2]} register={false}/>
+                                        <MatchPosition teamNumber={1} positionNumber={3} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[3]} register={false}/>
+                                    </div>
+                                    <div className="side side-3">
+                                        <MatchPosition teamNumber={1} positionNumber={4} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[4]} register={false}/>
+                                        <MatchPosition teamNumber={1} positionNumber={5} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[5]} register={false}/>
+                                    </div>
 
-                                        <div className="side side-4 judge">
-                                            <i className="fa-solid fa-flag-checkered referee-pos"></i>
-                                        </div>
+                                    <div className="side side-4 judge">
+                                        <i className="fa-solid fa-flag-checkered referee-pos"></i>
+                                    </div>
 
-                                        <div className="side side-5">
-                                            <MatchPosition username={match.positions[6].username} register={false}/>
-                                            <MatchPosition username={match.positions[7].username} register={false}/>
-                                        </div>
-                                        <div className="side side-6">
-                                            <MatchPosition username={match.positions[8].username} register={false}/>
-                                            <MatchPosition username={match.positions[9].username} register={false}/>
-                                        </div>
-                                        <div className="side side-7 keeper">
-                                            <MatchPosition username={match.positions[10].username} register={false}/>
-                                        </div>
+                                    <div className="side side-5">
+                                        <MatchPosition teamNumber={2} positionNumber={6} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[6]} register={false}/>
+                                        <MatchPosition teamNumber={2} positionNumber={7} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[7]} register={false}/>
+                                    </div>
+                                    <div className="side side-6">
+                                        <MatchPosition teamNumber={2} positionNumber={8} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[8]} register={false}/>
+                                        <MatchPosition teamNumber={2} positionNumber={9} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[9]} register={false}/>
+                                    </div>
+                                    <div className="side side-7 keeper">
+                                        <MatchPosition teamNumber={2} positionNumber={10} position={Position.GOAL_KEEPER} match={match} source_user={user} target_user={match.positions[10]} register={false}/>
+                                    </div>
                                     </div>
                                 </section>
                                 <div className="register-btn">
-                                    <button onClick={() => {navigate("/pitches/" + pitchId + "/matches/" + match.id, { state: { match } })}}>Register <i class="fa-solid fa-paper-plane"></i></button>
+                                    <button onClick={() => {navigate("/pitches/" + pitchId + "/matches/" + match.id, { state: { match } })}}>Register <i className="fa-solid fa-paper-plane"></i></button>
                                 </div>
                             </div>
                             <hr />

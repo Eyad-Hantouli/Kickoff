@@ -2,9 +2,9 @@ import { useParams } from "react-router-dom";
 import "../../styles/matches_schedule.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Roles } from "../../Roles";
+import { Roles } from "../../RolesEnum";
 import { handleAlert } from "../../components/handleAlertFunction";
-import { Colors } from "../../Colors";
+import { Colors } from "../../ColorsEnum";
 
 const MatchesSchedule = () => {
 
@@ -44,11 +44,9 @@ const MatchesSchedule = () => {
                     "id": parseInt(id)
                 }
             }).then(() => {
-                console.log("Deleted Successfully!");
                 setIsFetched(curr => !curr);
             });
         } catch (error) {
-            console.log("Error in deleting schedule");
         }
     }
     
@@ -58,10 +56,6 @@ const MatchesSchedule = () => {
 
             const timestamp = getTimestamp(day, time);
 
-            console.log({
-                "pitchId": parseInt(pitchId),
-                "timestamp": timestamp
-            })
             try {
                 const response = await axios.post('http://localhost:8080/system/create-schedule', {
                     "pitchId": pitchId,
@@ -72,7 +66,6 @@ const MatchesSchedule = () => {
                 })
 
             } catch (error) {
-                console.log("Error in removing schedule");
                 intersectTimesAlert("There is another match within 2 hours before or after this time.");
             }
         }
@@ -87,12 +80,10 @@ const MatchesSchedule = () => {
 
     const [schedule, setSchedule] = useState([]);
     const [isFetched, setIsFetched] = useState(false);
-    console.log(pitchId);
+    
     useEffect(() => {
             axios.get(`http://localhost:8080/system/get-schedule/${pitchId}`)
                 .then(response => {
-                    console.log("Schedule fetch:");
-                    console.log(response.data);
                     setSchedule(response.data);
                 })
                 .catch(error => {
@@ -156,13 +147,13 @@ const MatchesSchedule = () => {
                             }
                         </div>
                         {/* <div>
-                            <button className="add-match-button" onClick={() => handleDay({ day: day, time: time })}>Add <i class="fa-solid fa-plus"></i></button>
+                            <button className="add-match-button" onClick={() => handleDay({ day: day, time: time })}>Add <i className="fa-solid fa-plus"></i></button>
                         </div> */}
                     </div>
             </div>}
             
             <div className="control-nav container">
-                <button className="add-match" onClick={handleModal}>Add Match <i class="fa-solid fa-plus"></i></button>
+                <button className="add-match" onClick={handleModal}>Add Match <i className="fa-solid fa-plus"></i></button>
             </div>
 
             <div className="matches-schedule-holder container">

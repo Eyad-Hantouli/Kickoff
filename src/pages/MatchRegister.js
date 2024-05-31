@@ -4,57 +4,15 @@ import "../styles/matches.css";
 import "../styles/match_register.css";
 import RefereeRateStars from "../components/RefereeRateStars";
 import MatchPosition from "../components/MatchPosition";
+import { Roles } from "../RolesEnum";
+import { Position } from "../PositionsEnum";
 
-const MatchRegister = () => {
-    const { pitchId, matchId } = useParams();
+const MatchRegister = ({ user }) => {
     const location = useLocation();
     const { match } = location.state || {};
-    const [matches, setMatches] = useState([
-        {id: 1, time: "11:00", score_sum: 400, registered_players: 3, positions: [
-                {username: null},           // 0
-                {username: null},           // 1
-                {username: "yamn881"},      // 2
-                {username: "eyad_h"},       // 3
-                {username: null},           // 4
-                {username: null},           // 5
-                {username: null},           // 6
-                {username: "haytham001"},   // 7
-                {username: null},           // 8
-                {username: null},           // 9
-                {username: null}           // 10
-            ]
-        },
-        {id: 2, time: "13:00", score_sum: 1200, registered_players: 2, positions: [
-                {username: null},           // 0
-                {username: "yamn881"},      // 1
-                {username: "eyad_h"},       // 2
-                {username: null},           // 3
-                {username: null},           // 4
-                {username: null},           // 5
-                {username: null},           // 6
-                {username: null},           // 7
-                {username: null},           // 8
-                {username: null},           // 9
-                {username: null}           // 10
-            ]
-        },
-        {id: 3, time: "16:00", score_sum: 120, registered_players: 1, positions: [
-                {username: null},           // 0
-                {username: null},           // 1
-                {username: null},           // 2
-                {username: null},           // 3
-                {username: null},           // 4
-                {username: null},           // 5
-                {username: null},           // 6
-                {username: "haytham001"},   // 7
-                {username: null},           // 8
-                {username: null},           // 9
-                {username: null}           // 10
-            ]
-        }
-    ]);
 
-
+    const [update, setUpdate] = useState(false);
+    
     return (
         <div className="Matches Register">
             <div className="container">
@@ -62,21 +20,22 @@ const MatchRegister = () => {
                     <div className="match-box-container">
                         <div className="match-box">
                             <header>
-                                <div className="match-time">{match.time} <i class="fa-regular fa-clock"></i></div>
+                                <div className="match-time">{match.time} <i className="fa-regular fa-clock"></i></div>
+                                <div className="total-score">{match.day} <i className="fa-regular fa-calendar-days"></i></div>
                                 <div className="total-score">{match.score_sum} <i className="fa-brands fa-web-awesome"></i></div>
                             </header>
                             <section className="match-button">
                                 <div className="positions">
                                     <div className="side side-1 keeper">
-                                        <MatchPosition username={match.positions[1].username} register={true}/>
+                                        <MatchPosition teamNumber={1} positionNumber={1} position={Position.GOAL_KEEPER} match={match} source_user={user} target_user={match.positions[1]} register={true}/>
                                     </div>
                                     <div className="side side-2">
-                                        <MatchPosition username={match.positions[2].username} register={true}/>
-                                        <MatchPosition username={match.positions[3].username} register={true}/>
+                                        <MatchPosition teamNumber={1} positionNumber={2} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[2]} register={true}/>
+                                        <MatchPosition teamNumber={1} positionNumber={3} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[3]} register={true}/>
                                     </div>
                                     <div className="side side-3">
-                                        <MatchPosition username={match.positions[4].username} register={true}/>
-                                        <MatchPosition username={match.positions[5].username} register={true}/>
+                                        <MatchPosition teamNumber={1} positionNumber={4} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[4]} register={true}/>
+                                        <MatchPosition teamNumber={1} positionNumber={5} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[5]} register={true}/>
                                     </div>
 
                                     <div className="side side-4 judge">
@@ -84,15 +43,15 @@ const MatchRegister = () => {
                                     </div>
 
                                     <div className="side side-5">
-                                        <MatchPosition username={match.positions[6].username} register={true}/>
-                                        <MatchPosition username={match.positions[7].username} register={true}/>
+                                        <MatchPosition teamNumber={2} positionNumber={6} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[6]} register={true}/>
+                                        <MatchPosition teamNumber={2} positionNumber={7} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[7]} register={true}/>
                                     </div>
                                     <div className="side side-6">
-                                        <MatchPosition username={match.positions[8].username} register={true}/>
-                                        <MatchPosition username={match.positions[9].username} register={true}/>
+                                        <MatchPosition teamNumber={2} positionNumber={8} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[8]} register={true}/>
+                                        <MatchPosition teamNumber={2} positionNumber={9} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[9]} register={true}/>
                                     </div>
                                     <div className="side side-7 keeper">
-                                        <MatchPosition username={match.positions[10].username} register={true}/>
+                                        <MatchPosition teamNumber={2} positionNumber={10} position={Position.GOAL_KEEPER} match={match} source_user={user} target_user={match.positions[10]} register={true}/>
                                     </div>
                                 </div>
                             </section>

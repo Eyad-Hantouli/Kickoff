@@ -10,11 +10,11 @@ const Alert = () => {
         <div className="Alert container" id = "custom-alert">
             <div className="alert-inner container">
                 <div className="LHS">
-                    <p className="message"><i class="fa-solid fa-triangle-exclamation"></i> <span id = "custom-alert-message">.</span></p>
+                    <p className="message"><i className="fa-solid fa-triangle-exclamation"></i> <span id = "custom-alert-message">.</span></p>
                 </div>
                 <div className="RHS">
                     <div>
-                        <i class="fa-solid fa-xmark" onClick={handleClose}></i>
+                        <i className="fa-solid fa-xmark" onClick={handleClose}></i>
                     </div>
                 </div>
             </div>

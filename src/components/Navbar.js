@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/navbar.css"
-import { Roles } from "../Roles";
+import { Roles } from "../RolesEnum";
 
 const Navbar = ({ user, setUser }) => {
 
