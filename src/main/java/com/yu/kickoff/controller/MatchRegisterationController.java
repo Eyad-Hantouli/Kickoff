@@ -2,10 +2,7 @@ package com.yu.kickoff.controller;
 
 import com.yu.kickoff.service.MatchRegisterationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -26,5 +23,20 @@ public class MatchRegisterationController {
             @PathVariable String username
     ) {
         return matchRegisterationService.getAllMatchesByUsername(pitchId, username);
+    }
+
+    @PostMapping(path = "/register-in-match")
+    public void registerForMatch(
+            @RequestBody Map<String, Object> request
+    ) {
+        matchRegisterationService.registerForMatch(request);
+    }
+
+    @DeleteMapping(path = "/delete-registration-in-match/schedule/{scheduleId}/user/{username}")
+    public void deleteRegisteration(
+            @PathVariable Long scheduleId,
+            @PathVariable String username
+    ) {
+        matchRegisterationService.deleteRegisteration(scheduleId, username);
     }
 }

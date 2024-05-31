@@ -2,9 +2,12 @@ package com.yu.kickoff.service;
 
 import com.yu.kickoff.model.MatchRegisteration;
 import com.yu.kickoff.model.MatchSchedule;
+import com.yu.kickoff.model.PositionEnum;
 import com.yu.kickoff.model.User;
 import com.yu.kickoff.repository.MatchRegisterationRespository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -44,9 +47,10 @@ public class MatchRegisterationService {
 
         for (Map<String, Object> match : scheduleList) {
             Map<String, Object> data = new HashMap<>();
-            List<Map<String, Object>> positions = new ArrayList<>();
+            Map<Long, Map<String, Object>> positions = new HashMap<>();
             data.put("id", match.get("id"));
             data.put("time", match.get("time"));
+            data.put("day", match.get("day"));
             data.put("state", match.get("state"));
 
             MatchSchedule matchSchedule = matchScheduleService.getScheduleById(
@@ -71,7 +75,7 @@ public class MatchRegisterationService {
 
                 userData.put("relation_type", relationType);
 
-                positions.add(userData);
+                positions.put(register.getPositionNumber(), userData);
             }
 
             data.put("score_sum", scoreSum);
@@ -82,5 +86,35 @@ public class MatchRegisterationService {
         }
 
         return response;
+    }
+
+    public void registerForMatch(Map<String, Object> request) {
+        Long scheduleId = objectService.getLongValue(request, "scheduleId");
+        String username = objectService.getStringValue(request, "username");
+        MatchSchedule matchSchedule = matchScheduleService.getScheduleById(scheduleId);
+        User user = userService.getUserByUsername(username);
+
+        PositionEnum positionEnum = null;
+        if (objectService.getStringValue(request, "position").equals(PositionEnum.REFEREE.name())) positionEnum = PositionEnum.REFEREE;
+        else if (objectService.getStringValue(request, "position").equals(PositionEnum.GOAL_KEEPER.name())) positionEnum = PositionEnum.GOAL_KEEPER;
+        else if (objectService.getStringValue(request, "position").equals(PositionEnum.NORMAL_PLAYER.name())) positionEnum = PositionEnum.NORMAL_PLAYER;
+
+        MatchRegisteration matchRegisteration = new MatchRegisteration(
+                matchSchedule,
+                user,
+                objectService.getLongValue(request, "team_number"),
+                positionEnum,
+                objectService.getLongValue(request, "position_number")
+        );
+
+        matchRegisterationRespository.save(matchRegisteration);
+    }
+
+    @Transactional
+    public void deleteRegisteration(Long scheduleId, String username) {
+        MatchSchedule matchSchedule = matchScheduleService.getScheduleById(scheduleId);
+        User user = userService.getUserByUsername(username);
+
+        matchRegisterationRespository.deleteByMatchScheduleIdAndUserName(matchSchedule, user);
     }
 }
