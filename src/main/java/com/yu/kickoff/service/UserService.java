@@ -1,16 +1,13 @@
 package com.yu.kickoff.service;
 
-import com.yu.kickoff.model.Role;
 import com.yu.kickoff.model.User;
 import com.yu.kickoff.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class UserService {

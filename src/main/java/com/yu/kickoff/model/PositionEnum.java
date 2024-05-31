@@ -1,6 +1,6 @@
 package com.yu.kickoff.model;
 
-public enum Position {
+public enum PositionEnum {
     NORMAL_PLAYER,
     GOAL_KEEPER,
     REFEREE

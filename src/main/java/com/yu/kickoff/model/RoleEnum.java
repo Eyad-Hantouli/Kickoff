@@ -1,6 +1,6 @@
 package com.yu.kickoff.model;
 
-public enum Role {
+public enum RoleEnum {
     USER,
     PITCH_OWNER,
     ADMIN,

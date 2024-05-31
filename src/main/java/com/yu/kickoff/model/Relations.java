@@ -16,13 +16,15 @@ public class Relations {
     @ManyToOne
     @JoinColumn(name = "target_user_name" , referencedColumnName = "id" , nullable = false)
     private User targetUserName ;
-    private String type ;
+
+    @Enumerated(value = EnumType.STRING)
+    private RelationEnum type ;
     private Timestamp timestamp ;
     // no para const //
     public Relations() {
     }
     // all para cons //
-    public Relations(User sourceUserName, User targetUserName, String type, Timestamp timestamp) {
+    public Relations(User sourceUserName, User targetUserName, RelationEnum type, Timestamp timestamp) {
         this.sourceUserName = sourceUserName;
         this.targetUserName = targetUserName;
         this.type = type;
@@ -45,11 +47,11 @@ public class Relations {
         this.targetUserName = targetUserName;
     }
 
-    public String getType() {
+    public RelationEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(RelationEnum type) {
         this.type = type;
     }
 

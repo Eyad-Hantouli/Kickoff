@@ -25,13 +25,13 @@ public class MatchStatistics {
     private Timestamp timestamp ;
 
     @Enumerated(value = EnumType.STRING)
-    private Position position ;
+    private PositionEnum position ;
     // no para const //
     public MatchStatistics() {
     }
     // all para const //
 
-    public MatchStatistics(Match matchId, User userName, Long goals, Long yellowCard, Long redCard, Long fouls, Long motm, Timestamp timestamp, Position position) {
+    public MatchStatistics(Match matchId, User userName, Long goals, Long yellowCard, Long redCard, Long fouls, Long motm, Timestamp timestamp, PositionEnum position) {
         this.matchId = matchId;
         this.userName = userName;
         this.goals = goals;
@@ -107,11 +107,11 @@ public class MatchStatistics {
         this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
-    public Position getPosition() {
+    public PositionEnum getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(PositionEnum position) {
         this.position = position;
     }
 }

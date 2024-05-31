@@ -26,6 +26,10 @@ public class MatchScheduleService {
         this.objectService = objectService;
     }
 
+    public MatchSchedule getScheduleById(Long id) {
+        return matchScheduleRepository.findById(id).orElseThrow(() -> new IllegalStateException("No schedule with the given id."));
+    }
+
     public List<Map<String, Object>> getAllSchedulesByPitchId(Long pitchId) {
 
         List<Map<String, Object>> response = new ArrayList<>();

@@ -16,20 +16,24 @@ public class MatchRegisteration {
     private User userName ;
     @Column(name = "team_number")
     private  Long TeamNumber ;
+
+    @Column(name = "position_number")
+    private  Long positionNumber ;
     private Timestamp timestamp ;
 
     @Enumerated(value = EnumType.STRING)
-    Position position;
+    PositionEnum position;
     // no para const //
     public MatchRegisteration() {
     }
     // all para const //
-    public MatchRegisteration(MatchSchedule matchScheduleId, User userName, Long teamNumber, Timestamp timestamp, Position position) {
+    public MatchRegisteration(MatchSchedule matchScheduleId, User userName, Long teamNumber, PositionEnum position, Long positionNumber) {
         this.matchScheduleId = matchScheduleId;
         this.userName = userName;
         TeamNumber = teamNumber;
         this.timestamp = new Timestamp(System.currentTimeMillis());
         this.position = position;
+        this.positionNumber = positionNumber;
     }
     // setter and getter //
     public MatchSchedule getMatchScheduleId() {
@@ -56,6 +60,14 @@ public class MatchRegisteration {
         TeamNumber = teamNumber;
     }
 
+    public Long getPositionNumber() {
+        return positionNumber;
+    }
+
+    public void setPositionNumber(Long positionNumber) {
+        this.positionNumber = positionNumber;
+    }
+
     public Timestamp getTimestamp() {
         return timestamp;
     }
@@ -64,11 +76,11 @@ public class MatchRegisteration {
         this.timestamp = new Timestamp(System.currentTimeMillis());
     }
 
-    public Position getPosition() {
+    public PositionEnum getPosition() {
         return position;
     }
 
-    public void setPosition(Position position) {
+    public void setPosition(PositionEnum position) {
         this.position = position;
     }
 }

@@ -1,9 +1,6 @@
 package com.yu.kickoff.service;
 
-import com.yu.kickoff.model.Role;
-import com.yu.kickoff.model.UpgradeAccountRequest;
-import com.yu.kickoff.model.UpgradeAccountRequestDTO;
-import com.yu.kickoff.model.User;
+import com.yu.kickoff.model.*;
 import com.yu.kickoff.repository.UpgradeAccountRequestRepository;
 import com.yu.kickoff.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -31,8 +28,7 @@ public class UpgradeAccountRequestService {
     public void saveRequest(UpgradeAccountRequestDTO request) {
         User user = userService.getUserByUsername(request.getUsername());
         if (upgradeAccountRequestRepository.countByAuthor(user) > 0L) {
-            System.out.println("-----------------------------\nRequest Already Sent !!!!!!\n-----------------------------");
-            return;
+            throw new IllegalStateException("Request Already Sent !");
         }
 
         UpgradeAccountRequest upgradeAccountRequest = new UpgradeAccountRequest(
@@ -70,7 +66,7 @@ public class UpgradeAccountRequestService {
     @Transactional
     public void acceptRequest(String username) {
         User user = userService.getUserByUsername(username);
-        user.setRole(Role.PITCH_OWNER);
+        user.setRole(RoleEnum.PITCH_OWNER);
         List<UpgradeAccountRequest> obj = upgradeAccountRequestRepository.findAllByAuthor(user);
 
         for (UpgradeAccountRequest item : obj) {

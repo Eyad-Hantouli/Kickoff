@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -33,11 +32,13 @@ public class User implements UserDetails {
     private String address ;
     @Column(name = "password")
     private String password;
+
+    @Column(unique = true)
     private String phoneNumber;
     private byte[] idCardOne ;
     private byte[] idCardTwo ;
     @Enumerated(value = EnumType.STRING)
-    private Role role;
+    private RoleEnum role;
     @Enumerated(value = EnumType.STRING)
     private  Status status ;
     private Timestamp timestamp;
@@ -56,7 +57,7 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
         this.timestamp = new Timestamp(System.currentTimeMillis());
         this.city = city;
-        this.role = Role.ADMIN;
+        this.role = RoleEnum.ADMIN;
         this.status = Status.ACTIVE;
     }
 
@@ -136,11 +137,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Role getRole() {
+    public RoleEnum getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(RoleEnum role) {
         this.role = role;
     }
 

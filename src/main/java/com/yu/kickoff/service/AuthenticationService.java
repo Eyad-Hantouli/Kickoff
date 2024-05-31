@@ -2,7 +2,6 @@ package com.yu.kickoff.service;
 
 
 import com.yu.kickoff.model.AuthenticationResponse;
-import com.yu.kickoff.model.Role;
 import com.yu.kickoff.model.Token;
 import com.yu.kickoff.model.User;
 import com.yu.kickoff.repository.TokenRepository;
@@ -13,7 +12,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
