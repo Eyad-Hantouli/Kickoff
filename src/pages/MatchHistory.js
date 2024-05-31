@@ -64,6 +64,8 @@ const MatchHistory = () => {
                     </div>
                 })}
             </ul>
+
+            {matchesData.length === 0 && <div className="empty-word">No Matches Played.</div>}
         </div>
     );
 };

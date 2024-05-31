@@ -64,6 +64,7 @@ const Leaderboard = () => {
                     </div>
                 }
             </div>
+            {leaderboard.length === 0 && <div className="empty-word">No Users Yet.</div>}
         </div>
     );
 };

@@ -31,7 +31,7 @@
     width: 100%;
     position: sticky;
     top: 0;
-    z-index: 999999999999;
+    z-index: 2;
     background: rgba(45, 45, 45, 0.94);
     background: rgb(0, 0, 0);
     background: linear-gradient(270deg, rgb(21 21 21 / 95%) 0%, rgb(32 32 32 / 99%) 49%, rgb(32 32 32 / 95%) 100%);

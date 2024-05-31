@@ -2,8 +2,13 @@ import { Navigate, useNavigate } from "react-router-dom";
 import "../styles/register.css"
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { handleAlert } from "../components/handleAlertFunction";
+import { Colors } from "../Colors";
 
 const Register = () => {
+
+    const wrongPasswordConfermAlert = (msg) => handleAlert(msg, Colors.RED);
+    const userTakenAlert = (msg) => handleAlert(msg, Colors.Yellow);
 
     const navigate = useNavigate();
 
@@ -66,7 +71,6 @@ const Register = () => {
 
 
     const handleRegister = async () => {
-        
         try {
           const response = await axios.post('http://localhost:8080/register', {
                 "username" : username,
@@ -88,20 +92,25 @@ const Register = () => {
           }
           else {
             if (response.data.message) {
-                alert(response.data.message);
+                userTakenAlert("Username already exist, try another one please.");
             }
             else {
-                alert("Regesteration faild");
+                wrongPasswordConfermAlert("Regesteration faild !");
             }
           }
         } catch (error) {
-            
-          console.error('Registration error:', error);
+            wrongPasswordConfermAlert("Registration error !");
+            console.error('Registration error:', error);
         }
       };
 
     function register_form_submit(event) {
         event.preventDefault();
+
+        if (confermPassword !== password)  {
+            wrongPasswordConfermAlert("Password doesnt match the Conferm password !");
+            return;
+        }
 
         handleRegister();
     }
@@ -126,7 +135,7 @@ const Register = () => {
                                             <div className="form-row">
                                                 <div className="form-group col-md-6">
                                                 <label htmlFor="inputEmail4">First Name</label>
-                                                <input
+                                                <input required
                                                     type="text"
                                                     className="form-control"
                                                     placeholder="First Name"
@@ -135,7 +144,7 @@ const Register = () => {
                                                 </div>
                                                 <div className="form-group col-md-6">
                                                     <label htmlFor="inputEmail4">Middle Name</label>
-                                                    <input
+                                                    <input required
                                                         type="text"
                                                         className="form-control"
                                                         placeholder="Middle Name"
@@ -144,7 +153,7 @@ const Register = () => {
                                                 </div>
                                                 <div className="form-group col-md-6">
                                                     <label htmlFor="inputEmail4">Last Name</label>
-                                                    <input
+                                                    <input required
                                                         type="text"
                                                         className="form-control"
                                                         placeholder="Last Name"
@@ -153,7 +162,7 @@ const Register = () => {
                                                 </div>
                                                 <div className="form-group col-md-6">
                                                     <label htmlFor="inputEmail4">Birth of date</label>
-                                                    <input
+                                                    <input required
                                                         id="datepicker"
                                                         type="date"
                                                         className="form-control"
@@ -174,7 +183,7 @@ const Register = () => {
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="inputAddress">Address</label>
-                                                <input
+                                                <input required
                                                 type="text"
                                                 className="form-control"
                                                 id="inputAddress"
@@ -186,7 +195,7 @@ const Register = () => {
                                             <div className="form-row">
                                                 <div className="form-group col-md-6">
                                                     <label htmlFor="inputEmail4">Username</label>
-                                                    <input
+                                                    <input required
                                                         type="text"
                                                         className="form-control"
                                                         placeholder="Username"
@@ -195,7 +204,7 @@ const Register = () => {
                                                 </div>
                                                 <div className="form-group col-md-6">
                                                     <label htmlFor="inputEmail4">Phone number</label>
-                                                    <input
+                                                    <input required
                                                         type="tel"
                                                         className="form-control"
                                                         placeholder="Phone number"
@@ -204,7 +213,7 @@ const Register = () => {
                                                 </div>
                                                 <div className="form-group col-md-12">
                                                     <label htmlFor="inputEmail4">Password</label>
-                                                    <input
+                                                    <input required
                                                         type="password"
                                                         className="form-control"
                                                         placeholder="Password"
@@ -213,7 +222,7 @@ const Register = () => {
                                                 </div>
                                                 <div className="form-group col-md-12">
                                                     <label htmlFor="inputEmail4">Conferm password</label>
-                                                    <input
+                                                    <input required
                                                         type="password"
                                                         className="form-control"
                                                         placeholder="Conferm password"

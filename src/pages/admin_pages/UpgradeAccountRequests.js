@@ -5,23 +5,20 @@ import axios from "axios";
 const UpgradeAccountRequests = () => {
 
     const [requests, setRequests] = useState();
-    const [isFetched, setIsFetched] = useState(false);
+    const [update, setUpdate] = useState(false);
 
     useEffect(() => {
-        if (!isFetched) {
-            axios.get('http://localhost:8080/system/get-upgrade-account-requests')
-                .then(response => {
-                    console.log("HOOOOOOOOOOOOOOOOOOOOOOOOO:");
-                    console.log(response.data[0]);
-                    setRequests(response.data);
-                    setIsFetched(true);
-                })
-                .catch(error => {
-                    console.error("There was an error fetching the cities!", error);
-                    setRequests([]);
-            });
-        }
-    }, [isFetched]);
+      axios.get('http://localhost:8080/system/get-upgrade-account-requests')
+        .then(response => {
+          console.log("HOOOOOOOOOOOOOOOOOOOOOOOOO:");
+          console.log(response.data[0]);
+          setRequests(response.data);
+        })
+        .catch(error => {
+          console.error("There was an error fetching the cities!", error);
+          setRequests([]);
+      });
+    }, [update]);
 
     const handleReject = async (username) => {
         try {
@@ -31,6 +28,7 @@ const UpgradeAccountRequests = () => {
           } else {
             console.log('Failed to reject request');
           }
+          setUpdate(curr => !curr);
         } catch (error) {
           console.error('Error:', error);
           console.log('Error rejecting request');
@@ -45,6 +43,7 @@ const UpgradeAccountRequests = () => {
           } else {
             console.log('Failed to accept request');
           }
+          setUpdate(curr => !curr);
         } catch (error) {
           console.error('Error:', error);
           console.log('Error accepting request' + " " + username);
@@ -93,6 +92,7 @@ const UpgradeAccountRequests = () => {
                     })
                 }
             </div>
+            {requests.length === 0 && <div className="empty-word">No Requests Yet.</div>}
         </div>
     );
 };

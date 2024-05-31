@@ -3,8 +3,13 @@ import "../../styles/matches_schedule.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Roles } from "../../Roles";
+import { handleAlert } from "../../components/handleAlertFunction";
+import { Colors } from "../../Colors";
 
 const MatchesSchedule = () => {
+
+    const emptyTimeAlert = (msg) => handleAlert(msg, Colors.YELLOW);
+    const intersectTimesAlert = (msg) => handleAlert(msg, Colors.RED);
 
     const getTimestamp = (day, time) => {
         const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -68,7 +73,11 @@ const MatchesSchedule = () => {
 
             } catch (error) {
                 console.log("Error in removing schedule");
+                intersectTimesAlert("There is another match within 2 hours before or after this time.");
             }
+        }
+        else {
+            emptyTimeAlert("You have to pick time before do this operation.");
         }
         
     };
@@ -127,7 +136,7 @@ const MatchesSchedule = () => {
                     <div className="modal-box">
                         <h4>Add Match</h4>
                         <div className="time-picker">
-                            <input type="time" onChange={event => {
+                            <input required type="time" onChange={event => {
                                 setTime(event.target.value);
                                 Array.from(document.getElementsByClassName("selected")).forEach(e => {
                                     e.classList.remove("selected");
@@ -184,6 +193,7 @@ const MatchesSchedule = () => {
                     })
                 }
             </div>
+            {schedule.length === 0 && <div className="empty-word">No Matches Yet.</div>}
 
         </div>
     );

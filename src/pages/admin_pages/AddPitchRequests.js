@@ -20,29 +20,27 @@ const AddPitchRequests = () => {
     // ]
 
     const [requests, setRequests] = useState();
-    const [isFetched, setIsFetched] = useState(false);
+    const [update, setUpdate] = useState(false);
 
     useEffect(() => {
-        if (!isFetched) {
-            axios.get('http://localhost:8080/system/get-add-pitch-requests')
-                .then(response => {
-                    console.log("HOOOOOOOOOOOOOOOOOOOOOOOOO:");
-                    console.log(response.data[0]);
-                    setRequests(response.data);
-                    setIsFetched(true);
-                })
-                .catch(error => {
-                    console.error("There was an error fetching the cities!", error);
-                    setRequests([]);
-            });
-        }
-    }, [isFetched]);
+      axios.get('http://localhost:8080/system/get-add-pitch-requests')
+          .then(response => {
+              console.log("HOOOOOOOOOOOOOOOOOOOOOOOOO:");
+              console.log(response.data[0]);
+              setRequests(response.data);
+          })
+          .catch(error => {
+              console.error("There was an error fetching the cities!", error);
+              setRequests([]);
+      });
+    }, [update]);
 
     const handleReject = async (id) => {
         try {
           const response = await axios.delete(`http://localhost:8080/system/reject-add-pitch-requests/${id}`, { id });
           if (response.status === 200) {
             console.log('Request rejected successfully');
+            setUpdate(curr => !curr);
           } else {
             console.log('Failed to reject request');
           }
@@ -57,6 +55,7 @@ const AddPitchRequests = () => {
           const response = await axios.put(`http://localhost:8080/system/accept-add-pitch-requests/${id}`, { id });
           if (response.status === 200) {
             console.log('Request accepted successfully');
+            setUpdate(curr => !curr);
           } else {
             console.log('Failed to accept request');
           }
@@ -96,6 +95,7 @@ const AddPitchRequests = () => {
                     })
                 }
             </div>
+            {requests.length === 0 && <div className="empty-word">No Requests Yet.</div>}
         </div>
     );
 };

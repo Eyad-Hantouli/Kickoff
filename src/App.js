@@ -25,6 +25,7 @@ import BanList from "./pages/admin_pages/BanList";
 import PitchOwnerRoute from "./private routes/PitchOwnerRoute";
 import MatchesSchedule from "./pages/pitch_owner_pages/MatchesSchedule";
 import axios from "axios";
+import Alert from "./components/Alert";
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
 
     { !isThereAMatch &&
       <div className="App">
+        <Alert />
         <BrowserRouter>
           <Navbar user={user} setUser={setUser}/>
           <Routes>

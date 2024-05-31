@@ -4,14 +4,20 @@ import "../styles/pitches.css";
 import RefereeRateStars from "../components/RefereeRateStars";
 import { Roles } from "../Roles";
 import axios from "axios";
+import { handleAlert } from "../components/handleAlertFunction";
+import { Colors } from "../Colors";
 
 const Pitches = ({ user }) => {
     const navigate = useNavigate();
 
+    const alert = (msg, color) => handleAlert(msg, color);
+
     const [modal, setModal] = useState(false);
 
     const [cities, setCities] = useState([]);
+    const [filterCity, setFilterCity] = useState("Any");
     const [selectedCity, setSelectedCity] = useState();
+    const [priceRange, setPriceRange] = useState([-1, Infinity]);
 
     useEffect(() => {
         axios.get('http://localhost:8080/system/get-all-cities')
@@ -48,18 +54,19 @@ const Pitches = ({ user }) => {
 
     // Function to handle sorting
     const handleSort = () => {
-        // const sortedPitches = [...pitches].sort((a, b) => {
-        //     if (!sortAsc) {
-        //         return a.rate - b.rate;
-        //     } else {
-        //         return b.rate - a.rate;
-        //     }
-        // });
-        // setSortAsc(!sortAsc); // Toggle sorting order
-        // setPitches(sortedPitches);
+        if (pitches.length === 0) return;
+        const sortedPitches = [...pitches].sort((a, b) => {
+            if (!sortAsc) {
+                return a.price - b.price;
+            } else {
+                return b.price - a.price;
+            }
+        });
+        setSortAsc(!sortAsc); // Toggle sorting order
+        setPitches(sortedPitches);
     };
 
-    const [pitches, setPitches] = useState();
+    const [pitches, setPitches] = useState([]);
     const [isFetched, setIsFetched] = useState(false);
 
     useEffect(() => {
@@ -115,13 +122,36 @@ const Pitches = ({ user }) => {
                     }
                 });
                 console.log('Add pitch request submitted successfully!');
+                alert("Request submitted successfully.", Colors.GREEN);
+                
             } catch (error) {
                 console.error('Error submitting Add pitch request:', error);
                 console.log('Failed to submit Add pitch request. Please try again later.');
+                alert("Faild to send request.", Colors.RED);
             }
             handleModal();
         }
     };
+
+    const handleMinPrice = (e) => {
+        const newArray = [...priceRange];
+
+        if (e.target.value)
+            newArray[0] = e.target.value;
+        else
+            newArray[0] = -1;
+
+        setPriceRange(newArray);
+    } 
+    const handleMaxPrice = (e) => {
+        const newArray = [...priceRange];
+        if (e.target.value)
+            newArray[1] = e.target.value;
+        else
+            newArray[1] = Infinity;
+
+        setPriceRange(newArray);
+    } 
 
     if (!isFetched) return <>Loading...</>
 
@@ -131,9 +161,9 @@ const Pitches = ({ user }) => {
                 <div className="background" onClick={handleModal}></div>
                     <div className="modal-box">
                         <h4>Add Pitch</h4>
-                        <input onChange = {(e) => {setPitchName(e.target.value)}} className = "data-input" type="text" placeholder="Name"/>
-                        <input onChange = {(e) => {setPitchPrice(e.target.value)}} className = "data-input" type="number" placeholder="Price"/>
-                        <input onChange = {(e) => {setPitchAddress(e.target.value)}} className = "data-input" type="text" placeholder="Address"/>
+                        <input required onChange = {(e) => {setPitchName(e.target.value)}} className = "data-input" type="text" placeholder="Name"/>
+                        <input required onChange = {(e) => {setPitchPrice(e.target.value)}} className = "data-input" type="number" placeholder="Price"/>
+                        <input required onChange = {(e) => {setPitchAddress(e.target.value)}} className = "data-input" type="text" placeholder="Address"/>
 
                         <label className="city-label" htmlFor="inputState">City</label>
                         <select id="inputState" className="form-control" value={selectedCity} onChange={handleCityChange}>
@@ -143,7 +173,7 @@ const Pitches = ({ user }) => {
                         </select>
                         <div>
                             <h6>Ownership Documentation:</h6>
-                            <input type="file" onChange={handleFileChange} />
+                            <input required type="file" onChange={handleFileChange} />
                             {selectedFile && (
                                 <div>
                                 <p>Selected Image: {selectedFile.name.substring(0, 14)}</p>
@@ -158,15 +188,20 @@ const Pitches = ({ user }) => {
             </div>}
             <div className="container">
                 <div className="filters_container">
-                    <select name="city" id="city" className="city-filter">
-                        <option value="City" defaultChecked>City</option>
-                        <option value="Amman">Amman</option>
+                    <select name="city" id="city" className="city-filter" onChange={(e) => {setFilterCity(e.target.value)}}>
+                        <option value="Any" defaultChecked>City - Any</option>
+                        {/* <option value="Amman">Amman</option>
                         <option value="Jerrash">Jerrash</option>
-                        <option value="Irbid">Irbid</option>
+                        <option value="Irbid">Irbid</option> */}
+                        {
+                            cities.map(city => {
+                                return <option value={city.name}>{city.name}</option>
+                            })
+                        }
                     </select>
-                    <button className="rate-sort" onClick={handleSort}>Sort by rate {sortAsc ? <i className="fa-solid fa-arrow-down-wide-short"></i> : <i className="fa-solid fa-arrow-up-wide-short"></i>}</button>
-                    <input type="number" placeholder="Min price" className="mid-price-filter"></input>
-                    <input type="number" placeholder="Max price" className="max-price-filter"></input>
+                    <button className="rate-sort" onClick={handleSort}>Sort by price {sortAsc ? <i className="fa-solid fa-arrow-down-wide-short"></i> : <i className="fa-solid fa-arrow-up-wide-short"></i>}</button>
+                    <input required type="number" placeholder="Min price" className="mid-price-filter" onChange={handleMinPrice}></input>
+                    <input required type="number" placeholder="Max price" className="max-price-filter" onChange={handleMaxPrice}></input>
                 </div>
                 <div className="buttons-holder">
                     {user.role === Roles.PITCH_OWNER && !editMode && 
@@ -182,6 +217,8 @@ const Pitches = ({ user }) => {
                     {pitches
                     .filter(pitch => user.role === Roles.PITCH_OWNER ? true : pitch.state === "active")
                     .filter(pitch => editMode ? pitch.ownerId === user.id : true)
+                    .filter(pitch => filterCity === "Any" || filterCity === pitch.city)
+                    .filter(pitch => pitch.price >= priceRange[0] && pitch.price <= priceRange[1])
                     .map(pitch => {
                         return <div className="pitch-box-container" key={pitch.id}>
                             <div className="pitch-box">
@@ -219,6 +256,7 @@ const Pitches = ({ user }) => {
                         </div>
                     })}
                 </div>
+                {pitches.length === 0 && <div className="empty-word">No Pitches Yet.</div>}
             </div>
         </div>
     );

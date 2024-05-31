@@ -2,8 +2,12 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import "../styles/login.css"
 import { useState } from "react";
 import axios from "axios";
+import { handleAlert } from "../components/handleAlertFunction";
+import { Colors } from "../Colors";
 
 const Login = ({ setUser }) => {
+
+    const wrongLogin = (msg) => handleAlert(msg, Colors.RED);
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -25,6 +29,7 @@ const Login = ({ setUser }) => {
         }
       } catch (error) {
         setError('Login failed');
+        wrongLogin("Username or password isn't correct !");
       }
   }
 
@@ -60,7 +65,7 @@ const Login = ({ setUser }) => {
                                             <div className="form-row">
                                                 <div className="form-group col-md-12">
                                                     <label htmlFor="inputEmail4">Username</label>
-                                                    <input
+                                                    <input required
                                                         type="text"
                                                         className="form-control"
                                                         placeholder="Username"
@@ -69,7 +74,7 @@ const Login = ({ setUser }) => {
                                                 </div>
                                                 <div className="form-group col-md-12">
                                                     <label htmlFor="inputEmail4">Password</label>
-                                                    <input
+                                                    <input required
                                                         type="tel"
                                                         className="form-control"
                                                         placeholder="Password"

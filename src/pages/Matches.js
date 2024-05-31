@@ -85,11 +85,10 @@ const Matches = () => {
             <div className="container">
                 <div className="filters_container">
                     <select name="free-pos" id="free-pos" className="free-pos">
-                        <option value="Position" defaultChecked>Free Position</option>
-                        <option value="CF" defaultChecked>CF</option>
-                        <option value="WTF">WTF</option>
-                        <option value="EYF">EYF</option>
-                        <option value="JF">JF</option>
+                        <option value="Any" defaultChecked>Free Position - Any</option>
+                        <option value="NORMAL_PLAYER">Normal Player</option>
+                        <option value="GOAL_KEEPER">Goal Keeper</option>
+                        <option value="REFEREE">Referee</option>
                     </select>
                     <select name="referee" id="referee" className="referee">
                         <option value="referee">Has referee</option>
@@ -98,8 +97,8 @@ const Matches = () => {
                     </select>
                     <button className="rate-sort" onClick={handleSortByScore}>Sort by score {sortAscByScore ? <i className="fa-solid fa-arrow-down-wide-short"></i> : <i className="fa-solid fa-arrow-up-wide-short"></i>}</button>
                     <button className="rate-sort" onClick={handleSortByPlayersNumber}>Sort by players# {sortAscByPlayersNumber ? <i className="fa-solid fa-arrow-down-wide-short"></i> : <i className="fa-solid fa-arrow-up-wide-short"></i>}</button>
-                    <input type="number" placeholder="From time" className="from-time-filter"></input>
-                    <input type="number" placeholder="To time" className="to-time-filter"></input>
+                    <input required type="number" placeholder="From time" className="from-time-filter"></input>
+                    <input required type="number" placeholder="To time" className="to-time-filter"></input>
                 </div>
                 <div className="matches-list">
                     {matches
@@ -149,6 +148,7 @@ const Matches = () => {
                         </div>
                     })}
                 </div>
+                {matches.length === 0 && <div className="empty-word">No Matches Yet.</div>}
             </div>
         </div>
     );

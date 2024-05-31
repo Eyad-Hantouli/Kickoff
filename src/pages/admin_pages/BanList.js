@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "../../styles/ban_list.css";
 
 const BanList = () => {
@@ -16,6 +17,8 @@ const BanList = () => {
             pic: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
         }
     ]
+
+    const [update, setUpdate] = useState(false);
 
     return (
         <div className="BanList">
@@ -45,6 +48,7 @@ const BanList = () => {
                     })
                 }
             </div>
+            {users.length === 0 && <div className="empty-word">No Banned Users.</div>}
         </div>
     );
 };

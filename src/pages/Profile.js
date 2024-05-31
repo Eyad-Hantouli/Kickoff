@@ -4,13 +4,18 @@ import RefereeRateStars from "../components/RefereeRateStars";
 import { useEffect, useState } from "react";
 import { Roles } from "../Roles";
 import axios from "axios";
+import { handleAlert } from "../components/handleAlertFunction";
+import { Colors } from "../Colors";
 
 const Profile = ({ user }) => {
+
+    const alert = (msg, color) => handleAlert(msg, color);
 
     const { username } = useParams();
     const navigate = useNavigate();
 
     const [modal, setModal] = useState(false);
+    const [userFound, setUserFound] = useState(false);
 
     const profileOwner = user.username === username;
 
@@ -114,11 +119,13 @@ const Profile = ({ user }) => {
                 });
 
                 console.log('Upgrade request submitted successfully!');
+                alert("Request sent successfuly.", Colors.GREEN);
 
             } catch (error) {
 
                 console.error('Error submitting upgrade request:', error);
                 console.log('Failed to submit upgrade request. Please try again later.');
+                alert("Request already sent !", Colors.RED);
 
             }
             
@@ -126,7 +133,7 @@ const Profile = ({ user }) => {
         }
     }
 
-    if (!userStatistics) return <>Loading...</>
+    if (!userStatistics) return  <div className="empty-word">Error 404:<br></br>User not found</div>
 
     return (
         <div className="Profile">
@@ -135,18 +142,18 @@ const Profile = ({ user }) => {
                 <div className="background" onClick={handleModal}></div>
                     <div className="modal-box">
                         <h4>Upgrade Account</h4>
-                        {/* <input onChange = {(e) => {setPitchName(e.target.value)}} className = "data-input" type="text" placeholder="Name"/>
-                        <input onChange = {(e) => {setPitchPrice(e.target.value)}} className = "data-input" type="number" placeholder="Price"/> */}
+                        {/* <input required onChange = {(e) => {setPitchName(e.target.value)}} className = "data-input" type="text" placeholder="Name"/>
+                        <input required onChange = {(e) => {setPitchPrice(e.target.value)}} className = "data-input" type="number" placeholder="Price"/> */}
                         <div>
                             <h6>ID card face 1:</h6>
-                            <input type="file" onChange={handleFace1Change} />
+                            <input required type="file" onChange={handleFace1Change} />
                             {selectedFace1 && (
                                 <div>
                                 <p>Selected Image: {selectedFace1.name.substring(0, 14)}</p>
                                 </div>
                             )}
                             <h6>ID card face 2:</h6>
-                            <input type="file" onChange={handleFace2Change} />
+                            <input required type="file" onChange={handleFace2Change} />
                             {selectedFace2 && (
                                 <div>
                                 <p>Selected Image: {selectedFace2.name.substring(0, 14)}</p>

@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import "../styles/home.css"
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
 
+    const navigate = useNavigate();
+
+    const [searchUser, setSearchUser] = useState();
+
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        console.log("search submitted");
+        navigate("/profile/" + searchUser);
+        
     }
 
     const [cities, setCities] = useState([]);
@@ -69,8 +74,9 @@ const Home = () => {
                         <div className="search_icon"><i className="fa-solid fa-magnifying-glass"></i></div>
                         <div className="search_bar">
                             <form onSubmit={handleSubmit}>
-                                <input type="text" className="search_input" placeholder="Username..."></input>
-                                <input type="submit" className="submit"></input>
+                                <input required type="text" className="search_input" placeholder="Username..."
+                                onChange={(e) => setSearchUser(e.target.value)}></input>
+                                <input required type="submit" className="submit"></input>
                             </form>
                         </div>
                     </div>
@@ -103,7 +109,7 @@ const Home = () => {
                             <div className="form-row">
                                 <div className="form-group col-md-4">
                                 <label htmlFor="inputEmail4">First Name</label>
-                                <input
+                                <input required
                                     type="text"
                                     className="form-control"
                                     placeholder="First Name"
@@ -112,7 +118,7 @@ const Home = () => {
                                 </div>
                                 <div className="form-group col-md-4">
                                 <label htmlFor="inputEmail4">Middle Name</label>
-                                <input
+                                <input required
                                     type="text"
                                     className="form-control"
                                     placeholder="Middle Name"
@@ -121,7 +127,7 @@ const Home = () => {
                                 </div>
                                 <div className="form-group col-md-4">
                                 <label htmlFor="inputEmail4">Last Name</label>
-                                <input
+                                <input required
                                     type="text"
                                     className="form-control"
                                     placeholder="Last Name"
@@ -131,7 +137,7 @@ const Home = () => {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="inputAddress">Address</label>
-                                <input
+                                <input required
                                 type="text"
                                 className="form-control"
                                 id="inputAddress"
@@ -151,7 +157,7 @@ const Home = () => {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="inputMessage">Message</label>
-                                <input
+                                <input required
                                 type="text"
                                 className="form-control"
                                 id="inputMessage"
