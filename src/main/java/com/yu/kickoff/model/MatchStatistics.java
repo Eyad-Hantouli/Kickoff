@@ -24,7 +24,7 @@ public class MatchStatistics {
     @Column(name = "fouls")
     private Long fouls ;
 
-    @Column(name = "man_of_the_match")
+    @Column(name = "motm")
     private Long motm ;
 
     @Column(name = "team_number")

@@ -3,6 +3,7 @@ package com.yu.kickoff.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -21,9 +22,11 @@ public class MatchSchedule {
     private Long id ;
 
     @Column(name = "start_time")
-    private Timestamp startTime ;
+    private Time startTime ;
 
     private String status ;
+
+    private String day ;
 
     private Timestamp timestamp ;
 
@@ -37,7 +40,8 @@ public class MatchSchedule {
 
     public MatchSchedule() {
     }
-    public MatchSchedule(Timestamp startTime, Pitch pitchId) {
+    public MatchSchedule(Time startTime, Pitch pitchId, String day) {
+        this.day = day;
         this.startTime = startTime;
         this.status = "ACTIVE";
         this.timestamp = new Timestamp(System.currentTimeMillis());
@@ -52,11 +56,11 @@ public class MatchSchedule {
         this.id = id;
     }
 
-    public Timestamp getStartTime() {
+    public Time getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Timestamp startTime) {
+    public void setStartTime(Time startTime) {
         this.startTime = startTime;
     }
 
@@ -84,5 +88,11 @@ public class MatchSchedule {
         this.pitchId = pitchId;
     }
 
+    public String getDay() {
+        return day;
+    }
 
+    public void setDay(String day) {
+        this.day = day;
+    }
 }

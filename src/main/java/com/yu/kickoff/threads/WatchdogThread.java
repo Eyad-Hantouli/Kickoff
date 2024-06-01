@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -22,7 +23,7 @@ public class WatchdogThread {
         LocalDateTime now = LocalDateTime.now();
 
         // Subtract 2 hours from the current time
-        LocalDateTime twoHoursBefore = now.minusHours(2).minusMinutes(10);
+        LocalDateTime twoHoursBefore = now.minusHours(2);
 
         // Convert to Timestamp for comparison
         Timestamp twoHoursBeforeTimestamp = Timestamp.valueOf(twoHoursBefore);
@@ -30,7 +31,7 @@ public class WatchdogThread {
         return twoHoursBeforeTimestamp;
     }
 
-    @Scheduled(cron = "0 * * * * *") // This cron expression means "At minute 0 past every hour"
+    @Scheduled(cron = "0 0 * * * *") // This cron expression means "At minute 0 past every hour"
     public void startMigration() {
         Timestamp time = getTimestampBefore2Hours();
 
@@ -39,7 +40,7 @@ public class WatchdogThread {
         System.out.println("-----------------------------");
         System.out.println(
                 "Migration started at: "
-                + LocalDateTime.now()
+                + new Time(time.getTime())
                 + " FOR ALL Schedules WHERE start_time BEFORE 2-HOURS."
         );
         System.out.println("-----------------------------");

@@ -57,7 +57,7 @@ public class AuthenticationService {
             objectService.getStringValue(requestData, "firstName"),
             objectService.getStringValue(requestData, "midName"),
             objectService.getStringValue(requestData, "lastName"),
-            objectService.getLocalDateValue(requestData, "dob", "dd-MM-yyyy"),
+            objectService.getLocalDateValue(requestData, "dob", "yyyy-MM-dd"),
             objectService.getStringValue(requestData, "address"),
             passwordEncoder.encode(objectService.getStringValue(requestData, "password")),
             objectService.getStringValue(requestData, "phoneNumber"),

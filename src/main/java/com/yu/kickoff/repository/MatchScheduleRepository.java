@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -18,5 +19,15 @@ public interface MatchScheduleRepository extends JpaRepository<MatchSchedule,Lon
     @Query("SELECT COUNT(ms) FROM MatchSchedule ms WHERE ms.startTime BETWEEN :startTimeMinus2Hours AND :startTimePlus2Hours")
     long countMatchesWithin4Hours(@Param("startTimeMinus2Hours") Timestamp startTimeMinus2Hours, @Param("startTimePlus2Hours") Timestamp startTimePlus2Hours);
 
-    List<MatchSchedule> findByStartTimeEquals(Timestamp startTime);
+    @Query("SELECT COUNT(ms) FROM MatchSchedule ms " +
+            "WHERE ms.day = :givenDay " +
+            "AND (" +
+            "(ms.startTime >= :startTimeBefore AND ms.startTime <= :startTimeAfter) OR " +
+            "(ms.startTime <= :startTimeBefore AND ms.startTime >= :startTimeAfter)" +
+            ")")
+    long countMatchSchedulesWithinTimeRange(@Param("startTimeBefore") Time startTimeBefore,
+                                            @Param("startTimeAfter") Time startTimeAfter,
+                                            @Param("givenDay") String givenDay);
+
+    List<MatchSchedule> findAllByStartTime(Time startTime);
 }

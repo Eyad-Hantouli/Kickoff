@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -52,7 +53,7 @@ public class MatchScheduleService {
         for (MatchSchedule schedule : matchScheduleList) {
             Map<String, Object> item = new HashMap<>();
 
-            Timestamp timestamp = schedule.getStartTime();
+            Time timestamp = schedule.getStartTime();
 
             // Format for 24-hour system hour (HH:mm)
             SimpleDateFormat sdfHour = new SimpleDateFormat("HH:mm");
@@ -60,14 +61,9 @@ public class MatchScheduleService {
             // Formatting Timestamp to 24-hour system hour
             String formattedTime = sdfHour.format(timestamp);
 
-            SimpleDateFormat sdfDay = new SimpleDateFormat("EEEE");
-
-            // Formatting Timestamp to day name
-            String dayName = sdfDay.format(timestamp);
-
             item.put("id", schedule.getId());
             item.put("time", formattedTime);
-            item.put("day", dayName);
+            item.put("day", schedule.getDay());
             item.put("state", schedule.getStatus());
             item.put("pitchId", schedule.getPitchId().getId());
 
@@ -77,11 +73,12 @@ public class MatchScheduleService {
         return response;
     }
 
-    private long countMatchesWithin2Hours(Timestamp startTime) {
-        Timestamp startTimeMinus2Hours = new Timestamp(startTime.getTime() - (2 * 60 * 60 * 1000 - 1)); // 2 hours in milliseconds
-        Timestamp startTimePlus2Hours = new Timestamp(startTime.getTime() + (2 * 60 * 60 * 1000 - 1)); // 2 hours in milliseconds
-        return matchScheduleRepository.countMatchesWithin4Hours(startTimeMinus2Hours, startTimePlus2Hours);
+    public long countMatchSchedulesWithinTimeRange(Time givenTime, String givenDay) {
+        Time startTimeBefore = new Time(givenTime.getTime() - (2 * 3600 * 1000 - 1));
+        Time startTimeAfter = new Time(givenTime.getTime() + (2 * 3600 * 1000 - 1));
+        return matchScheduleRepository.countMatchSchedulesWithinTimeRange(startTimeBefore, startTimeAfter, givenDay);
     }
+
 
     public void createSchedule(Map<String, Object> request) {
 
@@ -102,12 +99,16 @@ public class MatchScheduleService {
             e.printStackTrace();
         }
 
-        if (countMatchesWithin2Hours(timestamp) > 0) {
+        Time time = new Time(timestamp.getTime());
+        String day = objectService.getStringValue(request, "day");
+
+        if (countMatchSchedulesWithinTimeRange(time, day) > 0) {
             throw new IllegalStateException("There is match before at least two hours !!!!");
         }
         MatchSchedule matchSchedule = new MatchSchedule(
-                timestamp,
-                pitch
+                time,
+                pitch,
+                day
         );
 
         matchScheduleRepository.save(matchSchedule);
@@ -121,28 +122,16 @@ public class MatchScheduleService {
     @Transactional
     public void startMigration(Timestamp startTime) {
         startTime.setNanos(0);
-        System.out.println("+++++++++++++++++++++++++++++");
-        System.out.println("!! Recived Timestamp: ");
-        System.out.println(startTime);
-        System.out.println("+++++++++++++++++++++++++++++");
 
-        List<MatchSchedule> matchSchedulesList = matchScheduleRepository.findByStartTimeEquals(startTime);
-
-        System.out.println("SIZE: ");
-        System.out.println(matchSchedulesList.size());
+        List<MatchSchedule> matchSchedulesList = matchScheduleRepository.findAllByStartTime(new Time(startTime.getTime()));
 
         for (MatchSchedule matchSchedule : matchSchedulesList) {
 
-            // check if match at today:
-            SimpleDateFormat sdfDay = new SimpleDateFormat("EEEE");
+            String todayName = LocalDate.now().getDayOfWeek().name().toLowerCase();
+            todayName = todayName.substring(0, 1).toUpperCase() + todayName.substring(1);
 
-            // Formatting Timestamp to day name
-            String dayName = sdfDay.format(matchSchedule.getStartTime());
-
-            String todayName = LocalDate.now().getDayOfWeek().name();
-
-            if (!dayName.equals(todayName)) {
-                System.out.println("not today's match");
+            if (!matchSchedule.getDay().equals(todayName)) {
+                System.out.println("Not today's match");
                 continue; // not today's match
             }
 

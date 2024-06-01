@@ -28,4 +28,8 @@ public interface MatchStatisticsRepository extends JpaRepository<MatchStatistics
 
     @Query("SELECT ms FROM MatchStatistics ms WHERE ms.userName.username = :username")
     List<MatchStatistics> findAllByUserName(@Param("username") String username);
+
+    List<MatchStatistics> findByMatchId(Match matchId);
+
+    MatchStatistics findByUserNameAndMatchId(User userName, Match matchId);
 }

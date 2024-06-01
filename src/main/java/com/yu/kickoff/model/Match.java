@@ -18,7 +18,7 @@ public class Match {
             generator = "id"
     )
     private Long id ;
-    private Timestamp  time ;
+    private Timestamp time ;
     private Timestamp timestamp ;
     @ManyToOne
     @JoinColumn(name = "pitch_id")
