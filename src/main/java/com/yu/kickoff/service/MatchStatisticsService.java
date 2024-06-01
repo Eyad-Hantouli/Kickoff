@@ -1,6 +1,7 @@
 package com.yu.kickoff.service;
 
 import com.yu.kickoff.model.Match;
+import com.yu.kickoff.model.MatchRegisteration;
 import com.yu.kickoff.model.MatchStatistics;
 import com.yu.kickoff.model.User;
 import com.yu.kickoff.repository.MatchStatisticsRepository;
@@ -52,8 +53,10 @@ public class MatchStatisticsService {
         long totalScore = 0;
 
         for(Map.Entry<String, Object> entry : statistics.entrySet()) {
-            if (scoresToBeCalculated.contains(entry.getKey()))
-                totalScore +=  objectService.getLongValue(statistics, entry.getKey()) * scoreService.getScoreByTitle(entry.getKey()).getScore();
+            if (scoresToBeCalculated.contains(entry.getKey())) {
+                if (objectService.getLongValue(statistics, entry.getKey()) < 0L) continue; // Match requires judgement.
+                totalScore += objectService.getLongValue(statistics, entry.getKey()) * scoreService.getScoreByTitle(entry.getKey()).getScore();
+            }
         }
 
         return totalScore;
@@ -71,9 +74,12 @@ public class MatchStatisticsService {
         List<MatchStatistics> matchStatistics = matchStatisticsRepository.findAllByUserName(username);
         for (var item : matchStatistics) {
             Map<String, Object> itemData = new HashMap<>();
+
+            if (item.getGoals() < 0L) continue; // Match requires judgement.
+
             itemData.put("goals", item.getGoals());
             itemData.put("yellowCard", item.getYellowCard());
-            itemData.put("redCard", item.getredCard());
+            itemData.put("redCard", item.getRedCard());
             itemData.put("fouls", item.getFouls());
             itemData.put("motm", item.getMotm());
 
@@ -92,5 +98,22 @@ public class MatchStatisticsService {
         }
 
         return response;
+    }
+
+    public void migrate(Match match, MatchRegisteration matchRegisteration) {
+        MatchStatistics matchStatistics = new MatchStatistics(
+            match,
+            matchRegisteration.getUserName(),
+            -1L,
+            -1L,
+            -1L,
+            -1L,
+            -1L,
+            matchRegisteration.getPosition(),
+            matchRegisteration.getTeamNumber(),
+            matchRegisteration.getPositionNumber()
+        );
+
+        matchStatisticsRepository.save(matchStatistics);
     }
 }

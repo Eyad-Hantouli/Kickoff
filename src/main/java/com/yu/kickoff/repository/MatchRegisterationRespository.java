@@ -19,4 +19,9 @@ public interface MatchRegisterationRespository extends JpaRepository<MatchRegist
     @Modifying
     @Query("DELETE FROM MatchRegisteration mr WHERE mr.matchScheduleId = :matchScheduleId AND mr.userName = :userName")
     void deleteByMatchScheduleIdAndUserName(@Param("matchScheduleId") MatchSchedule matchScheduleId, @Param("userName") User userName);
+
+    List<MatchRegisteration> findByMatchScheduleId(MatchSchedule matchSchedule);
+
+    @Transactional
+    void deleteByMatchScheduleId(MatchSchedule matchSchedule);
 }

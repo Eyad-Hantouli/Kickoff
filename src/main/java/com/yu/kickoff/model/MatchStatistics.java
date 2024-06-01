@@ -20,8 +20,20 @@ public class MatchStatistics {
     private Long yellowCard ;
     @Column(name = "red_card")
     private Long redCard ;
+
+    @Column(name = "fouls")
     private Long fouls ;
+
+    @Column(name = "man_of_the_match")
     private Long motm ;
+
+    @Column(name = "team_number")
+    private Long teamNumber;
+
+    @Column(name = "position_number")
+    private Long positionNumber;
+
+    @Column(name = "timestamp")
     private Timestamp timestamp ;
 
     @Enumerated(value = EnumType.STRING)
@@ -31,7 +43,7 @@ public class MatchStatistics {
     }
     // all para const //
 
-    public MatchStatistics(Match matchId, User userName, Long goals, Long yellowCard, Long redCard, Long fouls, Long motm, Timestamp timestamp, PositionEnum position) {
+    public MatchStatistics(Match matchId, User userName, Long goals, Long yellowCard, Long redCard, Long fouls, Long motm, PositionEnum position, Long teamNumber, Long positionNumber) {
         this.matchId = matchId;
         this.userName = userName;
         this.goals = goals;
@@ -39,8 +51,10 @@ public class MatchStatistics {
         this.redCard = redCard;
         this.fouls = fouls;
         this.motm = motm;
-        this.timestamp = new Timestamp(System.currentTimeMillis());
+        this.teamNumber = teamNumber;
+        this.positionNumber = positionNumber;
         this.position = position;
+        this.timestamp = new Timestamp(System.currentTimeMillis());
     }
     // setter and getter //
     public Match getMatchId() {
@@ -75,11 +89,11 @@ public class MatchStatistics {
         this.yellowCard = yellowCard;
     }
 
-    public Long getredCard() {
+    public Long getRedCard() {
         return redCard;
     }
 
-    public void setredCard(Long redCard) {
+    public void setRedCard(Long redCard) {
         this.redCard = redCard;
     }
 
@@ -113,5 +127,21 @@ public class MatchStatistics {
 
     public void setPosition(PositionEnum position) {
         this.position = position;
+    }
+
+    public Long getTeamNumber() {
+        return teamNumber;
+    }
+
+    public void setTeamNumber(Long teamNumber) {
+        this.teamNumber = teamNumber;
+    }
+
+    public Long getPositionNumber() {
+        return positionNumber;
+    }
+
+    public void setPositionNumber(Long positionNumber) {
+        this.positionNumber = positionNumber;
     }
 }

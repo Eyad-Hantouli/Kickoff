@@ -1,8 +1,10 @@
 package com.yu.kickoff.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 public class MatchSchedule {
@@ -17,13 +19,22 @@ public class MatchSchedule {
             generator = "id"
     )
     private Long id ;
+
     @Column(name = "start_time")
     private Timestamp startTime ;
+
     private String status ;
+
     private Timestamp timestamp ;
+
     @ManyToOne
     @JoinColumn(name = "pitch_id")
     private Pitch pitchId ;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "matchScheduleId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MatchRegisteration> matchRegisterationList;
+
     public MatchSchedule() {
     }
     public MatchSchedule(Timestamp startTime, Pitch pitchId) {

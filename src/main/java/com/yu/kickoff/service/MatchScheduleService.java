@@ -1,14 +1,16 @@
 package com.yu.kickoff.service;
 
-import com.yu.kickoff.model.MatchSchedule;
-import com.yu.kickoff.model.Pitch;
+import com.yu.kickoff.model.*;
+import com.yu.kickoff.repository.MatchRegisterationRespository;
 import com.yu.kickoff.repository.MatchScheduleRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -16,14 +18,23 @@ public class MatchScheduleService {
     private final MatchScheduleRepository matchScheduleRepository;
     private final PitchService pitchService;
     private final ObjectService objectService;
+    private final MatchService matchService;
+    private final MatchRegisterationRespository matchRegisterationRespository;
+    private final MatchStatisticsService matchStatisticsService;
 
     @Autowired
     public MatchScheduleService(MatchScheduleRepository matchScheduleRepository,
                                 PitchService pitchService,
-                                ObjectService objectService) {
+                                ObjectService objectService,
+                                MatchService matchService,
+                                MatchRegisterationRespository matchRegisterationRespository,
+                                MatchStatisticsService matchStatisticsService) {
         this.matchScheduleRepository = matchScheduleRepository;
         this.pitchService = pitchService;
         this.objectService = objectService;
+        this.matchService = matchService;
+        this.matchRegisterationRespository = matchRegisterationRespository;
+        this.matchStatisticsService = matchStatisticsService;
     }
 
     public MatchSchedule getScheduleById(Long id) {
@@ -105,5 +116,76 @@ public class MatchScheduleService {
 
     public void deleteSchedule(Map<String, Object> request) {
         matchScheduleRepository.deleteById(objectService.getLongValue(request, "id"));
+    }
+
+    @Transactional
+    public void startMigration(Timestamp startTime) {
+        startTime.setNanos(0);
+        System.out.println("+++++++++++++++++++++++++++++");
+        System.out.println("!! Recived Timestamp: ");
+        System.out.println(startTime);
+        System.out.println("+++++++++++++++++++++++++++++");
+
+        List<MatchSchedule> matchSchedulesList = matchScheduleRepository.findByStartTimeEquals(startTime);
+
+        System.out.println("SIZE: ");
+        System.out.println(matchSchedulesList.size());
+
+        for (MatchSchedule matchSchedule : matchSchedulesList) {
+
+            // check if match at today:
+            SimpleDateFormat sdfDay = new SimpleDateFormat("EEEE");
+
+            // Formatting Timestamp to day name
+            String dayName = sdfDay.format(matchSchedule.getStartTime());
+
+            String todayName = LocalDate.now().getDayOfWeek().name();
+
+            if (!dayName.equals(todayName)) {
+                System.out.println("not today's match");
+                continue; // not today's match
+            }
+
+            // // // step 1 (create match):
+
+            List<MatchRegisteration> registerationsList = matchRegisterationRespository.findAllByMatchScheduleId(matchSchedule);
+
+            if (registerationsList.size() != 11) {
+                matchRegisterationRespository.deleteByMatchScheduleId(matchSchedule);
+                System.out.println("Not 11 players");
+                continue;
+            }
+
+            User referee = null;
+            for (MatchRegisteration registeration : registerationsList) {
+                if (registeration.getPosition() == PositionEnum.REFEREE) {
+                    referee = registeration.getUserName();
+                    break;
+                }
+            }
+
+            // Impossible case (at least in my mind)
+            if (referee == null) {
+                matchRegisterationRespository.deleteByMatchScheduleId(matchSchedule);
+                System.out.println("No referee here !");
+                continue;
+            }
+
+            // create match
+            Match match = matchService.createMatch(startTime, matchSchedule.getPitchId(), referee);
+
+            // // // step 2 (fill match statistics):
+            for (MatchRegisteration registeration : registerationsList) {
+                if (registeration.getUserName().getId() != referee.getId()) // Migrate players only (not referee).
+                    matchStatisticsService.migrate(match, registeration);
+            }
+
+            // // // step 3 (delete relevant registrations)
+            matchRegisterationRespository.deleteByMatchScheduleId(matchSchedule);
+        }
+
+        System.out.println("-----------------------------");
+        System.out.println("Migration finished !");
+        System.out.println("-----------------------------");
     }
 }

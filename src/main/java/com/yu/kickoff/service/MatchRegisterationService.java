@@ -88,6 +88,10 @@ public class MatchRegisterationService {
         return response;
     }
 
+    public List<MatchRegisteration> getAllMatchRegisterationsByMatchSchedule(MatchSchedule matchSchedule) {
+        return matchRegisterationRespository.findAllByMatchScheduleId(matchSchedule);
+    }
+
     public void registerForMatch(Map<String, Object> request) {
         Long scheduleId = objectService.getLongValue(request, "scheduleId");
         String username = objectService.getStringValue(request, "username");
@@ -117,4 +121,11 @@ public class MatchRegisterationService {
 
         matchRegisterationRespository.deleteByMatchScheduleIdAndUserName(matchSchedule, user);
     }
+
+    @Transactional
+    public void deleteRegisteration(MatchSchedule matchSchedule) {
+        matchRegisterationRespository.deleteByMatchScheduleId(matchSchedule);
+    }
+
+
 }

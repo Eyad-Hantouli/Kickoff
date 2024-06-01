@@ -57,7 +57,7 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
         this.timestamp = new Timestamp(System.currentTimeMillis());
         this.city = city;
-        this.role = RoleEnum.ADMIN;
+        this.role = RoleEnum.USER;
         this.status = Status.ACTIVE;
     }
 

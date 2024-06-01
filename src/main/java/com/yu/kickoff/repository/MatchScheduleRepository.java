@@ -18,5 +18,5 @@ public interface MatchScheduleRepository extends JpaRepository<MatchSchedule,Lon
     @Query("SELECT COUNT(ms) FROM MatchSchedule ms WHERE ms.startTime BETWEEN :startTimeMinus2Hours AND :startTimePlus2Hours")
     long countMatchesWithin4Hours(@Param("startTimeMinus2Hours") Timestamp startTimeMinus2Hours, @Param("startTimePlus2Hours") Timestamp startTimePlus2Hours);
 
-
+    List<MatchSchedule> findByStartTimeEquals(Timestamp startTime);
 }

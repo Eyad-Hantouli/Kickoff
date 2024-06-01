@@ -31,8 +31,7 @@ public class Match {
     }
     // all para const //
 
-    public Match(Long id, Timestamp time, Timestamp timestamp, Pitch pitchId, User refereeId) {
-        this.id = id;
+    public Match(Timestamp time, Pitch pitchId, User refereeId) {
         this.time = time;
         this.timestamp = new Timestamp(System.currentTimeMillis());
         this.pitchId = pitchId;
