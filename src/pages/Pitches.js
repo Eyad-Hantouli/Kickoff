@@ -29,6 +29,8 @@ const Pitches = ({ user }) => {
         });
       }, []);
 
+      
+
     const handleCityChange = (event) => {
         setSelectedCity(event.target.value);
     }
@@ -138,7 +140,8 @@ const Pitches = ({ user }) => {
             newArray[1] = Infinity;
 
         setPriceRange(newArray);
-    } 
+    }
+    
 
     if (!isFetched) return <>Loading...</>
 
@@ -199,7 +202,7 @@ const Pitches = ({ user }) => {
                 </div>
                 <div className="pitches-list">
                     {pitches
-                    .filter(pitch => user.role === Roles.PITCH_OWNER ? true : pitch.state === "active")
+                    .filter(pitch => pitch.state === "ACTIVE")
                     .filter(pitch => editMode ? pitch.ownerId === user.id : true)
                     .filter(pitch => filterCity === "Any" || filterCity === pitch.city)
                     .filter(pitch => pitch.price >= priceRange[0] && pitch.price <= priceRange[1])

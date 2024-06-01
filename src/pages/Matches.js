@@ -13,6 +13,10 @@ const Matches = ({ user }) => {
     const [matches, setMatches] = useState([]);
     const [update, setUpdate] = useState(false);
 
+    const today = new Date();
+    const todayIndex = today.getDay();
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
     useEffect(() => {
             axios.get(`http://localhost:8080/system/get-all-matches/pitch/${pitchId}/user/${user.username}`)
                 .then(response => {
@@ -95,9 +99,7 @@ const Matches = ({ user }) => {
                                         <MatchPosition teamNumber={1} positionNumber={5} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[5]} register={false}/>
                                     </div>
 
-                                    <div className="side side-4 judge">
-                                        <i className="fa-solid fa-flag-checkered referee-pos"></i>
-                                    </div>
+                                    <MatchPosition teamNumber={0} positionNumber={99} position={Position.REFEREE} match={match} source_user={user} target_user={match.positions[99]} register={false}/>
 
                                     <div className="side side-5">
                                         <MatchPosition teamNumber={2} positionNumber={6} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[6]} register={false}/>

@@ -25,7 +25,7 @@ const Login = ({ setUser }) => {
           // Store the username in LocalStorage
           localStorage.setItem('user', JSON.stringify(response.data.user));
           setUser(JSON.parse(localStorage.getItem("user")));
-        //   window.location.reload();
+          window.location.reload();
         }
       } catch (error) {
         setError('Login failed');

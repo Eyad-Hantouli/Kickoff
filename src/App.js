@@ -31,25 +31,41 @@ import Alert from "./components/Alert";
 function App() {
   
   const [user, setUser] = useState();
-  const [isThereAMatch, setIsThereAMatch] = useState(false);
+  const [fetchMatch, setFetchMatch] = useState(false);
+  const [matchToBeJudjed, setMatchToBeJudjed] = useState(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const presentUser = JSON.parse(localStorage.getItem("user"));
+      setUser(presentUser);
+
+      console.log(presentUser)
+      axios.get(`http://localhost:8080/system/get-match-need-judge/referee/${presentUser.username}`)
+        .then(response => {
+          setMatchToBeJudjed(response.data);
+        })
+        .catch(error => {
+          console.error("There was an error fetching the pitches!", error);
+          setMatchToBeJudjed([]);
+      });
     }
     else {
       setUser({});
+      setMatchToBeJudjed([]);
     }
   }, [])
 
-  if (!user) return <>Loading...</>
+  if (!user || !matchToBeJudjed) return <>Loading...</>
+
+  console.log(matchToBeJudjed);
+  console.log(matchToBeJudjed.length === 10);
 
   return (
     <>
 
-    { !isThereAMatch &&
-      <div className="App">
+    { matchToBeJudjed.length !== 10
+      ? <div className="App">
         <Alert />
         <BrowserRouter>
           <Navbar user={user} setUser={setUser}/>
@@ -85,12 +101,9 @@ function App() {
           </Routes>
         </BrowserRouter>
       </div>
-    }
-
-    { isThereAMatch && 
-       <div className="App">
-        <RefereeForm />
-       </div>
+      : <div className="App">
+        <RefereeForm players={matchToBeJudjed}/>
+      </div>
     }
 
     </>

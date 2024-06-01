@@ -34,7 +34,7 @@ const Register = () => {
     const [firstName, setFirstName] = useState('');
     const [midName, setMidName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [bod, setBod] = useState('');
+    const [dob, setDob] = useState('');
     const [address, setAddress] = useState('');
     const [password, setPassword] = useState('');
     const [confermPassword, setConfermPassword] = useState('');
@@ -62,7 +62,7 @@ const Register = () => {
                 "firstName" : firstName,
                 "midName" : midName, 
                 "lastName" : lastName,
-                "bod" : bod ,
+                "dob" : dob ,
                 "address" : address , 
                 "password" : password,
                 "phoneNumber" : phoneNumber ,
@@ -98,6 +98,8 @@ const Register = () => {
 
         handleRegister();
     }
+
+    console.log(dob);
 
     return (
         <div className="Register">
@@ -151,7 +153,7 @@ const Register = () => {
                                                         type="date"
                                                         className="form-control"
                                                         placeholder="Birth of date"
-                                                        onChange={(e) => setBod(e.target.value)}
+                                                        onChange={(e) => setDob(e.target.value)}
                                                     />
                                                 </div>
                                             </div>

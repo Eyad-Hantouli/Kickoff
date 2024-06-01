@@ -11,6 +11,10 @@ const MatchesSchedule = () => {
     const emptyTimeAlert = (msg) => handleAlert(msg, Colors.YELLOW);
     const intersectTimesAlert = (msg) => handleAlert(msg, Colors.RED);
 
+    const today = new Date();
+    const todayIndex = today.getDay();
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
     const getTimestamp = (day, time) => {
         const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         const dayIndex = daysOfWeek.indexOf(day);
@@ -59,7 +63,8 @@ const MatchesSchedule = () => {
             try {
                 const response = await axios.post('http://localhost:8080/system/create-schedule', {
                     "pitchId": pitchId,
-                    "timestamp": timestamp
+                    "timestamp": timestamp,
+                    "day": day
                 }).then(() => {
                     setIsFetched(curr => !curr);
                     handleModal();

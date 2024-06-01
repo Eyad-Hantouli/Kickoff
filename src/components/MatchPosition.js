@@ -41,7 +41,7 @@ const MatchPosition = ({ teamNumber, positionNumber, position, match, source_use
 
 
     return (
-        <div className="MatchPosition" style={{backgroundImage: `url(${photo})`}} onClick={() => {navigate(`/profile/${target_user.username}`)}}>
+        <div className={`MatchPosition ${source_user.username === target_user.username ? "you" : ""}`} style={{backgroundImage: `url(${photo})`}} onClick={() => {navigate(`/profile/${target_user.username}`)}}>
             {
                 target_user.relation_type === Relations.FRIEND
                 ? <div className="tagger yellow"><i className="fa-solid fa-star"></i></div>

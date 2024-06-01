@@ -38,8 +38,8 @@ const MatchRegister = ({ user }) => {
                                         <MatchPosition teamNumber={1} positionNumber={5} position={Position.NORMAL_PLAYER} match={match} source_user={user} target_user={match.positions[5]} register={true}/>
                                     </div>
 
-                                    <div className="side side-4 judge">
-                                        <i className="fa-solid fa-flag-checkered referee-pos"></i>
+                                    <div className="side side-99 judge">
+                                        <MatchPosition teamNumber={0} positionNumber={99} position={Position.REFEREE} match={match} source_user={user} target_user={match.positions[99]} register={true}/>
                                     </div>
 
                                     <div className="side side-5">
