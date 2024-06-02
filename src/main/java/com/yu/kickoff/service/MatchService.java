@@ -54,7 +54,11 @@ public class MatchService {
         List<MatchStatistics> statistics = matchStatisticsRepository.findByMatchId(match.get());
         if (statistics.get(0).getGoals() > -1) return respond;
 
+
+
         for (MatchStatistics statistic : statistics) {
+
+
             Map<String, Object> item = new HashMap<>();
             item.put("matchId", match.get().getId());
             item.put("username", statistic.getUserName().getUsername());

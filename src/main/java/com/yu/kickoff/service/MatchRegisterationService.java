@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class MatchRegisterationService {
@@ -76,6 +73,14 @@ public class MatchRegisterationService {
                 userData.put("relation_type", relationType);
 
                 positions.put(register.getPositionNumber(), userData);
+
+                String profileImage = "";
+                if (register.getUserName().getProfileImage() != null) {
+                    profileImage = Base64.getEncoder().encodeToString(register.getUserName().getProfileImage());
+                }
+
+                userData.put("profileImage", profileImage);
+
             }
 
             data.put("score_sum", scoreSum);

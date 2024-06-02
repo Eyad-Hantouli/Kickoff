@@ -28,7 +28,7 @@ public class User implements UserDetails {
     private String lastName;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate bod ;
+    private LocalDate dob ;
     private String address ;
     @Column(name = "password")
     private String password;
@@ -37,6 +37,7 @@ public class User implements UserDetails {
     private String phoneNumber;
     private byte[] idCardOne ;
     private byte[] idCardTwo ;
+    private byte[] profileImage ;
     @Enumerated(value = EnumType.STRING)
     private RoleEnum role;
     @Enumerated(value = EnumType.STRING)
@@ -46,12 +47,12 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String firstName, String midName, String lastName, LocalDate bod, String address, String password, String phoneNumber, City city) {
+    public User(String username, String firstName, String midName, String lastName, LocalDate dob, String address, String password, String phoneNumber, City city) {
         this.username = username;
         this.firstName = firstName;
         this.midName = midName;
         this.lastName = lastName;
-        this.bod = bod;
+        this.dob = dob;
         this.address = address;
         this.password = password;
         this.phoneNumber = phoneNumber;
@@ -59,6 +60,7 @@ public class User implements UserDetails {
         this.city = city;
         this.role = RoleEnum.USER;
         this.status = Status.ACTIVE;
+        this.profileImage = new byte[0];
     }
 
     @OneToMany(mappedBy = "user")
@@ -157,12 +159,12 @@ public class User implements UserDetails {
     @JoinColumn(name = "city_id")
     private City city ;
 
-    public LocalDate getBod() {
-        return bod;
+    public LocalDate getDob() {
+        return dob;
     }
 
-    public void setBod(LocalDate bod) {
-        this.bod = bod;
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
     }
 
     public String getAddress() {
@@ -221,4 +223,11 @@ public class User implements UserDetails {
         this.city = city;
     }
 
+    public byte[] getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(byte[] profileImage) {
+        this.profileImage = profileImage;
+    }
 }
