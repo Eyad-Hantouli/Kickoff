@@ -21,6 +21,8 @@ const Home = () => {
         axios.get('http://localhost:8080/system/get-all-cities')
           .then(response => {
             setCities(response.data);
+            console.log("RESPONSE:")
+            console.log(response.data);
           })
           .catch(error => {
             console.error("There was an error fetching the cities!", error);

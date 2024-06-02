@@ -6,6 +6,8 @@ import { Roles } from "../RolesEnum";
 import axios from "axios";
 import { handleAlert } from "../components/handleAlertFunction";
 import { Colors } from "../ColorsEnum";
+import Loaderr from "../components/Loader";
+import { LoadingControlPanel } from "../LoadingControlPanel";
 
 const Pitches = ({ user }) => {
     const navigate = useNavigate();
@@ -68,6 +70,7 @@ const Pitches = ({ user }) => {
     };
 
     const [pitches, setPitches] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [isFetched, setIsFetched] = useState(false);
 
     useEffect(() => {
@@ -83,6 +86,10 @@ const Pitches = ({ user }) => {
                     setPitches([]);
             });
         }
+
+        setTimeout(() => {
+            setLoading(false);
+        }, LoadingControlPanel.TIME)
     }, [isFetched]);
 
 
@@ -143,7 +150,7 @@ const Pitches = ({ user }) => {
     }
     
 
-    if (!isFetched) return <>Loading...</>
+    if (loading) return <Loaderr />
 
     return (
         <div className="Pitches">

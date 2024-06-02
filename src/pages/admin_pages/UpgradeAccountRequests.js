@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import "../../styles/upgrade-account-requests.css";
 import axios from "axios";
+import Loaderr from "../../components/Loader";
+import { LoadingControlPanel } from "../../LoadingControlPanel";
 
 const UpgradeAccountRequests = () => {
 
     const [requests, setRequests] = useState();
+    const [loading, setLoading] = useState(true);
     const [update, setUpdate] = useState(false);
 
     useEffect(() => {
@@ -16,6 +19,10 @@ const UpgradeAccountRequests = () => {
           console.error("There was an error fetching the cities!", error);
           setRequests([]);
       });
+
+      setTimeout(() => {
+        setLoading(false);
+    }, LoadingControlPanel.TIME)
     }, [update]);
 
     const handleReject = async (username) => {
@@ -57,7 +64,7 @@ const UpgradeAccountRequests = () => {
     //     }
     // ]
 
-    if(!requests) return <>Loading...</>
+    if(loading) return <Loaderr />
 
     return (
         <div className="UpgradeAccountRequests">

@@ -7,8 +7,7 @@ import { Colors } from "../ColorsEnum";
 
 const Register = () => {
 
-    const wrongPasswordConfermAlert = (msg) => handleAlert(msg, Colors.RED);
-    const userTakenAlert = (msg) => handleAlert(msg, Colors.Yellow);
+    const alert = (msg, color) => handleAlert(msg, color);
 
     const navigate = useNavigate();
 
@@ -71,32 +70,67 @@ const Register = () => {
                 "city": selectedCity
             });
           
-          if ((response.status === 200 || response.status === 201) && response.data.token !== null) {
+          if ((response.status === 200 || response.status === 201) && response.data.user !== null) {
             navigate("/login");
+            alert("Registration completed.", Colors.GREEN);
           }
           else {
             if (response.data.message) {
-                userTakenAlert("Username already exist, try another one please.");
+                alert("Username already exist, try another one please.", Colors.YELLOW);
             }
             else {
-                wrongPasswordConfermAlert("Regesteration faild !");
+                alert("Regesteration faild !", Colors.RED);
             }
           }
         } catch (error) {
-            wrongPasswordConfermAlert("Registration error !");
+            alert("Phone number already taken !", Colors.RED);
             console.error('Registration error:', error);
         }
       };
 
+    const oldEnough = (dob, allowedAge) => {
+        const date = new Date(dob);
+
+        const today = new Date();
+        const age = today.getFullYear() - date.getFullYear();
+        const monthDifference = today.getMonth() - date.getMonth();
+        const dayDifference = today.getDate() - date.getDate();
+
+        // Adjust the age if the birth date hasn't occurred yet this year
+        if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+            return (age - 1) >= allowedAge;
+        }
+        
+        return age >= allowedAge;
+    };
+
     function register_form_submit(event) {
         event.preventDefault();
+        const allowedAge = 10;
 
-        if (confermPassword !== password)  {
-            wrongPasswordConfermAlert("Password doesnt match the Conferm password !");
-            return;
+        if (username.length < 2)  {
+            alert("Username must be at least 2 characters !", Colors.YELLOW);
         }
 
-        handleRegister();
+        else if (!oldEnough(dob, allowedAge)) {
+            alert(`You have to be older than ${allowedAge} years to register !`, Colors.YELLOW);
+        }
+
+        else if (phoneNumber.length < 8)  {
+            alert("Phone number length must be at least 10 digits !", Colors.YELLOW);
+        }
+
+        else if (confermPassword !== password)  {
+            alert("Password doesnt match the Conferm password !", Colors.YELLOW);
+        }
+
+        else if (password.length < 8)  {
+            alert("Password length must be at least 8 characters !", Colors.YELLOW);
+        }
+
+        else {
+            handleRegister();
+        }
     }
 
     return (

@@ -26,6 +26,7 @@ import PitchOwnerRoute from "./private routes/PitchOwnerRoute";
 import MatchesSchedule from "./pages/pitch_owner_pages/MatchesSchedule";
 import axios from "axios";
 import Alert from "./components/Alert";
+import Loader from "./components/Loader";
 
 
 function App() {
@@ -63,7 +64,7 @@ function App() {
     }
   }, [update])
 
-  if (!user || !matchToBeJudjed) return <>Loading...</>
+  if (!user || !matchToBeJudjed) return <Loader />
 
   return (
     <>

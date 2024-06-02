@@ -2,12 +2,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import "../styles/match_history.css"
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Loaderr from "../components/Loader";
+import { LoadingControlPanel } from "../LoadingControlPanel";
 
 const MatchHistory = () => {
 
     const { username } = useParams();
     const navigate = useNavigate();
     const[matchesData, setMatchesData] = useState();
+    const[loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchUserStatistics = async () => {
@@ -20,9 +23,13 @@ const MatchHistory = () => {
         };
 
         fetchUserStatistics();
+
+        setTimeout(() => {
+            setLoading(false);
+        }, LoadingControlPanel.TIME)
     }, []);
 
-    if (!matchesData) return<>Loading...</>
+    if (loading) return <Loaderr />
 
     return (
         <div className="MatchHistory">

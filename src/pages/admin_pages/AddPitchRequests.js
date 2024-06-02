@@ -1,25 +1,13 @@
 import { useEffect, useState } from "react";
 import "../../styles/add_pitch_requests.css";
 import axios from "axios";
+import Loaderr from "../../components/Loader";
+import { LoadingControlPanel } from "../../LoadingControlPanel";
 
 const AddPitchRequests = () => {
 
-    // const requests = [
-    //     {
-    //         username: "eyad_h",
-    //         pitchName: "Parax",
-    //         price: "3.5",
-    //         pic: "https://img.yumpu.com/28393177/1/500x640/broad-green-fairfield-amp-waddon-16-10-12-croydon-council.jpg"
-    //     },
-    //     {
-    //         username: "yamen9090",
-    //         pitchName: "Parax",
-    //         price: "3.5", 
-    //         pic: "https://img.yumpu.com/28393177/1/500x640/broad-green-fairfield-amp-waddon-16-10-12-croydon-council.jpg"
-    //     }
-    // ]
-
     const [requests, setRequests] = useState();
+    const [loading, setLoading] = useState(true);
     const [update, setUpdate] = useState(false);
 
     useEffect(() => {
@@ -31,6 +19,10 @@ const AddPitchRequests = () => {
               console.error("There was an error fetching the cities!", error);
               setRequests([]);
       });
+
+      setTimeout(() => {
+        setLoading(false);
+    }, LoadingControlPanel.TIME)
     }, [update]);
 
     const handleReject = async (id) => {
@@ -57,7 +49,7 @@ const AddPitchRequests = () => {
         }
       };
 
-    if(!requests) return <>Loading...</>
+    if(loading) return <Loaderr />
 
     return (
         <div className="AddPitchRequests">

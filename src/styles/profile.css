@@ -58,7 +58,7 @@
 .Profile .section {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     margin-top: 20px;
     flex-wrap: wrap;
     gap: 120px;
@@ -235,7 +235,7 @@
 
 
 .Profile .statistics ul {
-    margin-top: 50px;
+    margin-top: 22vh;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -245,12 +245,12 @@
 
 .Profile .statistics ul li {
     /* flex-grow: 1; */
-    width: 150px;
+    width: 130px;
     /* max-width: 150px; */
     /* padding: 10px; */
     aspect-ratio: 1/1;
     color: var(--light);
-    border: 2px solid var(--dark-light);
+    border: 3px dashed var(--dark-light);
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
