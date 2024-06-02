@@ -2,23 +2,18 @@ package com.yu.kickoff.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.List;
 
 @Entity
-@Table(name = "uzer")
-public class User implements UserDetails {
+@Table(name = "uzer", indexes = @Index(name = "idx_username", columnList = "username"))
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
     @Column(name = "first_name")
     private String firstName;
@@ -63,9 +58,6 @@ public class User implements UserDetails {
         this.profileImage = new byte[0];
     }
 
-    @OneToMany(mappedBy = "user")
-    private List<Token> tokens;
-
     public Long getId() {
         return id;
     }
@@ -102,33 +94,8 @@ public class User implements UserDetails {
         return username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     public String getPassword() {
@@ -145,14 +112,6 @@ public class User implements UserDetails {
 
     public void setRole(RoleEnum role) {
         this.role = role;
-    }
-
-    public List<Token> getTokens() {
-        return tokens;
-    }
-
-    public void setTokens(List<Token> tokens) {
-        this.tokens = tokens;
     }
 
     @ManyToOne

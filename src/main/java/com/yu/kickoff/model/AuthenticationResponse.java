@@ -1,16 +1,16 @@
 package com.yu.kickoff.model;
 
 public class AuthenticationResponse {
-    private String token;
+    private User user;
     private String message;
 
-    public AuthenticationResponse(String token, String message) {
-        this.token = token;
+    public AuthenticationResponse(User user, String message) {
+        this.user = user;
         this.message = message;
     }
 
-    public String getToken() {
-        return token;
+    public User getUser() {
+        return user;
     }
 
     public String getMessage() {
