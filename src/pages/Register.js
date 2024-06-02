@@ -18,7 +18,7 @@ const Register = () => {
     const [isFetched, setIsFetched] = useState(false);
 
     useEffect(() => {
-        if (!localStorage.getItem("user") && !isFetched) {
+        if (!localStorage.getItem("username") && !isFetched) {
           axios.get('http://localhost:8080/system/get-all-cities')
             .then(response => {
               setCities(response.data);
@@ -50,7 +50,7 @@ const Register = () => {
         setSelectedCity(event.target.value);
     };
 
-    if (localStorage.getItem("user")) {
+    if (localStorage.getItem("username")) {
         return <Navigate to="/" replace />
     }
 
@@ -98,8 +98,6 @@ const Register = () => {
 
         handleRegister();
     }
-
-    console.log(dob);
 
     return (
         <div className="Register">

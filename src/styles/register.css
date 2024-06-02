@@ -41,16 +41,9 @@
 }
 
 input[type="date"] {
-    /* background-color: #0080ff; */
     padding: 15px;
-    /* position: absolute; */
-    /* transform: translate(-50%,-50%); */
-    /* top: 50%; */
-    /* left: 50%; */
-
     font-family: "Roboto Mono",monospace;
     color: var(--dark-light);
-    /* font-size: 18px; */
     border: none;
     outline: none;
     border-radius: 5px;

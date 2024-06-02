@@ -31,17 +31,24 @@ import Alert from "./components/Alert";
 function App() {
   
   const [user, setUser] = useState();
+  const [update, setUpdate] = useState(false);
   const [fetchMatch, setFetchMatch] = useState(false);
   const [matchToBeJudjed, setMatchToBeJudjed] = useState(null);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const presentUser = JSON.parse(localStorage.getItem("user"));
-      setUser(presentUser);
+    const storedUsername = localStorage.getItem("username");
+    if (storedUsername) {
+      const fetchUserData = async () => {
+        try {
+          const response = await axios.get(`http://localhost:8080/system/get-user-data-by-username/${storedUsername}`);
+          setUser(response.data);
+        } catch (error) {
+        }
+      };
 
-      console.log(presentUser)
-      axios.get(`http://localhost:8080/system/get-match-need-judge/referee/${presentUser.username}`)
+      fetchUserData();
+
+      axios.get(`http://localhost:8080/system/get-match-need-judge/referee/${storedUsername}`)
         .then(response => {
           setMatchToBeJudjed(response.data);
         })
@@ -54,12 +61,9 @@ function App() {
       setUser({});
       setMatchToBeJudjed([]);
     }
-  }, [])
+  }, [update])
 
   if (!user || !matchToBeJudjed) return <>Loading...</>
-
-  console.log(matchToBeJudjed);
-  console.log(matchToBeJudjed.length === 10);
 
   return (
     <>
@@ -73,12 +77,12 @@ function App() {
             {/* Public Routes */}
             <Route exact path='/' element = { <Home /> } />
             <Route exact path='/register' element = { <Register isLogin={user.login}/> } />
-            <Route exact path='/login' element = { <Login setUser = {setUser}/> } />
+            <Route exact path='/login' element = { <Login setUpdate = {setUpdate}/> } />
             <Route exact path='/leaderboard' element = { <Leaderboard isLogin={user.login}/> } />
 
             {/* Private Routes */}
             <Route element={<UserRoute isLogin={user.login}/>}>
-              <Route path="/profile/:username" element={<Profile user={user}/>} />
+              <Route path="/profile/:username" element={<Profile user={user} setUpdate = {setUpdate}/>} />
               <Route path="/matchhistory/:username" element={<MatchHistory />} />
               
               <Route path="/pitches/" element={<Pitches user={user}/>} />

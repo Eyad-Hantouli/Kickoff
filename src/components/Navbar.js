@@ -45,7 +45,7 @@ const Navbar = ({ user, setUser }) => {
                         }
                         {
                             user.login && 
-                                <li className="logout_btn tap" onClick={() => {localStorage.removeItem('user'); setUser({})}}>Logout . <i className="fa-solid fa-right-from-bracket"></i></li>
+                                <li className="logout_btn tap" onClick={() => {localStorage.removeItem('username'); setUser({})}}>Logout . <i className="fa-solid fa-right-from-bracket"></i></li>
                         }
                     </span>
                 </ul>

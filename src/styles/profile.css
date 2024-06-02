@@ -81,7 +81,65 @@
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
 }
+
+.Profile .section .lhs .image .control {
+    height: 100%;
+    width: 100%;
+    background-color: #2d2d2d00;
+    opacity: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    transition: .1s;
+    -webkit-transition: .1s;
+    -moz-transition: .1s;
+    -ms-transition: .1s;
+    -o-transition: .1s;
+}
+
+.Profile .section .lhs .image .control:hover {
+    background-color: #2d2d2ddf;
+    opacity: 1;
+}
+
+.Profile .section .lhs .image .control .holder * {
+    font-size: 20px;
+    font-weight: 500;
+    display: block;
+    cursor: pointer;
+    color: var(--light);
+}
+
+.Profile .section .lhs .image .control .holder input {
+    font-size: 10px;
+    color: transparent;
+    transform: translateX(30%);
+    -webkit-transform: translateX(30%);
+    -moz-transform: translateX(30%);
+    -ms-transform: translateX(30%);
+    -o-transform: translateX(30%);
+    cursor: pointer;
+}
+
+.Profile .section .lhs .image .control .holder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+
 .Profile .section .lhs .name {
     position: relative;
     color: var(--dark-light);
@@ -142,6 +200,22 @@
     margin: 0;
 }
 
+.Profile .section .rhs .buttons ul li {
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    transition: .2s;
+    -webkit-transition: .2s;
+    -moz-transition: .2s;
+    -ms-transition: .2s;
+    -o-transition: .2s;
+}
+
+.Profile .section .rhs .buttons ul li:hover {
+    background-color: var(--dark-light);
+    color: var(--black);
+}
+
 .Profile .section .rhs .buttons ul li.friend i {
     color: var(--yellow);
 }
@@ -149,6 +223,16 @@
 .Profile .section .rhs .buttons ul li.block i {
     color: var(--ban);
 }
+
+.Profile .section .rhs .buttons ul li.edit-profile {
+    background-color: var(--yellow);
+    color: var(--black);
+}
+
+.Profile .section .rhs .buttons ul li.edit-profile:hover {
+    background-color: var(--dark-yellow);
+}
+
 
 .Profile .statistics ul {
     margin-top: 50px;
@@ -228,7 +312,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     z-index: 3;
     display: flex;
     justify-content: center;
@@ -264,6 +348,10 @@
 .Profile .modall h4, .Profile .modall p {
     color: var(--dark-light) !important;
     opacity: .3 !important;
+}
+
+.Profile .modall .form-group {
+    color: var(--dark-light);
 }
 
 .Profile .day-picker {
@@ -343,4 +431,19 @@
 .Profile .modall h6 {
     color: var(--dark-light);
     margin: 15px 0;
+}
+
+.Profile input[type="date"] {
+    padding: 15px;
+    font-family: "Roboto Mono",monospace;
+    color: var(--dark-light);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+.Profile input[type="date"]::-webkit-calendar-picker-indicator{
+    background-color: var(--dark-light);
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
 }

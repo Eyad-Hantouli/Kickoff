@@ -16,8 +16,6 @@ const RefereeForm = ({ players }) => {
 
     const [playersStat, setPlayersStat] = useState(generatePlayerStat());
 
-    console.log(playersStat);
-
     // Goals Handler
     const setGoals = (username, value) => {
         setPlayersStat(prevState => ({

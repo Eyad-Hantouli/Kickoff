@@ -5,9 +5,9 @@ import axios from "axios";
 import { handleAlert } from "../components/handleAlertFunction";
 import { Colors } from "../ColorsEnum";
 
-const Login = ({ setUser }) => {
+const Login = ({ setUpdate }) => {
 
-    const wrongLogin = (msg) => handleAlert(msg, Colors.RED);
+    const loginAlert = (msg, color) => handleAlert(msg, color);
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -16,21 +16,21 @@ const Login = ({ setUser }) => {
     const handleLogin = async () => {
       try {
         const response = await axios.post('http://localhost:8080/login', {
-          username: username,
-          password: password,
+            username: username,
+            password: password,
         });
-  
+
         // Assuming a successful response contains a status code of 200
         if (response.status === 200) {
-          // Store the username in LocalStorage
-          localStorage.setItem('user', JSON.stringify(response.data.user));
-          setUser(JSON.parse(localStorage.getItem("user")));
-          window.location.reload();
+            localStorage.setItem('username', username);
+            setUpdate(c => !c);
+            loginAlert(`Login successful ! Welcome ${response.data.user.firstName}.`, Colors.GREEN);
+            navigate("/");
         }
-      } catch (error) {
-        setError('Login failed');
-        wrongLogin("Username or password isn't correct !");
-      }
+        } catch (error) {
+            setError('Login failed');
+            loginAlert("Username or password isn't correct !", Colors.RED);
+        }
   }
 
     const navigate = useNavigate();
@@ -41,7 +41,7 @@ const Login = ({ setUser }) => {
         handleLogin();
     }
 
-    if (localStorage.getItem("user")) {
+    if (localStorage.getItem("username")) {
         return <Navigate to="/" replace />
     }
 
@@ -75,7 +75,7 @@ const Login = ({ setUser }) => {
                                                 <div className="form-group col-md-12">
                                                     <label htmlFor="inputEmail4">Password</label>
                                                     <input required
-                                                        type="tel"
+                                                        type="password"
                                                         className="form-control"
                                                         placeholder="Password"
                                                         onChange={(e) => setPassword(e.target.value)}
