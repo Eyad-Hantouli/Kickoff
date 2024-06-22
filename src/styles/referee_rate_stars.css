@@ -1,0 +1,24 @@
+:root {
+    --black: #101010;
+    --gray: #2d2d2d;
+    --white: white;
+    --light: #eee;
+    --dark-light: #969696;
+    --yellow: #ffde83;
+    --dark-yellow: #eec657;
+    --ban: #f44336;
+    --background-color: black;
+    --text-color: hsl(0, 0%, 100%);
+}
+
+.referee_rate_stars {
+    cursor: pointer;
+}
+
+.referee_rate_stars span {
+    color: var(--yellow);
+}
+
+.referee_rate_stars span .fa-regular {
+    color: var(--dark-light);
+}

@@ -1,0 +1,188 @@
+:root {
+    --black: #101010;
+    --gray: #2d2d2d;
+    --white: white;
+    --light: #eee;
+    --dark-light: #969696;
+    --yellow: #ffde83;
+    --dark-yellow: #eec657;
+    --ban: #f44336;
+    --background-color: black;
+    --text-color: hsl(0, 0%, 100%);
+}
+.Home {
+    color: var(--light);
+    background-color: var(--black);
+}
+
+.Home .landing_header {
+    height: 100vh;
+    background-image: url("../resorces/landing_bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-attachment: fixed;
+}
+
+.Home .container {
+    height: inherit;
+}
+
+.Home .container .search {
+    padding: calc(50px + 30px) 0 30px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.Home .container .search .search_icon {
+    font-size: 22px;
+}
+
+.Home .container .search .search_bar {
+    border: 2px solid var(--light);
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+    padding: 6px 10px;
+    flex-grow: 1;
+    flex-basis: 0;
+    /* max-width: calc(100% - 50px); */
+}
+
+.Home .container .search .search_bar .search_input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: var(--light);
+    padding: 5px;
+    width: 100%;
+}
+
+.Home .container .search .search_bar .submit {
+    display: none;
+}
+
+.Home .title_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 303.6px);
+}
+
+.Home .title_container .title {
+    font-size: 4rem;
+}
+
+.Home .wrapper {
+    display: grid;
+    place-content: center;
+    /* background-color: var(--background-color); */
+    /* min-height: 100vh; */
+    font-family: "Oswald", sans-serif;
+    /* font-size: clamp(1.5rem, 1rem + 18vw, 15rem); */
+    font-size: 8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-color);
+    user-select: none;
+}
+  
+.Home .wrapper > div {
+    grid-area: 1/1/-1/-1;
+}
+
+.Home .top {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 48%, 0% 58%);
+}
+
+.Home .bottom {
+    clip-path: polygon(0% 60%, 100% 50%, 100% 100%, 0% 100%);
+    color: transparent;
+    background: -webkit-linear-gradient(177deg, black 53%, var(--text-color) 65%);
+    background: linear-gradient(177deg, black 53%, var(--text-color) 65%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    transform: translateX(-0.02em);
+    -webkit-transform: translateX(-0.02em);
+    -moz-transform: translateX(-0.02em);
+    -ms-transform: translateX(-0.02em);
+    -o-transform: translateX(-0.02em);
+}
+
+.Home .title_container .subtitle {
+    color: var(--light);
+}
+  
+@media (max-width: 670px) {
+    .Home .wrapper {
+        font-size: 6rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .Home .wrapper {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 370px) {
+    .Home .wrapper {
+        font-size: 3rem;
+    }
+}
+
+/* --------- */
+/* Section 1 */
+/* --------- */
+
+.Home .section {
+    height: 50vh;
+}
+
+.Home .sections_holder {
+    /* background-image: url("../resorces/Landingsection.jpg"); */
+    background-position: top;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.Home footer {
+    padding: 10px 0;
+    background-color: black;
+}
+
+.Home .contacts_form_container {
+    padding: 80px 0;
+}
+
+.Home .contacts_form input, .Home .contacts_form select {
+    border-color: var(--gray);
+    border: none;
+    border-left: 3px solid var(--yellow);
+    background-color: var(--gray);
+    
+    color: var(--light);
+   
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+}
+
+.Home .contact-title {
+    margin-bottom: 50px;
+}
+
+.Home .contacts_form .submit_btn {
+    background-color: var(--yellow);
+    color: var(--black);
+}

@@ -1,0 +1,126 @@
+:root {
+    --black: #101010;
+    --gray: #2d2d2d;
+    --white: white;
+    --light: #eee;
+    --dark-light: #969696;
+    --yellow: #ffde83;
+    --dark-yellow: #eec657;
+    --ban: #f44336;
+    --background-color: black;
+    --text-color: hsl(0, 0%, 100%);
+}
+.Navbar {
+
+    background-color: var(--gray);
+    color: var(--light);
+    min-height: 42px;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: rgba(45, 45, 45, 0.94);
+    background: rgb(0, 0, 0);
+    background: linear-gradient(270deg, rgb(21 21 21 / 95%) 0%, rgb(32 32 32 / 99%) 49%, rgb(32 32 32 / 95%) 100%);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.5px);
+    -webkit-backdrop-filter: blur(4.5px);
+}
+
+.Navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Navbar .burger_bars {
+    display: none;
+}
+
+.Navbar .container ul {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.Navbar .container ul li{
+    min-height: 30px;
+    padding: 10px 10px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+
+.Navbar .container ul .taps {
+    display: flex;
+}
+
+.Navbar .container ul .tap::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: var(--yellow);
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+
+.Navbar .container ul .tap:hover {
+    color: var(--yellow);
+}
+.Navbar .container ul .tap:hover::before {
+    width: 100%;
+}
+
+.profile_image_btn .profile_image {
+    width: 30px;
+    height: 30px;
+    background-color: var(--light);
+
+    background-position: center;
+    background-size: cover;
+
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+.Navbar .notifications_btn:hover {
+    color: var(--yellow);
+}
+
+@media (max-width: 772px) {
+    .Navbar .container .LHS .taps {
+        position: absolute;
+        flex-direction: column;
+        background-color: var(--light);
+        color: var(--gray);
+        top: 42px;
+        display: none;
+    }
+
+    .Navbar .container .LHS .tap:hover {
+        color: var(--gray);
+        background-color: var(--yellow);
+    }
+
+    .Navbar .container .LHS .tap::before {
+        height: 0px;
+    }
+
+    .Navbar .burger_bars {
+        display: block;
+    }
+}

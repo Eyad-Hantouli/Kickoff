@@ -1,0 +1,449 @@
+:root {
+    --black: #101010;
+    --gray: #2d2d2d;
+    --white: white;
+    --light: #eee;
+    --dark-light: #969696;
+    --yellow: #ffde83;
+    --dark-yellow: #eec657;
+    --ban: #f44336;
+    --background-color: black;
+    --text-color: hsl(0, 0%, 100%);
+}
+
+.Profile {
+}
+
+.Profile .profile-navbar {
+    background-color: var(--gray);
+}
+
+.Profile .profile-navbar .taps {
+    /* padding: 10px; */
+    color: white;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.Profile .tap {
+    padding: 10px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+.Profile .tap::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: var(--yellow);
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+}
+
+.Profile .tap:hover {
+    color: var(--yellow);
+}
+.Profile .tap:hover::before {
+    width: 100%;
+}
+
+.Profile .section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 120px;
+}
+
+.Profile .section .lhs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.Profile .section .lhs .image {
+    width: 150px ;
+    /* height: 3rem; */
+    aspect-ratio: 1/1;
+    background-color: var(--gray);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.Profile .section .lhs .image .control {
+    height: 100%;
+    width: 100%;
+    background-color: #2d2d2d00;
+    opacity: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+    transition: .1s;
+    -webkit-transition: .1s;
+    -moz-transition: .1s;
+    -ms-transition: .1s;
+    -o-transition: .1s;
+}
+
+.Profile .section .lhs .image .control:hover {
+    background-color: #2d2d2ddf;
+    opacity: 1;
+}
+
+.Profile .section .lhs .image .control .holder * {
+    font-size: 20px;
+    font-weight: 500;
+    display: block;
+    cursor: pointer;
+    color: var(--light);
+}
+
+.Profile .section .lhs .image .control .holder input {
+    font-size: 10px;
+    color: transparent;
+    transform: translateX(30%);
+    -webkit-transform: translateX(30%);
+    -moz-transform: translateX(30%);
+    -ms-transform: translateX(30%);
+    -o-transform: translateX(30%);
+    cursor: pointer;
+}
+
+.Profile .section .lhs .image .control .holder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.Profile .section .lhs .name {
+    position: relative;
+    color: var(--dark-light);
+    font-size: 20px;
+}
+
+.Profile .section .lhs .name span {
+    position: absolute;
+    right: -30px;
+    color: var(--yellow);
+    cursor: pointer;
+}
+
+
+
+
+.Profile .section .rhs {
+    color: var(--dark-light);
+}
+
+.Profile .section .rhs .data ul li:nth-child(even){
+    background-color: var(--gray);
+}
+
+.Profile .section .rhs .data ul li{
+    background-color: var(--black);
+    min-width: 280px;
+    
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Profile .section .rhs .data ul li span:last-child {
+    /* text-align: end; */
+}
+
+
+
+.Profile .section .rhs .buttons ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.Profile .section .rhs .buttons ul li {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--gray);
+    margin-top: 10px;
+    padding: 5px 10px;
+}
+
+.Profile .section .rhs .buttons ul li p {
+    margin: 0;
+}
+
+.Profile .section .rhs .buttons ul li {
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    transition: .2s;
+    -webkit-transition: .2s;
+    -moz-transition: .2s;
+    -ms-transition: .2s;
+    -o-transition: .2s;
+}
+
+.Profile .section .rhs .buttons ul li:hover {
+    background-color: var(--dark-light);
+    color: var(--black);
+}
+
+.Profile .section .rhs .buttons ul li.friend i {
+    color: var(--yellow);
+}
+
+.Profile .section .rhs .buttons ul li.block i {
+    color: var(--ban);
+}
+
+.Profile .section .rhs .buttons ul li.edit-profile {
+    background-color: var(--yellow);
+    color: var(--black);
+}
+
+.Profile .section .rhs .buttons ul li.edit-profile:hover {
+    background-color: var(--dark-yellow);
+}
+
+
+.Profile .statistics ul {
+    margin-top: 22vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.Profile .statistics ul li {
+    /* flex-grow: 1; */
+    width: 130px;
+    /* max-width: 150px; */
+    /* padding: 10px; */
+    aspect-ratio: 1/1;
+    color: var(--light);
+    border: 3px dashed var(--dark-light);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Profile .tap {
+    position: relative;
+}
+
+.Profile .tap ol {
+    position: absolute;
+    width: 150px;
+    background-color: var(--dark-light);
+    color: var(--black);
+    top: 45px;
+    left: -15px;
+}
+
+.Profile .tap ol li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--black);
+}
+
+.Profile .tap ol li:hover {
+    background-color: var(--light);
+}
+
+.Profile .tap ol li i {
+    color: var(--gray);
+}
+
+.Profile .upgrade-acc {
+    background-color: var(--yellow);
+    padding: 10px;
+    font-weight: 500;
+    border: none;
+}
+
+.Profile .nav-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+/* Modal Styles  */
+
+.Profile .modall {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Profile .background {
+    background-color: rgba(24, 24, 24, 0.94);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    cursor: pointer;
+}
+
+.Profile .modal-box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--gray);
+    padding: 30px 20px;
+    gap: 50px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.Profile .modall h4, .Profile .modall p {
+    color: var(--dark-light) !important;
+    opacity: .3 !important;
+}
+
+.Profile .modall .form-group {
+    color: var(--dark-light);
+}
+
+.Profile .day-picker {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    flex-wrap: wrap;
+}
+
+
+.Profile .day-picker div {
+    color: var(--dark-light);
+    padding: 10px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    transition: .2s;
+    -webkit-transition: .2s;
+    -moz-transition: .2s;
+    -ms-transition: .2s;
+    -o-transition: .2s;
+    font-weight: 500;
+}
+
+.Profile .day-picker div:hover,
+.Profile .day-picker .selected {
+    color: var(--black);
+    background-color: var(--yellow);
+}
+
+.Profile .modal-box .add-match-button {
+    background-color: var(--yellow);
+    padding: 10px;
+    font-weight: 500;
+    border: none;
+}
+
+.Profile .modall input[type="file"] {
+    padding: 10px;
+    background-color: var(--dark-light);
+}
+
+.Profile .modal-btn-holder {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.Profile .modal-btn-holder button {
+    display: block;
+    background-color: var(--yellow);
+    padding: 10px;
+    font-weight: 500;
+    border: none;
+}
+
+.Profile .data-input {
+    background-color: var(--black);
+    border: none;
+    border-left: 2px solid var(--yellow);
+    padding: 10px;
+    color: var(--light);
+}
+
+.Profile .data-input:focus {
+    outline: 1px solid var(--dark-light);
+}
+
+.Profile .modall h6 {
+    color: var(--dark-light);
+    margin: 15px 0;
+}
+
+.Profile input[type="date"] {
+    padding: 15px;
+    font-family: "Roboto Mono",monospace;
+    color: var(--dark-light);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+.Profile input[type="date"]::-webkit-calendar-picker-indicator{
+    background-color: var(--dark-light);
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+}

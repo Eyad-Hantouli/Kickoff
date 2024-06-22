@@ -1,0 +1,76 @@
+:root {
+    --black: #101010;
+    --gray: #2d2d2d;
+    --white: white;
+    --light: #eee;
+    --dark-light: #969696;
+    --yellow: #ffde83;
+    --dark-yellow: #eec657;
+    --ban: #f44336;
+    --background-color: black;
+    --text-color: hsl(0, 0%, 100%);
+}
+
+.Login {
+    background-color: var(--black);
+}
+
+.Login label {
+    color: var(--dark-light);
+}
+
+.Login input, .Login select {
+    background-color: var(--black);
+    border: none;
+    border-left: 1px solid var(--yellow);
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    -o-border-radius: 0;
+    color: var(--white);
+}
+
+.Login input:focus, .Login select:focus {
+    color: var(--white);
+    background-color: var(--black);
+}
+
+.Login .form-container {
+    background-color: var(--gray);
+}
+
+input[type="date"] {
+    /* background-color: #0080ff; */
+    padding: 15px;
+    /* position: absolute; */
+    /* transform: translate(-50%,-50%); */
+    /* top: 50%; */
+    /* left: 50%; */
+
+    font-family: "Roboto Mono",monospace;
+    color: var(--dark-light);
+    /* font-size: 18px; */
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+.Login input[type="date"]::-webkit-calendar-picker-indicator{
+    background-color: var(--dark-light);
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.Login input[type="submit"] {
+    background-color: var(--yellow);
+}
+
+.Login .navigate {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.Login .navigate:hover {
+    color: var(--yellow) !important;
+}

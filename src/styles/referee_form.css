@@ -1,0 +1,294 @@
+:root {
+    --black: #101010;
+    --gray: #2d2d2d;
+    --white: white;
+    --light: #eee;
+    --dark-light: #969696;
+    --yellow: #ffde83;
+    --dark-yellow: #eec657;
+    --ban: #f44336;
+    --background-color: black;
+    --text-color: hsl(0, 0%, 100%);
+}
+
+.RefereeForm {
+    background-color: var(--black);
+    display: flex;
+    flex-direction: column;
+}
+
+.RefereeForm .row-:nth-child(even){
+    background-color: var(--gray);
+}
+
+.RefereeForm .row- {
+    color: var(--dark-light);
+    background-color: var(--black);
+    padding: 20px 0;
+    border-bottom: 2px solid #eec6577c;
+    
+}
+
+.RefereeForm .row- .top {
+    color: var(--light);
+    padding: 10px;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: -3px 0px 0 var(--dark-light);
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    
+}
+.RefereeForm .row- .top span {
+    display: block;
+}
+
+.RefereeForm .row- .top span b {
+}
+
+.RefereeForm .row- .bottom {
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.RefereeForm .row- .bottom .sect {
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex-grow: 1;
+    cursor: pointer;
+    user-select: none;
+}
+
+.RefereeForm .row- .bottom .sect:hover {
+    background-color: var(--gray);
+}
+
+.RefereeForm .row-:nth-child(even) .bottom .sect:hover {
+    background-color: var(--black);
+}
+
+.RefereeForm .row- .bottom .sect span {
+    width: 30px;
+    aspect-ratio: 1/1;
+    /* background-color: var(--dark-yellow); */
+    border: 1px solid var(--dark-light);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--dark-light);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.RefereeForm .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.RefereeForm .button .btn {
+    background-color: var(--yellow);
+    color: var(--gray);
+    font-weight: 700;
+    padding: 15px;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    cursor: pointer;
+    user-select: none;
+    width: 100px;
+    position: relative;
+}
+
+.RefereeForm .button .btn:hover {
+    background-color: var(--dark-yellow);
+    transform: skewX(-10deg);
+    -webkit-transform: skewX(-10deg);
+    -moz-transform: skewX(-10deg);
+    -ms-transform: skewX(-10deg);
+    -o-transform: skewX(-10deg);
+}
+
+.RefereeForm .modall {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.RefereeForm .background {
+    background-color: rgba(24, 24, 24, 0.886);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    cursor: pointer;
+}
+
+.RefereeForm .modal-box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--gray);
+    padding: 30px 20px;
+    gap: 50px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    min-width: 250px;
+}
+
+.RefereeForm .modall h4, .RefereeForm .modall p {
+    color: var(--dark-light) !important;
+    opacity: .3 !important;
+}
+
+.RefereeForm .day-picker {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    flex-wrap: wrap;
+}
+
+
+.RefereeForm .day-picker div {
+    color: var(--dark-light);
+    padding: 10px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    transition: .2s;
+    -webkit-transition: .2s;
+    -moz-transition: .2s;
+    -ms-transition: .2s;
+    -o-transition: .2s;
+    font-weight: 500;
+}
+
+.RefereeForm .day-picker div:hover,
+.RefereeForm .day-picker .selected {
+    color: var(--black);
+    background-color: var(--yellow);
+}
+
+.RefereeForm .modal-box .add-match-button {
+    background-color: var(--yellow);
+    padding: 10px;
+    font-weight: 500;
+    border: none;
+}
+
+.RefereeForm .modall input[type="file"] {
+    padding: 10px;
+    background-color: var(--dark-light);
+}
+
+.RefereeForm .modal-btn-holder {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.RefereeForm .modal-btn-holder button {
+    display: block;
+    background-color: var(--yellow);
+    padding: 10px;
+    font-weight: 500;
+    border: none;
+}
+
+.RefereeForm .data-input {
+    background-color: var(--black);
+    border: none;
+    border-left: 2px solid var(--yellow);
+    padding: 10px;
+    color: var(--light);
+}
+
+.RefereeForm .data-input:focus {
+    outline: 1px solid var(--dark-light);
+}
+
+.RefereeForm .modall h6 {
+    color: var(--dark-light);
+    margin: 15px 0;
+}
+
+.RefereeForm .modall .modal-counter-holder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.RefereeForm .modall .modal-counter-holder .controller {
+    background-color: var(--yellow);
+    padding: 5px;
+    aspect-ratio: 1/1;
+    width: 30px;
+    /* border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.RefereeForm .modall .modal-counter-holder .controller:hover {
+    background-color: var(--dark-yellow);
+}
+
+.RefereeForm .modall .modal-counter-box {
+    min-width: 100px;
+    height: 30px;
+    background-color: var(--black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.RefereeForm .modall .modal-counter-box div {
+    color: var(--light);
+    font-size: 20px;
+}
+
+.RefereeForm .modall button:hover {
+    background-color: var(--dark-yellow);
+}
